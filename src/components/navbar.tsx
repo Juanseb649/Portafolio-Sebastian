@@ -36,11 +36,6 @@ const Navbar: React.FC = () => {
               Habilidades
             </a>
           </li>
-          <li>
-            <a href="#contacto" onClick={(e) => handleScroll(e, 'contacto')}>
-              Contacto
-            </a>
-          </li>
         </ul>
       </div>
     </nav>

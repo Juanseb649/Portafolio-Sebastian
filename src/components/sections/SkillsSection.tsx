@@ -2,43 +2,32 @@ import React from 'react';
 import { Skill } from '../../types';
 
 const SkillsSection: React.FC = () => {
+  // Función para obtener el logo de cada tecnología
+  const getSkillLogo = (name: string): string => {
+    const logoMap: { [key: string]: string } = {
+      'React': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/react.svg',
+      'TypeScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/typescript.svg',
+      'JavaScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/javascript.svg',
+      'HTML/CSS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg',
+      'Java': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/java.svg',
+      'Springboot': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spring.svg',
+      'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg',
+      'Git': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg',
+    };
+    return logoMap[name] || '';
+  };
+
   // Datos de ejemplo - personaliza con tus habilidades reales
   const skills: Skill[] = [
     { name: 'React', level: 'advanced', category: 'frontend' },
     { name: 'TypeScript', level: 'advanced', category: 'frontend' },
     { name: 'JavaScript', level: 'advanced', category: 'frontend' },
     { name: 'HTML/CSS', level: 'advanced', category: 'frontend' },
-    { name: 'Node.js', level: 'intermediate', category: 'backend' },
+    { name: 'Java', level: 'intermediate', category: 'backend' },
+    { name: 'Springboot', level: 'intermediate', category: 'backend' },
     { name: 'Python', level: 'intermediate', category: 'backend' },
     { name: 'Git', level: 'advanced', category: 'tools' },
-    { name: 'Vite', level: 'intermediate', category: 'tools' },
   ];
-
-  const getLevelColor = (level: Skill['level']) => {
-    switch (level) {
-      case 'advanced':
-        return '#4ade80';
-      case 'intermediate':
-        return '#fbbf24';
-      case 'beginner':
-        return '#60a5fa';
-      default:
-        return '#9ca3af';
-    }
-  };
-
-  const getLevelLabel = (level: Skill['level']) => {
-    switch (level) {
-      case 'advanced':
-        return 'Avanzado';
-      case 'intermediate':
-        return 'Intermedio';
-      case 'beginner':
-        return 'Principiante';
-      default:
-        return level;
-    }
-  };
 
   return (
     <section id="habilidades" className="skills-section">
@@ -51,27 +40,12 @@ const SkillsSection: React.FC = () => {
           {skills.map((skill, index) => (
             <div key={index} className="skill-card">
               <div className="skill-header">
-                <h3 className="skill-name">{skill.name}</h3>
-                <span
-                  className="skill-level"
-                  style={{ color: getLevelColor(skill.level) }}
-                >
-                  {getLevelLabel(skill.level)}
-                </span>
-              </div>
-              <div className="skill-bar">
-                <div
-                  className="skill-progress"
-                  style={{
-                    width:
-                      skill.level === 'advanced'
-                        ? '100%'
-                        : skill.level === 'intermediate'
-                        ? '70%'
-                        : '40%',
-                    backgroundColor: getLevelColor(skill.level),
-                  }}
+                <img 
+                  src={getSkillLogo(skill.name)} 
+                  alt={skill.name}
+                  className="skill-logo"
                 />
+                <h3 className="skill-name">{skill.name}</h3>
               </div>
             </div>
           ))}

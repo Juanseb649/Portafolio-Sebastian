@@ -2,24 +2,23 @@ import React from 'react';
 import { Project } from '../../types';
 
 const ProjectsSection: React.FC = () => {
-  // Datos de ejemplo - puedes reemplazarlos con tus proyectos reales
+
   const projects: Project[] = [
     {
       id: '1',
-      title: 'Proyecto 01',
-      description: '',
-      technologies: [''],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      title: 'SATRAA- Empopasto',
+      description: 'SATRAA es una aplicacion web, permite gestionar y supervisar el control de trabajos de alcantarillado en la ciudad de Pasto-Nariño ',
+      technologies: ['Java','Springboot']
     },
+
     {
       id: '2',
-      title: 'Proyecto 02 ',
+      title: 'A&C Soluciones en TI Landing Page ',
       description: '',
-      technologies: [''],
-      githubUrl: 'https://github.com',
-      liveUrl: 'https://example.com',
+      technologies: ['JavaScript'],
+      liveUrl: 'https://www.aycsolucionesenti.com/',
     },
+
     {
       id: '3',
       title: 'Proyecto 03',
@@ -27,6 +26,7 @@ const ProjectsSection: React.FC = () => {
       technologies: [''],
       githubUrl: 'https://github.com',
     },
+    
   ];
 
   return (
@@ -67,10 +67,20 @@ const ProjectsSection: React.FC = () => {
                       rel="noopener noreferrer"
                       className="project-link"
                     >
-                     
+
                     </a>
                   )}
                 </div>
+                {project.id === '2' && (
+                  <a
+                    href="https://www.aycsolucionesenti.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ac-button"
+                  >
+                    Visitar A&C Soluciones en TI
+                  </a>
+                )}
               </div>
             </div>
           ))}

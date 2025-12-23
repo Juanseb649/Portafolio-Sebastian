@@ -24,9 +24,7 @@ const HeroSection: React.FC = () => {
           <a href="#proyectos" className="btn btn-primary">
             Descargar CV
           </a>
-          <a href="#contacto" className="btn btn-secondary">
-            Contactar
-          </a>
+
         </div>
       </div>
     </section>
