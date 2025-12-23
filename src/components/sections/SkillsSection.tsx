@@ -9,7 +9,7 @@ const SkillsSection: React.FC = () => {
       'TypeScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/typescript.svg',
       'JavaScript': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/javascript.svg',
       'HTML/CSS': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/html5.svg',
-      'Java': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/java.svg',
+      'Java': 'https://cdn-icons-png.flaticon.com/512/152/152760.png',
       'Springboot': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/spring.svg',
       'Python': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/python.svg',
       'Git': 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/git.svg',

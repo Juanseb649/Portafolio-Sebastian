@@ -250,6 +250,44 @@ main {
   opacity: 0.8;
 }
 
+.hero-socials {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-socials a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-socials a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px) scale(1.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.hero-socials .social-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+  transition: transform 0.3s ease;
+}
+
+.hero-socials a:hover .social-icon {
+  transform: scale(1.1);
+}
+
 .hero-buttons {
   display: flex;
   gap: 1rem;
@@ -557,7 +595,11 @@ section {
   gap: 1.5rem;
   flex-wrap: wrap;
 }
-
+.social-icon {
+  width: 28px;
+  height: 28px;
+  filter: invert(1);
+}
 /* botones */
 .social-btn {
   min-width: 160px;

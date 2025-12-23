@@ -1,6 +1,12 @@
 import React from 'react';
-
 const HeroSection: React.FC = () => {
+  const getSocialMediaLogo = (name: string): string => {
+    const logoMap: Record<string, string> ={
+      LinkedIn: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg',
+      GitHub: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg',
+    };
+    return logoMap[name];
+  };
   return (
     <section id="inicio" className="hero-section">
       <div className="hero-cli-bg">
@@ -20,11 +26,40 @@ const HeroSection: React.FC = () => {
         <p className="hero-description">
           Apasionado por crear soluciones digitales escalables y mantenibles 
         </p>
+
+        {/* 🔗 Redes sociales */}
+        <div className="hero-socials">
+          <a
+            href="https://www.linkedin.com/in/juan-sebastian-ibarra-47742320b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <img
+              src={getSocialMediaLogo('LinkedIn')}
+              alt="LinkedIn"
+              className="social-icon"
+            />
+          </a>
+
+          <a
+            href="https://github.com/Juanseb649"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <img
+              src={getSocialMediaLogo('GitHub')}
+              alt="GitHub"
+              className="social-icon"
+            />
+          </a>
+        </div>
+
         <div className="hero-buttons">
           <a href="#proyectos" className="btn btn-primary">
             Descargar CV
           </a>
-
         </div>
       </div>
     </section>
