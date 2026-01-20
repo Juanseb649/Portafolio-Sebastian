@@ -1,32 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 const AboutSection: React.FC = () => {
-  const imageContainerRef = useRef<HTMLDivElement | null>(null);
-  const [isImageVisible, setIsImageVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-          setIsImageVisible(true);
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.3,
-      }
-    );
-
-    if (imageContainerRef.current) {
-      observer.observe(imageContainerRef.current);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <>
       <style>{`
@@ -48,30 +22,31 @@ const AboutSection: React.FC = () => {
         }
 
         @keyframes blink {
-          0%, 50% { border-color: #000; }
+          0%, 50% { border-color: #3b82f6; }
           50.01%, 100% { border-color: transparent; }
         }
 
         .about-section {
-          padding: 80px 20px;
-          background-color: #f8f9fa;
+          padding: 100px 20px;
+          background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+          min-height: 60vh;
+          display: flex;
+          align-items: center;
         }
 
-        .container {
-          max-width: 1200px;
+        .about-container {
+          max-width: 800px;
           margin: 0 auto;
+          text-align: center;
         }
 
         .section-title {
           font-size: 2.5rem;
           font-weight: 700;
-          text-align: center;
-          margin-bottom: 50px;
-          color: #000;
+          margin-bottom: 3rem;
+          color: #1f2937;
           font-family: 'Courier New', monospace;
           position: relative;
-          display: inline-block;
-          width: 100%;
         }
 
         .typing-wrapper {
@@ -82,120 +57,68 @@ const AboutSection: React.FC = () => {
         .typing-wrapper::after {
           content: "S";
           display: inline-block;
-          border-right: 3px solid #000;
+          border-right: 3px solid #3b82f6;
           padding-right: 5px;
           animation: typing 4s steps(1) infinite, blink 0.8s step-end infinite;
           white-space: nowrap;
         }
 
-        .about-content {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 50px;
-          align-items: center;
+        .about-text {
+          max-width: 700px;
+          margin: 0 auto;
         }
 
         .about-text p {
-          margin-bottom: 20px;
-          line-height: 1.8;
-          color: #555;
-          font-size: 1.1rem;
+          margin-bottom: 1.5rem;
+          line-height: 1.9;
+          color: #4b5563;
+          font-size: 1.125rem;
+          text-align: left;
         }
 
-        .about-highlights {
-          margin-top: 30px;
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .highlight-item {
-          padding: 15px;
-          background-color: #fff;
-          border-left: 4px solid #007bff;
-          border-radius: 4px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .highlight-item strong {
-          color: #007bff;
-          display: block;
-          margin-bottom: 5px;
-        }
-
-        .about-image {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          opacity: 0;
-          transform: translateX(50px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .about-image.visible {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .tux-gif {
-          max-width: 100%;
-          height: auto;
-          border-radius: 80px;
-          box-shadow: 0 80px 30px rgba(0,0,0,0.2);
+        .about-text p:last-child {
+          margin-bottom: 0;
         }
 
         @media (max-width: 768px) {
-          .about-content {
-            grid-template-columns: 1fr;
+          .about-section {
+            padding: 60px 20px;
           }
 
           .section-title {
             font-size: 2rem;
+            margin-bottom: 2rem;
           }
 
-          .about-image {
-            margin-top: 30px;
+          .about-text p {
+            font-size: 1rem;
+            text-align: justify;
           }
         }
       `}</style>
 
       <section id="sobre-mi" className="about-section">
-        <div className="container">
+        <div className="about-container">
           <h2 className="section-title">
             <span className="typing-wrapper"></span>
           </h2>
-          <div className="about-content">
-            <div className="about-text">
-              <p>
-                Soy un desarrollador apasionado por brindar soluciones de software de alta calidad y escalables.
-                Como Ingeniero, busco crear aplicaciones que sean eficientes, mantenibles y escalables.
-                Mi enfoque principal es en la ingeniería en nube y el análisis de software
-              </p>
-              <p>
-                Disfruto aprendiendo nuevas tecnologías y enfrentando desafíos que me permitan
-                crecer profesionalmente. Mi objetivo es brindar soluciones escalables, mantenibles
-                y con excelente experiencia de usuario.
-              </p>
-              <div className="about-highlights">
-                <div className="highlight-item">
-                  <strong>Experiencia:</strong> Planteamiento de ingeniería de requerimientos con metodologías ágiles y análisis
-                  para el desarrollo de una aplicación web y móviles
-                </div>
-                <div className="highlight-item">
-                  <strong>Enfoque:</strong> Código limpio, buenas prácticas y trabajo en equipo
-                </div>
-              </div>
-            </div>
-            <div
-              className={`about-image ${isImageVisible ? 'visible' : ''}`}
-              ref={imageContainerRef}
-            >
-              <img
-                src="https://media.tenor.com/_6N6J2xPY_wAAAAj/tux-linux.gif"
-                alt="Tux el pingüino siendo mimado"
-                className="tux-gif"
-              />
-            </div>
+          <div className="about-text">
+            <p>
+              Soy Ingeniero de Software con experiencia como desarrollador freelance, enfocado en documentación técnica 
+              y pruebas de calidad (QA), trabajando bajo metodologías ágiles como SCRUM. Mi pasión está en crear 
+              soluciones de software de alta calidad, escalables y mantenibles.
+            </p>
+            <p>
+              Mi trabajo incluye la elaboración de documentación técnica completa, análisis y definición de requerimientos 
+              funcionales y no funcionales, así como la ejecución de pruebas manuales y automatizadas para garantizar 
+              la calidad del software. Colaboro activamente con equipos de desarrollo para priorizar correcciones y 
+              mejorar continuamente la experiencia del usuario.
+            </p>
+            <p>
+              Mi enfoque se basa en código limpio, buenas prácticas de desarrollo y trabajo colaborativo en equipo. 
+              Disfruto aprendiendo nuevas tecnologías y enfrentando desafíos que me permitan crecer profesionalmente, 
+              siempre comprometido con la calidad del software y la mejora continua.
+            </p>
           </div>
         </div>
       </section>
