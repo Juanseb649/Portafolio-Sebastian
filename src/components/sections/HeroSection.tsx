@@ -57,7 +57,11 @@ const HeroSection: React.FC = () => {
         </div>
 
         <div className="hero-buttons">
-          <a href="#proyectos" className="btn btn-primary">
+          <a 
+            href="/CV_Juan_Sebastian_Ibarra_Salas.pdf" 
+            download="CV_Juan_Sebastian_Ibarra_Salas.pdf"
+            className="btn btn-primary"
+          >
             Descargar CV
           </a>
         </div>
