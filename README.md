@@ -1,6 +1,6 @@
 # Portafolio Sebastian
 
-Portafolio personal desarrollado con React, TypeScript y Vite.
+Portafolio personal desarrollado con React y TypeScript.
 
 ## 🚀 Comandos Disponibles
 
@@ -9,13 +9,13 @@ Portafolio personal desarrollado con React, TypeScript y Vite.
 npm install
 
 # Iniciar servidor de desarrollo
-npm run dev
+npm start
 
 # Compilar para producción
 npm run build
 
-# Previsualizar build de producción
-npm run preview
+# Ejecutar tests (modo interactivo)
+npm test
 ```
 
 ## 📁 Estructura del Proyecto
