@@ -27,6 +27,11 @@ const Navbar: React.FC = () => {
             </a>
           </li>
           <li>
+            <a href="#estudios" onClick={(e) => handleScroll(e, 'estudios')}>
+              Estudios
+            </a>
+          </li>
+          <li>
             <a href="#proyectos" onClick={(e) => handleScroll(e, 'proyectos')}>
               Proyectos
             </a>

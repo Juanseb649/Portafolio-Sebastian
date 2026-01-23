@@ -1,6 +1,6 @@
 # 📚 Guía: Cómo Funcionan las Secciones del Portafolio
 
-## 🏗️ Estructura de Carpetas
+## 🏗️ Estructura de las Carpetas
 
 ```
 src/
@@ -21,12 +21,11 @@ src/
     └── index.ts            # Tipos TypeScript
 ```
 
-## 📖 Explicación de Cada Sección
+## 📖 Secciones
 
 ### 1. **HeroSection** (Sección Hero/Inicio)
 **Ubicación:** `src/components/sections/HeroSection.tsx`
 
-**¿Qué hace?**
 - Es la primera sección que ve el visitante
 - Presenta tu nombre, título profesional y una breve descripción
 - Tiene botones de llamada a la acción (CTA)
@@ -54,25 +53,7 @@ src/
 ### 3. **ProjectsSection** (Proyectos)
 **Ubicación:** `src/components/sections/ProjectsSection.tsx`
 
-**¿Qué hace?**
-- Muestra tus proyectos en un grid
-- Cada proyecto tiene título, descripción, tecnologías y enlaces
 
-**Cómo personalizarla:**
-```tsx
-// Reemplaza el array 'projects' con tus proyectos reales
-const projects: Project[] = [
-  {
-    id: '1',
-    title: 'Nombre de tu proyecto',
-    description: 'Descripción detallada',
-    technologies: ['React', 'TypeScript'],
-    githubUrl: 'https://github.com/tu-usuario/tu-repo',
-    liveUrl: 'https://tu-proyecto.com', // Opcional
-  },
-  // Agrega más proyectos...
-];
-```
 
 ### 4. **SkillsSection** (Habilidades)
 **Ubicación:** `src/components/sections/SkillsSection.tsx`
