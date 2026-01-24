@@ -1,46 +1,114 @@
-import React from 'react';
+import React from "react";
+
+type Study = {
+  id: number;
+  title: string;
+  institution: string;
+  date: string;
+  description: string;
+  image: string;
+};
+
+const studies: Study[] = [
+  {
+    id: 1,
+    title: "Ingeniería de Software",
+    institution: "Universidad Cooperativa de Colombia",
+    date: "2021 - Actualidad",
+    description:
+      "Formación en desarrollo de software, bases de datos, ingeniería de requisitos, pruebas de software y metodologías ágiles.",
+    image: "/images/study-1.jpg",
+  },
+  {
+    id: 2,
+    title: "Curso de QA y Pruebas de Software",
+    institution: "Platzi",
+    date: "2023",
+    description:
+      "Pruebas manuales, documentación técnica, casos de prueba y control de calidad del software.",
+    image: "/images/study-2.jpg",
+  },
+];
 
 const EstudiosSection: React.FC = () => {
-	return (
-		<section id="estudios" className="py-20 bg-gray-50">
-			<div className="container mx-auto px-4 max-w-6xl">
-				<h2 className="text-3xl font-bold text-gray-900 mb-6">Estudios y Certificados</h2>
+  return (
+    <section id="Estudios" className="bg-zinc-950 text-white py-20">
+      <style>{`
+        @keyframes studiesTyping {
+          0%, 5% { content: "E"; }
+          5%, 10% { content: "Es"; }
+          10%, 15% { content: "Estu"; }
+          15%, 20% { content: "Estudi"; }
+          20%, 25% { content: "Estudio"; }
+          25%, 30% { content: "Estudios"; }
+          30%, 35% { content: "Estudios y"; }
+          35%, 40% { content: "Estudios y Ce"; }
+          40%, 45% { content: "Estudios y Cer"; }
+          45%, 50% { content: "Estudios y Cert"; }
+          50%, 55% { content: "Estudios y Certi"; }
+          55%, 60% { content: "Estudios y Certif"; }
+          60%, 65% { content: "Estudios y Certifi"; }
+          65%, 70% { content: "Estudios y Certific"; }
+          70%, 75% { content: "Estudios y Certificac"; }
+          75%, 80% { content: "Estudios y Certificaci"; }
+          80%, 85% { content: "Estudios y Certificacio"; }
+          85%, 90% { content: "Estudios y Certificacion"; }
+          90%, 100% { content: "Estudios y Certificaciones"; }
+        }
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<div className="bg-white p-6 rounded-lg shadow-sm">
-						<h3 className="text-xl font-semibold text-gray-800 mb-3">Formación Académica</h3>
-						<div className="space-y-3 text-gray-700">
-							<div>
-								<p className="font-medium">Ingeniería de Software</p>
-								<p className="text-sm">Universidad Cooperativa de Colombia — Junio 2024</p>
-							</div>
-						</div>
-					</div>
+        @keyframes blink {
+          0%, 50% { border-color: white; }
+          50.01%, 100% { border-color: transparent; }
+        }
 
-					<div className="bg-white p-6 rounded-lg shadow-sm">
-						<h3 className="text-xl font-semibold text-gray-800 mb-3">Certificados</h3>
-						<ul className="list-disc pl-5 space-y-1 text-gray-700">
-							<li>Google Cloud Computing Foundations Certificate — Google</li>
-							<li>EF SET English Certificate (B2 Upper Intermediate)</li>
-							<li>Fundamentos Esenciales de la Programación — LinkedIn</li>
-							<li>Machine Learning: Ejemplos prácticos — IBM</li>
-							<li>MIPG: Auditoría y Fundamentos Generales — Departamento Administrativo de la Función Pública</li>
-							<li>Mandated Reporter Training — Connecticut State Department of Children & Families</li>
-						</ul>
-					</div>
-				</div>
+        .studies-typing::after {
+          content: "E";
+          border-right: 3px solid white;
+          padding-right: 6px;
+          animation: studiesTyping 4s steps(1) infinite, blink 0.8s infinite;
+          white-space: nowrap;
+        }
+      `}</style>
 
-				<div className="mt-8 flex items-center gap-4">
-					<a href="/CV_Juan_Sebastian_Ibarra_Salas.pdf" download className="inline-block bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700">
-						Descargar CV
-					</a>
-					<a href="/CV_Juan_Sebastian_Ibarra_Salas.pdf" target="_blank" rel="noreferrer" className="text-sm text-gray-600 hover:underline">
-						Ver CV (abrir en nueva pestaña)
-					</a>
-				</div>
-			</div>
-		</section>
-	);
+      <div className="max-w-5xl mx-auto px-6">
+        <h2 className="text-3xl font-bold font-mono mb-14">
+          <span className="studies-typing"></span>
+        </h2>
+
+        <div className="space-y-12">
+          {studies.map((study) => (
+            <article
+              key={study.id}
+              className="grid grid-cols-1 md:grid-cols-[160px_1fr] gap-6 pb-12 border-b border-zinc-800"
+            >
+              <img
+                src={study.image}
+                alt={study.title}
+                className="w-full h-40 object-cover rounded-xl"
+              />
+
+              <div>
+                <div className="flex items-center gap-3 text-sm text-zinc-400">
+                  <span>{study.date}</span>
+                  <span className="px-3 py-1 rounded-full bg-zinc-800 text-zinc-300">
+                    {study.institution}
+                  </span>
+                </div>
+
+                <h3 className="mt-3 text-xl font-semibold hover:text-indigo-400 transition">
+                  {study.title}
+                </h3>
+
+                <p className="mt-3 text-zinc-400 leading-relaxed">
+                  {study.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default EstudiosSection;
