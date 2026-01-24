@@ -8,28 +8,6 @@ type Study = {
   description: string;
   image: string;
 };
-
-const studies: Study[] = [
-  {
-    id: 1,
-    title: "Ingeniería de Software",
-    institution: "Universidad Cooperativa de Colombia",
-    date: "2021 - Actualidad",
-    description:
-      "Formación en desarrollo de software, bases de datos, ingeniería de requisitos, pruebas de software y metodologías ágiles.",
-    image: "/images/study-1.jpg",
-  },
-  {
-    id: 2,
-    title: "Curso de QA y Pruebas de Software",
-    institution: "Platzi",
-    date: "2023",
-    description:
-      "Pruebas manuales, documentación técnica, casos de prueba y control de calidad del software.",
-    image: "/images/study-2.jpg",
-  },
-];
-
 const EstudiosSection: React.FC = () => {
   return (
     <section id="Estudios" className="bg-zinc-950 text-white py-20">
@@ -112,3 +90,25 @@ const EstudiosSection: React.FC = () => {
 };
 
 export default EstudiosSection;
+
+const studies: Study[] = [
+  {
+    id: 1,
+    title: "Ingeniería de Software",
+    institution: "Universidad Cooperativa de Colombia",
+    date: "2024 - Actualidad",
+    description:
+      "Formación profesional en ingeniería de desarrollo de software.",
+    image: "https://imgs.search.brave.com/eVwraWY64omVhKUqqoUt2_lE0B8vcbjJ36Hly84Kpy0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kMXlq/am5weDBwNTNzOC5j/bG91ZGZyb250Lm5l/dC9zdHlsZXMvbG9n/by10aHVtYm5haWwv/czMvMTEyMDEzL3Vu/aXZlcnNpZGFkX2Nv/b3BlcmF0aXZhX2Rl/X2NvbG9tYmlhXzAu/cG5nP2l0b2s9ZllB/akRLNS0",
+  },
+  {
+    id: 2,
+    title: "Google Cloud Fundamentals",
+    institution: "Google Cloud",
+    date: "2025",
+    description:
+      "Curso introductorio a los servicios y herramientas de Google Cloud.",
+    image: "https://imgs.search.brave.com/ooUX0WcWqSyy_n4JJkkkhJgIkufY3jBzG4UZimRVT4o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuY3JlZGx5LmNv/bS9pbWFnZXMvNGRk/YThhZTQtOTllZS00/NzZjLWJjYTMtNmYw/YWRiYWI0MmZlL2lt/YWdlLnBuZw",
+  },
+];
+
