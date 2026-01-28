@@ -36,57 +36,6 @@ const AboutSection: React.FC = () => {
           to { opacity: 1; transform: translateX(0); }
         }
 
-        .about-section {
-          padding: 100px 20px;
-          background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-          min-height: 60vh;
-          display: flex;
-          align-items: center;
-        }
-
-        .about-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          width: 100%;
-        }
-
-        .about-content {
-          display: flex;
-          align-items: center;
-          gap: 4rem;
-        }
-
-        .about-text-container {
-          flex: 1;
-          animation: slideInLeft 1s ease-out;
-        }
-
-        .about-image {
-          flex: 0 0 300px;
-          animation: slideInRight 1s ease-out;
-        }
-
-        .about-image img {
-          width: 100%;
-          height: 300px;
-          object-fit: cover;
-          border-radius: 20px;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .section-title {
-          font-size: 2.5rem;
-          font-weight: 700;
-          margin-bottom: 2rem;
-          color: #1f2937;
-          font-family: 'Courier New', monospace;
-          text-align: left;
-        }
-
-        .about-typing {
-          display: inline-block;
-        }
-
         .about-typing::after {
           content: "S";
           border-right: 3px solid #3b82f6;
@@ -95,64 +44,50 @@ const AboutSection: React.FC = () => {
           white-space: nowrap;
         }
 
-        .about-text {
-          max-width: 700px;
+        .slide-in-left {
+          animation: slideInLeft 1s ease-out;
         }
 
-        .about-text p {
-          margin-bottom: 1.5rem;
-          line-height: 1.9;
-          color: #4b5563;
-          font-size: 1.125rem;
-        }
-
-        @media (max-width: 768px) {
-          .about-content {
-            flex-direction: column;
-            gap: 2rem;
-          }
-
-          .section-title {
-            text-align: center;
-            font-size: 2rem;
-          }
-
-          .about-text p {
-            font-size: 1rem;
-            text-align: justify;
-          }
+        .slide-in-right {
+          animation: slideInRight 1s ease-out;
         }
       `}</style>
 
-      <section id="sobre-mi" className="about-section">
-        <div className="about-container">
-          <div className="about-content">
-            <div className="about-text-container">
-              <h2 className="section-title">
-                <span className="about-typing"></span>
+      <section 
+        id="sobre-mi" 
+        className="py-24 px-5 bg-gradient-to-br from-gray-50 to-white min-h-[60vh] flex items-center"
+      >
+        <div className="max-w-6xl mx-auto w-full">
+          <div className="flex items-center gap-16 flex-col md:flex-row">
+            {/* Texto */}
+            <div className="flex-1 slide-in-left">
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800 font-mono text-left md:text-left">
+                <span className="about-typing inline-block"></span>
               </h2>
 
-              <div className="about-text">
-                <p>
+              <div className="max-w-2xl">
+                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
                   Soy Ingeniero de Software con experiencia como desarrollador freelance,
                   enfocado en documentación técnica y pruebas de calidad (QA), trabajando
                   bajo metodologías ágiles como SCRUM.
                 </p>
-                <p>
+                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
                   Mi trabajo incluye documentación técnica, análisis de requerimientos
                   funcionales y no funcionales, así como pruebas manuales y automatizadas.
                 </p>
-                <p>
+                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
                   Me enfoco en código limpio, buenas prácticas y trabajo colaborativo,
                   siempre comprometido con la calidad del software.
                 </p>
               </div>
             </div>
 
-            <div className="about-image">
+            {/* Imagen */}
+            <div className="flex-none w-full md:w-[300px] slide-in-right">
               <img
                 src="https://www.clipartmax.com/png/middle/47-471561_club-penguin-clip-art-pinguino-de-club-penguin.png"
                 alt="Tu foto de perfil"
+                className="w-full h-[300px] object-cover rounded-2xl shadow-2xl"
               />
             </div>
           </div>
