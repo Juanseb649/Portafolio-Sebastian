@@ -79,14 +79,31 @@ const AboutSection: React.FC = () => {
                   Me enfoco en código limpio, buenas prácticas y trabajo colaborativo,
                   siempre comprometido con la calidad del software.
                 </p>
+                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
+                  Mi próximo paso profesional es la ingeniería en nube, por eso estoy 
+                  aprendiendo y como meta dominar Linux y los principios de cloud computing. 
+                  Me entusiasma la idea de diseñar y mantener infraestructuras escalables.
+                </p>
               </div>
+              <div className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-500">
+  <svg className="w-8 h-8 text-blue-500 mb-2" fill="currentColor" viewBox="0 0 32 32">
+    <path d="M10 8c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8zm12 0c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8z"/>
+  </svg>
+  <p className="text-gray-700 italic text-lg leading-relaxed">
+    "You know you're brilliant, but maybe you'd like to understand what you 
+    did 2 weeks from now"
+  </p>
+  <p className="text-gray-600 text-sm mt-3 font-medium">
+    — Linus Torvalds
+  </p>
+</div>
             </div>
 
             {/* Imagen */}
             <div className="flex-none w-full md:w-[300px] slide-in-right">
               <img
-                src="https://www.clipartmax.com/png/middle/47-471561_club-penguin-clip-art-pinguino-de-club-penguin.png"
-                alt="Tu foto de perfil"
+                src="https://media.licdn.com/dms/image/v2/D4E03AQFQUBIwGyrF5Q/profile-displayphoto-scale_400_400/B4EZsZ7hFyIUAg-/0/1765666595047?e=1774483200&v=beta&t=ALXUvuQ-MjUJiBBUMy2qDAQ9_Yecdy_ggCVsAbSw2PA"
+                alt="foto de perfil"
                 className="w-full h-[300px] object-cover rounded-2xl shadow-2xl"
               />
             </div>

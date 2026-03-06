@@ -19,13 +19,7 @@ const ProjectsSection: React.FC = () => {
       liveUrl: 'https://www.aycsolucionesenti.com/',
     },
 
-    {
-      id: '3',
-      title: 'Proyecto 03',
-      description: '',
-      technologies: [''],
-      githubUrl: 'https://github.com',
-    },
+
     
   ];
 

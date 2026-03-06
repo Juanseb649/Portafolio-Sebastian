@@ -78,7 +78,7 @@ const EstudiosSection: React.FC = () => {
       `}</style>
 
       <div className="max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold font-mono mb-14">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800 font-mono text-left md:text-left">
           <span className="studies-typing inline-block"></span>
         </h2>
 
