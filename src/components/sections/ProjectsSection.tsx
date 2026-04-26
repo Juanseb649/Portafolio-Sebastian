@@ -1,20 +1,32 @@
 import React from 'react';
 import { Project } from '../../types';
 
-const ProjectsSection: React.FC = () => {
+type Language = 'es' | 'en';
+
+interface ProjectsSectionProps {
+  language: Language;
+}
+
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ language }) => {
 
   const projects: Project[] = [
     {
       id: '1',
       title: 'SATRAA- Empopasto',
-      description: 'SATRAA es una aplicacion web, permite gestionar y supervisar el control de trabajos de alcantarillado en la ciudad de Pasto-Nariño ',
+      description:
+        language === 'es'
+          ? 'SATRAA es una aplicación web que permite gestionar y supervisar el control de trabajos de alcantarillado en la ciudad de Pasto-Nariño.'
+          : 'SATRAA is a web application used to manage and monitor sewer maintenance operations in Pasto-Narino.',
       technologies: ['Java','Springboot']
     },
 
     {
       id: '2',
       title: 'A&C Soluciones en TI Landing Page ',
-      description: '',
+      description:
+        language === 'es'
+          ? 'Landing page corporativa enfocada en presentar servicios TI y mejorar el contacto comercial.'
+          : 'Corporate landing page focused on presenting IT services and improving lead generation.',
       technologies: ['JavaScript'],
       liveUrl: 'https://www.aycsolucionesenti.com/',
     },
@@ -26,9 +38,11 @@ const ProjectsSection: React.FC = () => {
   return (
     <section id="proyectos" className="projects-section">
       <div className="container">
-        <h2 className="section-title">Proyectos</h2>
+        <h2 className="section-title">{language === 'es' ? 'Proyectos' : 'Projects'}</h2>
         <p className="section-subtitle">
-          Algunos de los proyectos en los que he trabajado
+          {language === 'es'
+            ? 'Algunos de los proyectos en los que he trabajado'
+            : 'Some of the projects I have worked on'}
         </p>
         <div className="projects-grid">
           {projects.map((project) => (
@@ -72,7 +86,7 @@ const ProjectsSection: React.FC = () => {
                     rel="noopener noreferrer"
                     className="ac-button"
                   >
-                    Visitar A&C Soluciones en TI
+                    {language === 'es' ? 'Visitar A&C Soluciones en TI' : 'Visit A&C IT Solutions'}
                   </a>
                 )}
               </div>

@@ -1,5 +1,11 @@
 import React from 'react';
-const HeroSection: React.FC = () => {
+type Language = 'es' | 'en';
+
+interface HeroSectionProps {
+  language: Language;
+}
+
+const HeroSection: React.FC<HeroSectionProps> = ({ language }) => {
   const getSocialMediaLogo = (name: string): string => {
     const logoMap: Record<string, string> ={
       LinkedIn: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg',
@@ -9,28 +15,25 @@ const HeroSection: React.FC = () => {
   };
   return (
     <section id="inicio" className="hero-section">
-      <div className="hero-cli-bg">
-        <div className="cli-line">npm install dependencies</div>
-        <div className="cli-line">git commit -m "update"</div>
-        <div className="cli-line">docker build -t app .</div>
-        <div className="cli-line">kubectl apply -f deploy.yml</div>
-        <div className="cli-line">python manage.py migrate</div>
-        <div className="cli-line">git add .</div>
-        <div className="cli-line">cargo run --release</div>
-      </div>
       <div className="hero-content">
         <h1 className="hero-title">
-          Hola, soy <span className="highlight">Sebastian Ibarra</span>
+          {language === 'es' ? 'Hola, soy ' : 'Hi, I am '}<span className="highlight">Sebastian Ibarra</span>
         </h1>
-        <h2 className="hero-subtitle"> Te doy la bienvenida a mi portafolio, soy ingeniero en desarrollo de Software</h2>
+        <h2 className="hero-subtitle">
+          {language === 'es'
+            ? 'Te doy la bienvenida a mi portafolio, soy ingeniero en desarrollo de software'
+            : 'Welcome to my portfolio. I am a software development engineer'}
+        </h2>
         <p className="hero-description">
-          Apasionado por crear soluciones digitales escalables y mantenibles 
+          {language === 'es'
+            ? 'Apasionado por crear soluciones digitales escalables y mantenibles'
+            : 'Passionate about building scalable and maintainable digital solutions'}
         </p>
 
         {/* 🔗 Redes sociales */}
         <div className="hero-socials">
           <a
-            href="https://www.linkedin.com/in/juan-sebastian-ibarra-47742320b/"
+            href="https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -43,7 +46,7 @@ const HeroSection: React.FC = () => {
           </a>
 
           <a
-            href="https://github.com/Juanseb649"
+            href="https://github.com/JuanSebasIbarra"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
@@ -62,7 +65,7 @@ const HeroSection: React.FC = () => {
             download="CV_Juan_Sebastian_Ibarra_Salas.pdf"
             className="btn btn-primary"
           >
-            Descargar CV
+            {language === 'es' ? 'Descargar CV' : 'Download CV'}
           </a>
         </div>
       </div>

@@ -1,24 +1,21 @@
 import React from 'react';
 
-const AboutSection: React.FC = () => {
+type Language = 'es' | 'en';
+
+interface AboutSectionProps {
+  language: Language;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({ language }) => {
+  const aboutTitle = language === 'es' ? 'Sobre Mí' : 'About Me';
+
   return (
     <>
       <style>{`
         @keyframes aboutTyping {
-          0%, 5% { content: "S"; }
-          5%, 10% { content: "So"; }
-          10%, 15% { content: "Sob"; }
-          15%, 20% { content: "Sobr"; }
-          20%, 25% { content: "Sobre"; }
-          25%, 30% { content: "Sobre "; }
-          30%, 35% { content: "Sobre M"; }
-          35%, 40% { content: "Sobre Mí"; }
-          40%, 90% { content: "Sobre Mí"; }
-          90%, 92% { content: "Sobre M"; }
-          92%, 94% { content: "Sobre "; }
-          94%, 96% { content: "Sobre"; }
-          96%, 98% { content: "Sobr"; }
-          98%, 100% { content: "Sob"; }
+          0%, 10% { width: 0; }
+          40%, 70% { width: 8ch; }
+          92%, 100% { width: 0; }
         }
 
         @keyframes blink {
@@ -36,12 +33,14 @@ const AboutSection: React.FC = () => {
           to { opacity: 1; transform: translateX(0); }
         }
 
-        .about-typing::after {
-          content: "S";
+        .about-typing {
+          display: inline-block;
+          width: 0;
+          overflow: hidden;
+          white-space: nowrap;
           border-right: 3px solid #3b82f6;
           padding-right: 5px;
-          animation: aboutTyping 4s steps(1) infinite, blink 0.8s step-end infinite;
-          white-space: nowrap;
+          animation: aboutTyping 5.2s steps(8, end) infinite, blink 0.8s step-end infinite;
         }
 
         .slide-in-left {
@@ -55,57 +54,89 @@ const AboutSection: React.FC = () => {
 
       <section 
         id="sobre-mi" 
-        className="py-24 px-5 bg-gradient-to-br from-gray-50 to-white min-h-[60vh] flex items-center"
+        className="py-24 px-5 min-h-[60vh] flex items-center bg-transparent text-slate-100"
       >
         <div className="max-w-6xl mx-auto w-full">
-          <div className="flex items-center gap-16 flex-col md:flex-row">
-            {/* Texto */}
-            <div className="flex-1 slide-in-left">
-              <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800 font-mono text-left md:text-left">
-                <span className="about-typing inline-block"></span>
-              </h2>
+          <div className="rounded-[2rem] border border-slate-700/70 bg-slate-950/72 shadow-2xl backdrop-blur-xl overflow-hidden">
+            <div className="grid gap-0 lg:grid-cols-[1.25fr_0.8fr]">
+              <div className="slide-in-left p-8 md:p-10 lg:p-12 border-b border-slate-800/80 lg:border-b-0 lg:border-r">
+                <div className="mb-6 flex flex-wrap items-center gap-3 text-sm">
+                  <span className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 text-cyan-200">
+                    {language === 'es' ? 'Frontend y QA mindset' : 'Frontend and QA mindset'}
+                  </span>
+                  <span className="rounded-full border border-violet-400/30 bg-violet-400/10 px-4 py-1.5 text-violet-200">
+                    {language === 'es' ? 'SCRUM y documentación técnica' : 'SCRUM and technical documentation'}
+                  </span>
+                </div>
 
-              <div className="max-w-2xl">
-                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
-                  Soy Ingeniero de Software con experiencia como desarrollador freelance,
-                  enfocado en documentación técnica y pruebas de calidad (QA), trabajando
-                  bajo metodologías ágiles como SCRUM.
-                </p>
-                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
-                  Mi trabajo incluye documentación técnica, análisis de requerimientos
-                  funcionales y no funcionales, así como pruebas manuales y automatizadas.
-                </p>
-                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
-                  Me enfoco en código limpio, buenas prácticas y trabajo colaborativo,
-                  siempre comprometido con la calidad del software.
-                </p>
-                <p className="mb-6 leading-relaxed text-gray-600 text-lg">
-                  Mi próximo paso profesional es la ingeniería en nube, por eso estoy 
-                  aprendiendo y como meta dominar Linux y los principios de cloud computing. 
-                  Me entusiasma la idea de diseñar y mantener infraestructuras escalables.
-                </p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-8 text-slate-50 font-mono text-left md:text-left">
+                  <span className="about-typing inline-block">{aboutTitle}</span>
+                </h2>
+
+                <div className="max-w-3xl space-y-5">
+                  <p className="leading-relaxed text-slate-200 text-lg">
+                    {language === 'es'
+                      ? 'Soy Ingeniero de Software con experiencia como desarrollador freelance, con foco en documentación técnica, análisis funcional y calidad de software dentro de equipos que trabajan con metodologías ágiles.'
+                      : 'I am a Software Engineer with freelance development experience, focused on technical documentation, functional analysis, and software quality in agile teams.'}
+                  </p>
+                  <p className="leading-relaxed text-slate-300 text-lg">
+                    {language === 'es'
+                      ? 'Mi trabajo combina análisis de requerimientos, pruebas manuales y automatizadas, y una ejecución orientada a código limpio, trazabilidad y colaboración efectiva.'
+                      : 'My work combines requirement analysis, manual and automated testing, and delivery focused on clean code, traceability, and effective collaboration.'}
+                  </p>
+                  <p className="leading-relaxed text-slate-300 text-lg">
+                    {language === 'es'
+                      ? 'Mi siguiente paso profesional está en la ingeniería cloud: estoy fortaleciendo Linux, fundamentos de infraestructura y principios de escalabilidad para diseñar soluciones más robustas.'
+                      : 'My next professional step is cloud engineering: I am strengthening Linux, infrastructure fundamentals, and scalability principles to design more robust solutions.'}
+                  </p>
+                </div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-4">
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400 mb-2">{language === 'es' ? 'Enfoque' : 'Focus'}</p>
+                    <p className="text-sm text-slate-200">{language === 'es' ? 'Calidad, documentación y claridad técnica.' : 'Quality, documentation, and technical clarity.'}</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-4">
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400 mb-2">{language === 'es' ? 'Trabajo' : 'Work'}</p>
+                    <p className="text-sm text-slate-200">{language === 'es' ? 'Requerimientos, pruebas y mejora continua.' : 'Requirements, testing, and continuous improvement.'}</p>
+                  </div>
+                  <div className="rounded-2xl border border-slate-700/70 bg-slate-900/70 p-4">
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-400 mb-2">{language === 'es' ? 'Siguiente paso' : 'Next step'}</p>
+                    <p className="text-sm text-slate-200">{language === 'es' ? 'Cloud computing e infraestructura escalable.' : 'Cloud computing and scalable infrastructure.'}</p>
+                  </div>
+                </div>
+
+                <div className="mt-8 p-6 rounded-2xl border border-slate-700/60 bg-slate-900/55 backdrop-blur-md shadow-xl">
+                  <svg className="w-8 h-8 text-blue-400 mb-2" fill="currentColor" viewBox="0 0 32 32">
+                    <path d="M10 8c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8zm12 0c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8z"/>
+                  </svg>
+                  <p className="text-slate-100 italic text-lg leading-relaxed">
+                    "You know you're brilliant, but maybe you'd like to understand what you did 2 weeks from now"
+                  </p>
+                  <p className="text-slate-400 text-sm mt-3 font-medium">
+                    — Linus Torvalds
+                  </p>
+                </div>
               </div>
-              <div className="mt-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-500">
-  <svg className="w-8 h-8 text-blue-500 mb-2" fill="currentColor" viewBox="0 0 32 32">
-    <path d="M10 8c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8zm12 0c-3.3 0-6 2.7-6 6v10h8V14h-6c0-2.2 1.8-4 4-4V8z"/>
-  </svg>
-  <p className="text-gray-700 italic text-lg leading-relaxed">
-    "You know you're brilliant, but maybe you'd like to understand what you 
-    did 2 weeks from now"
-  </p>
-  <p className="text-gray-600 text-sm mt-3 font-medium">
-    — Linus Torvalds
-  </p>
-</div>
-            </div>
 
-            {/* Imagen */}
-            <div className="flex-none w-full md:w-[300px] slide-in-right">
-              <img
-                src="https://media.licdn.com/dms/image/v2/D4E03AQFQUBIwGyrF5Q/profile-displayphoto-scale_400_400/B4EZsZ7hFyIUAg-/0/1765666595047?e=1774483200&v=beta&t=ALXUvuQ-MjUJiBBUMy2qDAQ9_Yecdy_ggCVsAbSw2PA"
-                alt="foto de perfil"
-                className="w-full h-[300px] object-cover rounded-2xl shadow-2xl"
-              />
+              <div className="slide-in-right p-8 md:p-10 lg:p-12 flex flex-col justify-center gap-6 bg-gradient-to-br from-slate-900/70 to-slate-950/90">
+                <div className="mx-auto w-full max-w-[320px]">
+                  <img
+                    src="/images/perfil-sebastian.jpeg"
+                    alt="foto de perfil"
+                    className="w-full h-[320px] object-cover rounded-[1.75rem] border border-slate-700/60 shadow-2xl"
+                  />
+                </div>
+
+                <div className="mx-auto w-full max-w-[320px] rounded-[1.75rem] border border-slate-700/60 bg-slate-900/70 p-6">
+                  <p className="text-xs uppercase tracking-[0.28em] text-slate-400 mb-3">{language === 'es' ? 'Perfil profesional' : 'Professional profile'}</p>
+                  <p className="text-slate-200 leading-relaxed">
+                    {language === 'es'
+                      ? 'Me interesa construir productos mantenibles, documentados y con criterios claros de calidad. Busco que cada entrega sea comprensible tanto para el equipo actual como para el futuro.'
+                      : 'I am interested in building maintainable, well-documented products with clear quality criteria. I aim for each delivery to be understandable for both current and future teams.'}
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

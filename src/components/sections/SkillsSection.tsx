@@ -1,7 +1,13 @@
 import React from 'react';
 import { Skill } from '../../types';
 
-const SkillsSection: React.FC = () => {
+type Language = 'es' | 'en';
+
+interface SkillsSectionProps {
+  language: Language;
+}
+
+const SkillsSection: React.FC<SkillsSectionProps> = ({ language }) => {
   // Función para obtener el logo de cada tecnología
   const getSkillLogo = (name: string): string => {
     const logoMap: { [key: string]: string } = {
@@ -32,9 +38,11 @@ const SkillsSection: React.FC = () => {
   return (
     <section id="habilidades" className="skills-section">
       <div className="container">
-        <h2 className="section-title">Habilidades</h2>
+        <h2 className="section-title">{language === 'es' ? 'Habilidades' : 'Skills'}</h2>
         <p className="section-subtitle">
-          Tecnologías y herramientas que domino
+          {language === 'es'
+            ? 'Tecnologías y herramientas que domino'
+            : 'Technologies and tools I am proficient in'}
         </p>
         <div className="skills-grid">
           {skills.map((skill, index) => (
