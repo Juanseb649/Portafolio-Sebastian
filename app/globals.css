@@ -1,0 +1,149 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-stage: #000000;
+  --color-graphite: #1d1d1f;
+  --color-graphite-2: #2a2a2d;
+  --color-floor: #f5f5f7;
+  --color-paper: #ffffff;
+  --color-ink-light: #f5f5f7;
+  --color-ink-dark: #1d1d1f;
+  --color-mute-dark: #86868b;
+  --color-mute-light: #6e6e73;
+  --color-rule-dark: #333336;
+  --color-rule-light: #d2d2d7;
+  --color-link-dark: #2997ff;
+  --color-link-light: #0066cc;
+  --color-action: #0071e3;
+  --color-action-hover: #0077ed;
+
+  --ease-keynote: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-stage);
+    color: var(--color-ink-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-padding-top: 44px;
+    scrollbar-color: #48484a var(--color-stage);
+  }
+
+  body {
+    background: var(--color-stage);
+    font-family: var(--font-sans);
+    font-feature-settings: 'ss01', 'cv11';
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #0071e3;
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-link-dark);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .on-light :focus-visible {
+    outline-color: var(--color-action);
+  }
+
+  a {
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  /* Titulares de keynote: aparecen al entrar en pantalla donde el navegador soporta scroll timelines. */
+  .headline-rise {
+    animation: headline-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+
+  @supports not (animation-timeline: view()) {
+    .headline-rise {
+      animation: none;
+    }
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@keyframes tech-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 8px));
+  }
+}
+
+@keyframes deck-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes headline-rise {
+  from {
+    opacity: 0.001;
+    transform: translateY(28px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  .headline-rise {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
