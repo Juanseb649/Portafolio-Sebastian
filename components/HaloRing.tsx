@@ -272,8 +272,27 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     let visible = true;
     const clock = new THREE.Clock();
 
+    // Paralaje: la cámara sigue un poco al cursor dentro de la tarjeta.
+    const look = { x: 0, y: 0, tx: 0, ty: 0 };
+    const onMove = (event: PointerEvent) => {
+      const rect = container.getBoundingClientRect();
+      look.tx = (event.clientX - rect.left) / rect.width - 0.5;
+      look.ty = (event.clientY - rect.top) / rect.height - 0.5;
+    };
+    const onLeave = () => {
+      look.tx = 0;
+      look.ty = 0;
+    };
+    const host = container.parentElement ?? container;
+    host.addEventListener('pointermove', onMove);
+    host.addEventListener('pointerleave', onLeave);
+
     const render = () => {
       const elapsed = clock.getElapsedTime();
+      look.x += (look.tx - look.x) * 0.05;
+      look.y += (look.ty - look.y) * 0.05;
+      camera.position.set(look.x * 2.2, 0.4 - look.y * 1.4 + Math.sin(elapsed * 0.3) * 0.08, 13);
+      camera.lookAt(0, 0, 0);
       // Gira sobre su propio eje, como un mundo que rota para tener día y noche.
       band.rotation.y = elapsed * 0.06;
       planet.rotation.y = elapsed * 0.015;
@@ -301,6 +320,8 @@ export default function HaloRing({ className = '' }: { className?: string }) {
 
     return () => {
       cancelAnimationFrame(frame);
+      host.removeEventListener('pointermove', onMove);
+      host.removeEventListener('pointerleave', onLeave);
       resizeObserver.disconnect();
       visibility.disconnect();
       scene.traverse((object) => {
