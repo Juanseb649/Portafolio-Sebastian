@@ -1,0 +1,305 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+
+/**
+ * Galaxia espiral en Three.js inspirada en la imagen de Andrómeda del hero:
+ * núcleo crema, brazos que pasan por ocre y rosa violáceo hasta un azul profundo,
+ * sobre un cielo azul noche.
+ */
+
+const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+
+// Paradas de color del núcleo al borde, tomadas de la imagen de referencia.
+const RADIAL_STOPS: [number, THREE.Color][] = [
+  [0.0, new THREE.Color('#fff6e8')],
+  [0.1, new THREE.Color('#ffdcae')],
+  [0.26, new THREE.Color('#eaa57e')],
+  [0.46, new THREE.Color('#c88cc9')],
+  [0.68, new THREE.Color('#7f9fea')],
+  [1.0, new THREE.Color('#3f6fd6')],
+];
+
+const sampleRadial = (t: number, target: THREE.Color) => {
+  for (let i = 1; i < RADIAL_STOPS.length; i += 1) {
+    const [edge, color] = RADIAL_STOPS[i];
+    if (t <= edge) {
+      const [prevEdge, prevColor] = RADIAL_STOPS[i - 1];
+      return target.copy(prevColor).lerp(color, (t - prevEdge) / (edge - prevEdge));
+    }
+  }
+  return target.copy(RADIAL_STOPS[RADIAL_STOPS.length - 1][1]);
+};
+
+// Aleatorio aproximadamente gaussiano (-1..1), más denso en el centro.
+const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+
+const POINT_VERTEX = /* glsl */ `
+  attribute float aSize;
+  attribute float aPhase;
+  attribute vec3 aColor;
+  uniform float uTime;
+  uniform float uScale;
+  uniform float uTwinkle;
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    vec4 mv = modelViewMatrix * vec4(position, 1.0);
+    gl_Position = projectionMatrix * mv;
+    float twinkle = 1.0 - uTwinkle + uTwinkle * (0.5 + 0.5 * sin(uTime * (0.7 + aPhase) + aPhase * 6.2831));
+    gl_PointSize = aSize * uScale / -mv.z;
+    vColor = aColor;
+    vAlpha = twinkle;
+  }
+`;
+
+const POINT_FRAGMENT = /* glsl */ `
+  uniform float uOpacity;
+  varying vec3 vColor;
+  varying float vAlpha;
+  void main() {
+    float d = length(gl_PointCoord - 0.5);
+    float a = smoothstep(0.5, 0.0, d);
+    a *= a;
+    gl_FragColor = vec4(vColor, a * vAlpha * uOpacity);
+  }
+`;
+
+interface Layer {
+  points: THREE.Points;
+  material: THREE.ShaderMaterial;
+}
+
+function makeLayer(
+  positions: Float32Array,
+  colors: Float32Array,
+  sizes: Float32Array,
+  options: { opacity?: number; twinkle?: number; blending?: THREE.Blending } = {},
+): Layer {
+  const geometry = new THREE.BufferGeometry();
+  const phases = new Float32Array(sizes.length);
+  for (let i = 0; i < phases.length; i += 1) phases[i] = Math.random();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('aColor', new THREE.BufferAttribute(colors, 3));
+  geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+  geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
+  const material = new THREE.ShaderMaterial({
+    vertexShader: POINT_VERTEX,
+    fragmentShader: POINT_FRAGMENT,
+    uniforms: {
+      uTime: { value: 0 },
+      uScale: { value: 1 },
+      uOpacity: { value: options.opacity ?? 1 },
+      uTwinkle: { value: options.twinkle ?? 0 },
+    },
+    transparent: true,
+    depthWrite: false,
+    blending: options.blending ?? THREE.AdditiveBlending,
+  });
+  return { points: new THREE.Points(geometry, material), material };
+}
+
+interface DiskOptions {
+  count: number;
+  radius: number;
+  size: [number, number];
+  opacity?: number;
+  twinkle?: number;
+  armShare?: number;
+  sprinkle?: boolean;
+}
+
+/** Disco de la galaxia: dos brazos espirales muy cerrados con un bulbo central denso. */
+function buildDisk({ count, radius, size, opacity = 1, twinkle = 0, armShare = 0.66, sprinkle = true }: DiskOptions): Layer {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+  const color = new THREE.Color();
+  const branches = 2;
+  const spin = 1.55;
+
+  for (let i = 0; i < count; i += 1) {
+    const r = Math.pow(Math.random(), 1.45) * radius;
+    const t = r / radius;
+    const inArm = Math.random() < armShare;
+    const branchAngle = ((i % branches) / branches) * Math.PI * 2;
+    const angle = inArm ? branchAngle + r * spin : Math.random() * Math.PI * 2;
+    const scatter = inArm ? 0.25 + t * 0.9 : 0.4;
+    const ox = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * scatter;
+    const oz = Math.pow(Math.random(), 2) * (Math.random() < 0.5 ? 1 : -1) * scatter;
+    const bulge = Math.exp(-(r * r) / 1.4);
+    const oy = gauss() * (0.06 + bulge * 0.5);
+
+    positions[i * 3] = Math.cos(angle) * r + ox;
+    positions[i * 3 + 1] = oy;
+    positions[i * 3 + 2] = Math.sin(angle) * r + oz;
+
+    sampleRadial(clamp(t + gauss() * 0.07), color);
+    if (sprinkle) {
+      const roll = Math.random();
+      if (t > 0.28 && roll < 0.03) color.set('#ff9fd4'); // regiones de formación estelar
+      else if (t > 0.4 && roll < 0.07) color.set('#d6e4ff'); // estrellas jóvenes azuladas
+    }
+    // El bulbo se apaga un poco para que la suma aditiva no queme el núcleo.
+    const gain = 0.24 + 0.76 * clamp(t * 2.2);
+    colors[i * 3] = color.r * gain;
+    colors[i * 3 + 1] = color.g * gain;
+    colors[i * 3 + 2] = color.b * gain;
+    sizes[i] = size[0] + Math.random() * (size[1] - size[0]);
+  }
+
+  return makeLayer(positions, colors, sizes, { opacity, twinkle });
+}
+
+/** Resplandor del núcleo: plano en el plano galáctico para que se vea elíptico como el disco. */
+function buildCoreGlow(): THREE.Mesh {
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d')!;
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gradient.addColorStop(0, 'rgba(255,244,226,1)');
+  gradient.addColorStop(0.18, 'rgba(255,222,180,0.75)');
+  gradient.addColorStop(0.45, 'rgba(232,160,120,0.22)');
+  gradient.addColorStop(1, 'rgba(200,120,150,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  const material = new THREE.MeshBasicMaterial({
+    map: texture,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+  });
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 5.2), material);
+  mesh.rotation.x = -Math.PI / 2;
+  return mesh;
+}
+
+export default function MilkyWay({ className = '' }: { className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' });
+    } catch {
+      setFailed(true);
+      return;
+    }
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const small = window.innerWidth < 768;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    renderer.setClearColor(0x000000, 0);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+    renderer.domElement.style.display = 'block';
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 300);
+    camera.position.set(0, 0, 20);
+
+    // Inclinada casi de canto y subiendo hacia la derecha, como en la imagen.
+    const galaxy = new THREE.Group();
+    galaxy.rotation.set(0.27, 0, 0.2);
+    scene.add(galaxy);
+
+    const radius = 6;
+    const layers: Layer[] = [
+      // Bruma: pocos puntos grandes y tenues que dan el aspecto nebuloso del disco.
+      buildDisk({ count: small ? 3500 : 7000, radius, size: [7, 16], opacity: 0.07, armShare: 0.55, sprinkle: false }),
+      // Estrellas del disco.
+      buildDisk({ count: small ? 32000 : 64000, radius, size: [0.5, 1.4], twinkle: 0.25 }),
+    ];
+    layers.forEach((layer) => galaxy.add(layer.points));
+    const core = buildCoreGlow();
+    galaxy.add(core);
+
+    let width = 0;
+    let height = 0;
+    let baseZ = 20;
+    const resize = () => {
+      width = container.clientWidth;
+      height = container.clientHeight;
+      if (!width || !height) return;
+      renderer.setSize(width, height, false);
+      const aspect = width / height;
+      camera.aspect = aspect;
+      // En pantallas verticales la cámara se aleja para que el disco no quede cortado del todo.
+      baseZ = clamp(26 / aspect, 18, 34);
+      camera.updateProjectionMatrix();
+      const scale = height * renderer.getPixelRatio() * 0.062;
+      layers.forEach((layer) => (layer.material.uniforms.uScale.value = scale));
+    };
+
+    let frame = 0;
+    let visible = true;
+    const clock = new THREE.Clock();
+
+    const render = () => {
+      const elapsed = clock.getElapsedTime();
+      galaxy.rotation.y = elapsed * 0.025;
+      camera.position.z = baseZ;
+      camera.lookAt(0, 0, 0);
+      layers.forEach((layer) => (layer.material.uniforms.uTime.value = elapsed));
+      renderer.render(scene, camera);
+    };
+
+    const loop = () => {
+      if (visible) render();
+      frame = requestAnimationFrame(loop);
+    };
+
+    resize();
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      if (reduceMotion) render();
+    });
+    resizeObserver.observe(container);
+    const visibility = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    visibility.observe(container);
+
+    if (reduceMotion) render();
+    else frame = requestAnimationFrame(loop);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      visibility.disconnect();
+      scene.traverse((object) => {
+        const mesh = object as THREE.Mesh;
+        mesh.geometry?.dispose();
+        const material = mesh.material as THREE.Material & { map?: THREE.Texture };
+        material?.map?.dispose();
+        material?.dispose();
+      });
+      renderer.dispose();
+      renderer.domElement.remove();
+    };
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      aria-hidden="true"
+      className={`bg-[radial-gradient(70%_60%_at_50%_46%,#12357a_0%,#0a2257_38%,#06133a_68%,#030a1f_100%)] ${className}`}
+    >
+      {failed && (
+        // Sin WebGL: se muestra la imagen original como respaldo.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src="/images/andromeda.webp" alt="" className="h-full w-full object-cover" />
+      )}
+    </div>
+  );
+}
