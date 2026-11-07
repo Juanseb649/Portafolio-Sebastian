@@ -181,6 +181,73 @@ function buildDust(count: number, radius: number): Layer {
   return makeLayer(positions, colors, sizes, { opacity: 0.13, blending: THREE.NormalBlending });
 }
 
+/** Cielo de fondo: estrellas en una cáscara esférica lejana, blancas, azuladas y algunas cálidas. */
+function buildSky(count: number): Layer {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+  const tints = ['#ffffff', '#dfe8ff', '#c4d6ff', '#fff0dc'].map((hex) => new THREE.Color(hex));
+  const vector = new THREE.Vector3();
+
+  for (let i = 0; i < count; i += 1) {
+    vector.randomDirection().multiplyScalar(70 + Math.random() * 50);
+    // Solo el hemisferio que ve la cámara.
+    if (vector.z > 10) vector.z = -vector.z;
+    positions[i * 3] = vector.x;
+    positions[i * 3 + 1] = vector.y;
+    positions[i * 3 + 2] = vector.z - 20;
+    const tint = tints[Math.floor(Math.random() * tints.length)];
+    const bright = 0.45 + Math.random() * 0.55;
+    colors[i * 3] = tint.r * bright;
+    colors[i * 3 + 1] = tint.g * bright;
+    colors[i * 3 + 2] = tint.b * bright;
+    const big = Math.random();
+    sizes[i] = (big < 0.012 ? 9 + Math.random() * 5 : big < 0.08 ? 4.5 + Math.random() * 2 : 2 + Math.random() * 2) * 3.2;
+  }
+
+  return makeLayer(positions, colors, sizes, { twinkle: 0.55 });
+}
+
+/** Destello con halo: el núcleo de la galaxia satélite y algunas estrellas brillantes del primer plano. */
+function makeFlareTexture() {
+  const size = 128;
+  const canvas = document.createElement('canvas');
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext('2d')!;
+  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.08, 'rgba(240,246,255,0.95)');
+  gradient.addColorStop(0.25, 'rgba(190,215,255,0.28)');
+  gradient.addColorStop(1, 'rgba(150,190,255,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+function buildFlares(): THREE.Group {
+  const group = new THREE.Group();
+  const texture = makeFlareTexture();
+  const flares: [number, number, number, number][] = [
+    // x, y, z, escala
+    [-3.3, 1.0, 1, 1.15], // satélite brillante sobre el disco, como en la imagen
+    [-5.6, 1.1, 0, 0.45],
+    [6.4, 2.9, -2, 0.4],
+    [-1.6, 3.7, -3, 0.35],
+    [4.6, -2.6, 0, 0.32],
+  ];
+  for (const [x, y, z, scale] of flares) {
+    const sprite = new THREE.Sprite(
+      new THREE.SpriteMaterial({ map: texture, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending }),
+    );
+    sprite.position.set(x, y, z);
+    sprite.scale.setScalar(scale);
+    group.add(sprite);
+  }
+  return group;
+}
+
 /** Resplandor del núcleo: plano en el plano galáctico para que se vea elíptico como el disco. */
 function buildCoreGlow(): THREE.Mesh {
   const size = 256;
@@ -256,6 +323,12 @@ export default function MilkyWay({ className = '' }: { className?: string }) {
     layers.forEach((layer) => galaxy.add(layer.points));
     const core = buildCoreGlow();
     galaxy.add(core);
+
+    const sky = buildSky(small ? 2000 : 4200);
+    scene.add(sky.points);
+    layers.push(sky);
+    const flares = buildFlares();
+    scene.add(flares);
 
     let width = 0;
     let height = 0;
