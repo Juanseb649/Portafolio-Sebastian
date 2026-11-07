@@ -11,6 +11,8 @@ import * as THREE from 'three';
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const easeOutBack = (t: number) => 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2);
+const SPLASH_SECONDS = 2.4;
 
 export interface MilkyWayPointer {
   /** Posición normalizada desde el centro, -0.5..0.5. */
@@ -28,6 +30,8 @@ interface MilkyWayProps {
   density?: number;
   /** Pinta el cielo azul noche detrás de la galaxia. */
   backdrop?: boolean;
+  /** Al entrar en pantalla la galaxia nace girando desde un punto (se repite al volver a entrar). */
+  splash?: boolean;
 }
 
 // Paradas de color del núcleo al borde, tomadas de la imagen de referencia.
@@ -294,7 +298,7 @@ function buildCoreGlow(): THREE.Mesh {
   return mesh;
 }
 
-export default function MilkyWay({ className = '', progress, pointer, density = 1, backdrop = true }: MilkyWayProps) {
+export default function MilkyWay({ className = '', progress, pointer, density = 1, backdrop = true, splash = false }: MilkyWayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
 
@@ -371,15 +375,25 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
     const clock = new THREE.Clock();
 
     const look = { x: 0, y: 0 };
+    let splashStart: number | null = null;
+    let splashPending = false;
     const render = () => {
       const elapsed = clock.getElapsedTime();
+      if (splashPending) {
+        splashStart = elapsed;
+        splashPending = false;
+      }
+      // 0 = punto inicial, 1 = galaxia completa.
+      const bloom = !splash || reduceMotion ? 1 : splashStart === null ? 0 : clamp((elapsed - splashStart) / SPLASH_SECONDS);
+      const grow = easeOutBack(bloom);
+      galaxy.scale.setScalar(0.04 + 0.96 * grow);
       const p = reduceMotion ? 0 : clamp(progress?.current ?? 0);
       const travel = easeInOut(p);
       const target = pointer?.current;
       look.x += ((target?.x ?? 0) - look.x) * 0.05;
       look.y += ((target?.y ?? 0) - look.y) * 0.05;
 
-      galaxy.rotation.y = elapsed * 0.025 + travel * 0.9;
+      galaxy.rotation.y = elapsed * 0.025 + travel * 0.9 - (1 - easeInOut(bloom)) * 2.6;
       // Con el scroll la cámara se acerca al núcleo y se inclina un poco sobre el disco.
       camera.position.set(look.x * 1.6 * (1 - travel), -look.y * 1.1 * (1 - travel) + travel * 1.2, baseZ * (1 - travel * 0.72));
       camera.lookAt(0, 0, 0);
@@ -398,9 +412,15 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
       if (reduceMotion) render();
     });
     resizeObserver.observe(container);
-    const visibility = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-    });
+    const visibility = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        if (!splash) return;
+        if (!entry.isIntersecting) splashStart = null;
+        else if (splashStart === null && entry.intersectionRatio >= 0.3) splashPending = true;
+      },
+      { threshold: [0, 0.3] },
+    );
     visibility.observe(container);
 
     if (reduceMotion) render();
@@ -420,7 +440,7 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [progress, pointer, density]);
+  }, [progress, pointer, density, splash]);
 
   return (
     <div
