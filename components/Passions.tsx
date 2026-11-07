@@ -115,45 +115,44 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   );
 }
 
-/** Halo: logo y texto a un lado, el mundo anillo en 3D al otro, y las fotos como fichas debajo del texto. */
+/**
+ * Halo, dispuesto como una tarjeta de proyecto: texto a la izquierda (logo, descripción y la portada
+ * como accesorio) y el mundo anillo en 3D ocupando el otro lado a toda altura.
+ */
 function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (text: Localized) => string }) {
+  const [cover] = passion.images;
   return (
-    <li
-      className={`tile-rise ${area} relative isolate grid overflow-hidden rounded-[28px] bg-[radial-gradient(120%_90%_at_75%_40%,#0f1b33_0%,#05070d_60%)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]`}
-    >
-      <div className="flex flex-col justify-center p-8 md:p-12">
-        {passion.logo ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={passion.logo.src} alt="" className="w-[min(100%,340px)]" />
-            <h3 className="sr-only">{t(passion.title)}</h3>
-          </>
-        ) : (
-          <h3 className="text-[clamp(28px,3.2vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink-light">{t(passion.title)}</h3>
-        )}
-        <p className="mt-6 max-w-[42ch] text-[17px] leading-[1.47] text-[#d2d2d7]">{t(passion.body)}</p>
+    <li className={`tile-rise ${area} relative isolate overflow-hidden rounded-[28px] bg-stage`}>
+      <div className="grid items-center gap-10 px-8 pt-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:gap-14 md:px-12 md:py-16 lg:gap-20">
+        <div className="text-center md:text-left">
+          {passion.logo ? (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={passion.logo.src} alt="" className="mx-auto w-[min(100%,340px)] md:mx-0" />
+              <h3 className="sr-only">{t(passion.title)}</h3>
+            </>
+          ) : (
+            <h3 className="text-[clamp(36px,5vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink-light">{t(passion.title)}</h3>
+          )}
+          <p className="mx-auto mt-6 max-w-[42ch] text-[17px] leading-[1.47] text-[#a1a1a6] md:mx-0">{t(passion.body)}</p>
 
-        <div className="mt-8 grid grid-cols-2 gap-3">
-          {passion.images.map((photo) => (
-            <figure
-              key={photo.src}
-              className={`group relative aspect-[4/3] overflow-hidden rounded-[16px] ${photo.fit === 'contain' ? 'bg-paper' : 'bg-graphite'}`}
-            >
+          {cover && (
+            <figure className="mx-auto mt-10 w-[min(56%,200px)] md:mx-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={photo.src}
-                alt={t(photo.alt)}
+                src={cover.src}
+                alt={t(cover.alt)}
                 loading="lazy"
-                className={`h-full w-full transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05] ${
-                  photo.fit === 'contain' ? 'object-contain p-3' : 'object-cover object-top'
-                }`}
+                className="w-full rounded-[10px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)] ring-1 ring-white/10"
               />
+              <figcaption className="mt-3 text-[14px] text-mute-dark">Halo: Combat Evolved · 2001</figcaption>
             </figure>
-          ))}
+          )}
         </div>
-      </div>
 
-      <HaloRing className="relative min-h-[320px] md:min-h-[520px]" />
+        {/* El anillo se sale por arriba y por abajo, como en un render de presentación. */}
+        <HaloRing className="relative -mx-8 h-[420px] md:mx-0 md:h-[620px]" />
+      </div>
     </li>
   );
 }
