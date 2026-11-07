@@ -24,7 +24,7 @@ const slides: Slide[] = [
   {
     id: 'equipo',
     kind: 'statement',
-    title: { es: 'Primero, escucho.', en: 'First, I listen.' },
+    title: { es: 'Comprender el contexto.', en: 'Understanding the context.' },
     body: {
       es: 'En equipos ágiles me encargo de entender qué se necesita antes de escribir código, y de dejarlo claro para que todos avancemos en la misma dirección.',
       en: 'In agile teams I make sure we understand what’s needed before writing code, and I put it in plain words so everyone moves in the same direction.',
