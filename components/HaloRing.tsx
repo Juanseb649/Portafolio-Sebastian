@@ -11,6 +11,82 @@ import * as THREE from 'three';
 const RING_RADIUS = 3;
 const RING_WIDTH = 0.42;
 
+/** Paisaje procedural de la cara interior: mar, continentes, montañas y nubes, que da la vuelta sin costuras. */
+function makeLandscapeTexture() {
+  const width = 2048;
+  const height = 160;
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d')!;
+
+  // Mar profundo de base.
+  const sea = ctx.createLinearGradient(0, 0, 0, height);
+  sea.addColorStop(0, '#1d4f7a');
+  sea.addColorStop(0.5, '#2f74a3');
+  sea.addColorStop(1, '#1d4f7a');
+  ctx.fillStyle = sea;
+  ctx.fillRect(0, 0, width, height);
+
+  // Dibuja cada mancha dos veces, desplazada un ancho, para que el borde empate al cerrar el anillo.
+  const blob = (x: number, y: number, rx: number, ry: number, color: string) => {
+    for (const offset of [0, -width, width]) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.ellipse(x + offset, y, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  };
+
+  let seed = 7;
+  const rand = () => {
+    seed = (seed * 16807) % 2147483647;
+    return seed / 2147483647;
+  };
+
+  // Continentes: grupos de manchas verdes con bordes de arena.
+  for (let c = 0; c < 9; c += 1) {
+    const cx = rand() * width;
+    const cy = height * (0.3 + rand() * 0.4);
+    const size = 40 + rand() * 90;
+    for (let i = 0; i < 26; i += 1) {
+      const x = cx + (rand() - 0.5) * size * 2.2;
+      const y = cy + (rand() - 0.5) * height * 0.55;
+      blob(x, y, 10 + rand() * size * 0.5, 6 + rand() * 18, '#c9b98b');
+    }
+    for (let i = 0; i < 26; i += 1) {
+      const x = cx + (rand() - 0.5) * size * 2;
+      const y = cy + (rand() - 0.5) * height * 0.48;
+      blob(x, y, 8 + rand() * size * 0.45, 5 + rand() * 15, rand() < 0.5 ? '#4f7f3a' : '#3d6b31');
+    }
+    // Cordilleras con nieve.
+    for (let i = 0; i < 8; i += 1) {
+      const x = cx + (rand() - 0.5) * size * 1.4;
+      const y = cy + (rand() - 0.5) * height * 0.3;
+      blob(x, y, 4 + rand() * 12, 2 + rand() * 4, '#7a6e5a');
+      blob(x, y - 1, 2 + rand() * 6, 1 + rand() * 2, '#eef2f5');
+    }
+  }
+
+  // Nubes alargadas en el sentido del giro.
+  ctx.globalAlpha = 0.55;
+  for (let i = 0; i < 70; i += 1) {
+    blob(rand() * width, rand() * height, 18 + rand() * 70, 2 + rand() * 6, '#ffffff');
+  }
+  ctx.globalAlpha = 1;
+
+  // Muros laterales del anillo: franjas oscuras en los bordes de la banda.
+  ctx.fillStyle = '#2a2f36';
+  ctx.fillRect(0, 0, width, 7);
+  ctx.fillRect(0, height - 7, width, 7);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.anisotropy = 8;
+  return texture;
+}
+
 export default function HaloRing({ className = '' }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -36,25 +112,28 @@ export default function HaloRing({ className = '' }: { className?: string }) {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 200);
-    camera.position.set(0, 0.6, 9.5);
+    camera.position.set(0, 0.4, 13);
     camera.lookAt(0, 0, 0);
 
     // Luz de una estrella lejana a la izquierda y un relleno frío muy suave.
     const sunLight = new THREE.DirectionalLight(0xfff1dc, 2.6);
-    sunLight.position.set(-6, 3, 4);
+    sunLight.position.set(-5, 4, 8);
     scene.add(sunLight);
-    scene.add(new THREE.AmbientLight(0x6f86b8, 0.35));
+    scene.add(new THREE.AmbientLight(0x8197c4, 0.75));
 
     // El anillo se inclina para que se vea la cara interior del lado lejano.
     const ring = new THREE.Group();
-    ring.rotation.set(1.18, 0.0, -0.32);
+    ring.rotation.set(0.42, 0.0, -0.36);
     scene.add(ring);
 
-    const band = new THREE.Mesh(
-      new THREE.CylinderGeometry(RING_RADIUS, RING_RADIUS, RING_WIDTH, 256, 1, true),
-      new THREE.MeshStandardMaterial({ color: 0x8fa7b8, roughness: 0.75, metalness: 0.2, side: THREE.DoubleSide }),
-    );
+    const band = new THREE.Group();
     ring.add(band);
+    // Cara interior habitable: el paisaje se ve desde dentro del cilindro (BackSide).
+    const land = new THREE.Mesh(
+      new THREE.CylinderGeometry(RING_RADIUS, RING_RADIUS, RING_WIDTH, 256, 1, true),
+      new THREE.MeshStandardMaterial({ map: makeLandscapeTexture(), roughness: 0.9, metalness: 0, side: THREE.BackSide }),
+    );
+    band.add(land);
 
     const resize = () => {
       const width = container.clientWidth;
