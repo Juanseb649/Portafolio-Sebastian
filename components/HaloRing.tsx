@@ -5,7 +5,7 @@ import * as THREE from 'three';
 
 /**
  * Mundo anillo en Three.js: una banda colosal con tierra, mar y nubes en su cara interior,
- * flotando junto a un gigante gaseoso. Geometría propia; no usa recursos de ningún juego.
+ * flotando en el espacio profundo. Geometría propia; no usa recursos de ningún juego.
  */
 
 const RING_RADIUS = 3;
@@ -129,53 +129,6 @@ function makeHullTextures() {
   return { map: toTexture(colorCanvas), emissiveMap: toTexture(glowCanvas) };
 }
 
-/** Gigante gaseoso con bandas suaves en azules y lavandas. */
-function makeGasGiantTexture() {
-  const width = 512;
-  const height = 256;
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext('2d')!;
-  const bands = ['#2c3f6b', '#4c6aa0', '#7f97c6', '#a9b4d8', '#6f7fb3', '#3b4f84', '#8c9dcc', '#c2c8e6', '#5a6fa6', '#2c3f6b'];
-  const step = height / bands.length;
-  bands.forEach((color, index) => {
-    const gradient = ctx.createLinearGradient(0, index * step, 0, (index + 1) * step);
-    gradient.addColorStop(0, color);
-    gradient.addColorStop(1, bands[Math.min(index + 1, bands.length - 1)]);
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, index * step, width, step + 1);
-  });
-  // Remolinos tenues para que no se vea como franjas planas.
-  ctx.globalAlpha = 0.18;
-  for (let i = 0; i < 60; i += 1) {
-    ctx.fillStyle = i % 2 ? '#ffffff' : '#1c2a4d';
-    ctx.beginPath();
-    ctx.ellipse(Math.random() * width, Math.random() * height, 20 + Math.random() * 60, 2 + Math.random() * 4, 0, 0, Math.PI * 2);
-    ctx.fill();
-  }
-  ctx.globalAlpha = 1;
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
-}
-
-function makeGlowTexture(inner: string, outer: string) {
-  const size = 128;
-  const canvas = document.createElement('canvas');
-  canvas.width = canvas.height = size;
-  const ctx = canvas.getContext('2d')!;
-  const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-  gradient.addColorStop(0, inner);
-  gradient.addColorStop(0.2, inner);
-  gradient.addColorStop(1, outer);
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, size, size);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
-}
-
 export default function HaloRing({ className = '' }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -247,27 +200,6 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       band.add(wall);
     }
 
-    // Gigante gaseoso detrás del anillo, y una estrella brillante a la izquierda.
-    const planet = new THREE.Mesh(
-      new THREE.SphereGeometry(2.4, 64, 48),
-      new THREE.MeshStandardMaterial({ map: makeGasGiantTexture(), roughness: 1, metalness: 0 }),
-    );
-    planet.position.set(3.4, -1.6, -9);
-    planet.rotation.z = 0.28;
-    scene.add(planet);
-
-    const sun = new THREE.Sprite(
-      new THREE.SpriteMaterial({
-        map: makeGlowTexture('rgba(255,246,228,1)', 'rgba(255,214,160,0)'),
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-      }),
-    );
-    sun.position.set(-7.5, 3.6, -14);
-    sun.scale.setScalar(3.2);
-    scene.add(sun);
-
     // Campo de estrellas lejano.
     const starCount = 900;
     const starPositions = new Float32Array(starCount * 3);
@@ -323,7 +255,6 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       camera.lookAt(0, 0, 0);
       // Gira sobre su propio eje, como un mundo que rota para tener día y noche.
       band.rotation.y = elapsed * 0.06;
-      planet.rotation.y = elapsed * 0.015;
       renderer.render(scene, camera);
     };
 
