@@ -224,6 +224,38 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     scene.add(stars);
 
     let distance = 9;
+
+    // Por la perspectiva, el lado cercano del anillo se ve más grande y la silueta queda corrida.
+    // Se proyectan puntos de ambos bordes y se desplaza el anillo hasta centrar su caja en pantalla.
+    const probe = new THREE.Vector3();
+    const centerRing = () => {
+      ring.position.set(0, 0, 0);
+      camera.position.set(0, 0.4, distance);
+      camera.lookAt(0, 0, 0);
+      camera.updateMatrixWorld();
+      const halfHeight = distance * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+      const halfWidth = halfHeight * camera.aspect;
+      for (let pass = 0; pass < 3; pass += 1) {
+        ring.updateMatrixWorld(true);
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let minY = Infinity;
+        let maxY = -Infinity;
+        for (let i = 0; i < 96; i += 1) {
+          const angle = (i / 96) * Math.PI * 2;
+          for (const edge of [RING_WIDTH / 2, -RING_WIDTH / 2]) {
+            probe.set(Math.cos(angle) * RING_RADIUS, edge, Math.sin(angle) * RING_RADIUS);
+            probe.applyMatrix4(band.matrixWorld).project(camera);
+            minX = Math.min(minX, probe.x);
+            maxX = Math.max(maxX, probe.x);
+            minY = Math.min(minY, probe.y);
+            maxY = Math.max(maxY, probe.y);
+          }
+        }
+        ring.position.x -= ((minX + maxX) / 2) * halfWidth;
+        ring.position.y -= ((minY + maxY) / 2) * halfHeight;
+      }
+    };
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
@@ -233,6 +265,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       // En vertical la cámara se aleja para que el anillo completo quepa a lo ancho.
       distance = 9 * Math.max(1, 1.15 / camera.aspect);
       camera.updateProjectionMatrix();
+      centerRing();
     };
 
     let frame = 0;
