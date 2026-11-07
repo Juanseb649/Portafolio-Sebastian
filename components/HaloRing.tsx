@@ -11,7 +11,7 @@ import * as THREE from 'three';
 const RING_RADIUS = 3;
 const RING_WIDTH = 0.3;
 
-/** Paisaje procedural de la cara interior: mar, continentes, montañas y nubes, que da la vuelta sin costuras. */
+/** Paisaje procedural de la cara interior: mar turquesa, tierras verde oscuro, hielo y nubes, que da la vuelta sin costuras. */
 function makeLandscapeTexture() {
   const width = 2048;
   const height = 160;
@@ -22,9 +22,9 @@ function makeLandscapeTexture() {
 
   // Mar profundo de base.
   const sea = ctx.createLinearGradient(0, 0, 0, height);
-  sea.addColorStop(0, '#1d4f7a');
-  sea.addColorStop(0.5, '#2f74a3');
-  sea.addColorStop(1, '#1d4f7a');
+  sea.addColorStop(0, '#2a6f8f');
+  sea.addColorStop(0.5, '#5aa9c6');
+  sea.addColorStop(1, '#2a6f8f');
   ctx.fillStyle = sea;
   ctx.fillRect(0, 0, width, height);
 
@@ -52,12 +52,12 @@ function makeLandscapeTexture() {
     for (let i = 0; i < 26; i += 1) {
       const x = cx + (rand() - 0.5) * size * 2.2;
       const y = cy + (rand() - 0.5) * height * 0.55;
-      blob(x, y, 10 + rand() * size * 0.5, 6 + rand() * 18, '#c9b98b');
+      blob(x, y, 10 + rand() * size * 0.5, 6 + rand() * 18, '#b9cfd6');
     }
     for (let i = 0; i < 26; i += 1) {
       const x = cx + (rand() - 0.5) * size * 2;
       const y = cy + (rand() - 0.5) * height * 0.48;
-      blob(x, y, 8 + rand() * size * 0.45, 5 + rand() * 15, rand() < 0.5 ? '#4f7f3a' : '#3d6b31');
+      blob(x, y, 8 + rand() * size * 0.45, 5 + rand() * 15, rand() < 0.5 ? '#2f5a3a' : '#24472f');
     }
     // Cordilleras con nieve.
     for (let i = 0; i < 8; i += 1) {
@@ -69,14 +69,14 @@ function makeLandscapeTexture() {
   }
 
   // Nubes alargadas en el sentido del giro.
-  ctx.globalAlpha = 0.55;
-  for (let i = 0; i < 70; i += 1) {
+  ctx.globalAlpha = 0.7;
+  for (let i = 0; i < 120; i += 1) {
     blob(rand() * width, rand() * height, 18 + rand() * 70, 2 + rand() * 6, '#ffffff');
   }
   ctx.globalAlpha = 1;
 
   // Muros laterales del anillo: franjas oscuras en los bordes de la banda.
-  ctx.fillStyle = '#2a2f36';
+  ctx.fillStyle = '#1b1f25';
   ctx.fillRect(0, 0, width, 7);
   ctx.fillRect(0, height - 7, width, 7);
 
