@@ -33,7 +33,7 @@ const slides: Slide[] = [
   {
     id: 'detalles',
     kind: 'statement',
-    title: { es: 'Luego, cuido los detalles.', en: 'Then, I sweat the details.' },
+    title: { es: 'Cuidar los detalles.', en: 'Sweat the details.' },
     body: {
       es: 'Pruebo lo que construyo, a mano y con pruebas automatizadas, y escribo código que otra persona pueda entender y mejorar sin miedo.',
       en: 'I test what I build, by hand and with automated tests, and write code someone else can understand and improve without fear.',
