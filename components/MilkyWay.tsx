@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import * as THREE from 'three';
 
 /**
@@ -10,6 +10,21 @@ import * as THREE from 'three';
  */
 
 const clamp = (value: number, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+export interface MilkyWayPointer {
+  /** Posición normalizada desde el centro, -0.5..0.5. */
+  x: number;
+  y: number;
+}
+
+interface MilkyWayProps {
+  className?: string;
+  /** Avance del scroll 0..1: la cámara viaja hacia el núcleo. */
+  progress?: RefObject<number>;
+  /** Cursor normalizado: paralaje suave de la cámara. */
+  pointer?: RefObject<MilkyWayPointer>;
+}
 
 // Paradas de color del núcleo al borde, tomadas de la imagen de referencia.
 const RADIAL_STOPS: [number, THREE.Color][] = [
@@ -275,7 +290,7 @@ function buildCoreGlow(): THREE.Mesh {
   return mesh;
 }
 
-export default function MilkyWay({ className = '' }: { className?: string }) {
+export default function MilkyWay({ className = '', progress, pointer }: MilkyWayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
 
@@ -351,10 +366,18 @@ export default function MilkyWay({ className = '' }: { className?: string }) {
     let visible = true;
     const clock = new THREE.Clock();
 
+    const look = { x: 0, y: 0 };
     const render = () => {
       const elapsed = clock.getElapsedTime();
-      galaxy.rotation.y = elapsed * 0.025;
-      camera.position.z = baseZ;
+      const p = reduceMotion ? 0 : clamp(progress?.current ?? 0);
+      const travel = easeInOut(p);
+      const target = pointer?.current;
+      look.x += ((target?.x ?? 0) - look.x) * 0.05;
+      look.y += ((target?.y ?? 0) - look.y) * 0.05;
+
+      galaxy.rotation.y = elapsed * 0.025 + travel * 0.9;
+      // Con el scroll la cámara se acerca al núcleo y se inclina un poco sobre el disco.
+      camera.position.set(look.x * 1.6 * (1 - travel), -look.y * 1.1 * (1 - travel) + travel * 1.2, baseZ * (1 - travel * 0.72));
       camera.lookAt(0, 0, 0);
       layers.forEach((layer) => (layer.material.uniforms.uTime.value = elapsed));
       renderer.render(scene, camera);
@@ -393,7 +416,7 @@ export default function MilkyWay({ className = '' }: { className?: string }) {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, []);
+  }, [progress, pointer]);
 
   return (
     <div
