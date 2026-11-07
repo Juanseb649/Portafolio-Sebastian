@@ -34,10 +34,14 @@ export default function Passions() {
             {passions.flatMap((passion) => passion.images).map((image) => (
               <li key={image.src}>
                 {t(image.alt)} ·{' '}
-                <a href={image.source} target="_blank" rel="noopener noreferrer" className="text-link-dark hover:underline">
-                  {image.author}
-                </a>{' '}
-                · {image.license === 'Dominio público' && language === 'en' ? 'Public domain' : image.license}
+                {image.source ? (
+                  <a href={image.source} target="_blank" rel="noopener noreferrer" className="text-link-dark hover:underline">
+                    {image.author}
+                  </a>
+                ) : (
+                  image.author
+                )}{' '}
+                · {LICENSE_EN[image.license] && language === 'en' ? LICENSE_EN[image.license] : image.license}
               </li>
             ))}
           </ul>
@@ -46,6 +50,8 @@ export default function Passions() {
     </section>
   );
 }
+
+const LICENSE_EN: Record<string, string> = { 'Dominio público': 'Public domain', 'Foto propia': 'Own photo' };
 
 // Cuadrícula tipo bento: piezas anchas de 7 columnas y una alta que ocupa dos filas a la derecha.
 const SPAN: Record<NonNullable<Passion['span']>, string> = {

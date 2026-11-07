@@ -71,8 +71,8 @@ export interface CreditedImage {
   alt: Localized;
   author: string;
   license: string;
-  /** Página de la obra en su fuente (p. ej. Wikimedia Commons). */
-  source: string;
+  /** Página de la obra en su fuente (p. ej. Wikimedia Commons). Las fotos propias no la necesitan. */
+  source?: string;
   /** Punto de enfoque del recorte (CSS object-position), p. ej. '50% 80%'. */
   focus?: string;
 }
