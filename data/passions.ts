@@ -120,6 +120,6 @@ export const passions: Passion[] = [
         license: 'Foto propia',
       },
     ],
-    span: 'regular',
+    span: 'full',
   },
 ];
