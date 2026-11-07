@@ -58,6 +58,7 @@ export const passions: Passion[] = [
         author: 'Sven Mandel',
         license: 'CC BY-SA 4.0',
         source: 'https://commons.wikimedia.org/wiki/File:Korn_-_2022156201339_2022-06-05_Rock_am_Ring_-_Sven_-_1D_X_MK_II_-_2210_-_B70I4069.jpg',
+        album: { title: 'Issues', year: 1999 },
       },
       {
         src: '/images/passions/megadeth.webp',
