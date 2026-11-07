@@ -37,6 +37,8 @@ Required sections (course checklist): sticky navigation with logo/name, anchors,
 - Testimonials: none yet. Ship three clearly marked placeholders in `data/` for the user to replace; never present them as real quotes.
 - SATRAA product image: not available yet; placeholder for the user to replace.
 
+- Beyond the code (user-supplied): favorite game Halo: Combat Evolved; metal (Ozzy Osbourne, Korn, Megadeth); space and astronomy; calisthenics; travel and languages. Photos are freely licensed (Wikimedia Commons / NASA) and credited on the page.
+
 ## Product Principles
 
 1. Show real work over adjectives.
