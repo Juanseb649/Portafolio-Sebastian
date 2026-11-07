@@ -33,7 +33,7 @@ export default function Contact() {
         density={0.6}
         backdrop={false}
         splash
-        className="pointer-events-none absolute inset-x-0 bottom-[-14%] h-[78%] [mask-image:radial-gradient(85%_75%_at_50%_55%,#000_55%,transparent)]"
+        className="pointer-events-none absolute inset-x-0 bottom-[-30%] h-[78%] [mask-image:radial-gradient(85%_75%_at_50%_55%,#000_55%,transparent)]"
       />
       <div className="relative mx-auto max-w-[1024px] px-6 md:px-[22px]">
         <h2 className="headline-rise text-[clamp(56px,9vw,96px)] font-semibold leading-[1] tracking-[-0.04em] text-ink-light">
