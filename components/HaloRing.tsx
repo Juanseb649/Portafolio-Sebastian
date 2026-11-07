@@ -9,7 +9,7 @@ import * as THREE from 'three';
  */
 
 const RING_RADIUS = 3;
-const RING_WIDTH = 0.3;
+const RING_WIDTH = 0.36;
 
 /** Paisaje procedural de la cara interior: mar turquesa, tierras verde oscuro, hielo y nubes, que da la vuelta sin costuras. */
 function makeLandscapeTexture() {
@@ -158,18 +158,25 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     camera.lookAt(0, 0, 0);
 
     // Luz de una estrella lejana a la izquierda y un relleno frío muy suave.
-    const sunLight = new THREE.DirectionalLight(0xfff1dc, 2.6);
-    sunLight.position.set(-5, 4, 8);
-    scene.add(sunLight);
-    scene.add(new THREE.AmbientLight(0x8197c4, 0.75));
+    // Luz principal fría desde el frente derecho y un contraluz rosado que perfila el borde.
+    const keyLight = new THREE.DirectionalLight(0xe8f1ff, 2.4);
+    keyLight.position.set(4, 2, 6);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0xffc8d8, 1.8);
+    rimLight.position.set(-6, 1, -3);
+    scene.add(rimLight);
+    scene.add(new THREE.AmbientLight(0x6d7f9e, 0.4));
 
-    // El anillo se inclina para que se vea la cara interior del lado lejano.
     const ring = new THREE.Group();
-    ring.rotation.set(0.42, 0.0, -0.36);
+    // Vertical y casi de canto: a la izquierda se ve el casco con luces, a la derecha la cara interior.
+    ring.rotation.set(0.06, -0.62, 0);
     scene.add(ring);
+    const tilt = new THREE.Group();
+    tilt.rotation.z = Math.PI / 2 - 0.1;
+    ring.add(tilt);
 
     const band = new THREE.Group();
-    ring.add(band);
+    tilt.add(band);
     // Cara interior habitable: el paisaje se ve desde dentro del cilindro (BackSide).
     const land = new THREE.Mesh(
       new THREE.CylinderGeometry(RING_RADIUS, RING_RADIUS, RING_WIDTH, 256, 1, true),
@@ -216,7 +223,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     );
     scene.add(stars);
 
-    let distance = 10.5;
+    let distance = 9;
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
@@ -224,7 +231,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       // En vertical la cámara se aleja para que el anillo completo quepa a lo ancho.
-      distance = 10.5 * Math.max(1, 1.3 / camera.aspect);
+      distance = 9 * Math.max(1, 0.75 / camera.aspect);
       camera.updateProjectionMatrix();
     };
 
