@@ -67,8 +67,7 @@ export const projects: Project[] = [
       en: 'Web application to manage and monitor Empopasto’s sewer maintenance work in Pasto, Nariño.',
     },
     technologies: ['Java', 'Spring Boot'],
-    // Agrega aquí la captura del producto, p. ej. '/images/projects/satraa.png'
-    image: undefined,
+    image: '/images/projects/satraa.webp',
     availability: {
       es: 'Sistema interno de Empopasto',
       en: 'Internal Empopasto system',
