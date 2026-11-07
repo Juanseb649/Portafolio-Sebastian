@@ -87,28 +87,46 @@ function makeLandscapeTexture() {
   return texture;
 }
 
-/** Casco exterior metálico con paneles, visto por la mitad cercana del anillo. */
-function makeHullTexture() {
-  const width = 1024;
+/** Casco exterior: placas de metal oscuro con juntas, y una fila de luces cian (mapa de emisión aparte). */
+function makeHullTextures() {
+  const width = 2048;
   const height = 64;
-  const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = height;
-  const ctx = canvas.getContext('2d')!;
-  ctx.fillStyle = '#8d96a3';
-  ctx.fillRect(0, 0, width, height);
-  // Juntas entre placas y una franja central de luces.
-  ctx.fillStyle = '#5d6571';
-  for (let x = 0; x < width; x += 32) ctx.fillRect(x, 0, 2, height);
-  ctx.fillRect(0, height * 0.32, width, 2);
-  ctx.fillRect(0, height * 0.66, width, 2);
-  ctx.fillStyle = '#b7c0cc';
-  for (let x = 8; x < width; x += 64) ctx.fillRect(x, height * 0.45, 14, 4);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = THREE.RepeatWrapping;
-  texture.repeat.set(4, 1);
-  return texture;
+  const make = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    return [canvas, canvas.getContext('2d')!] as const;
+  };
+
+  const [colorCanvas, color] = make();
+  color.fillStyle = '#2b3038';
+  color.fillRect(0, 0, width, height);
+  color.fillStyle = '#1b1f25';
+  for (let x = 0; x < width; x += 24) color.fillRect(x, 0, 2, height);
+  color.fillRect(0, height * 0.22, width, 2);
+  color.fillRect(0, height * 0.78, width, 2);
+  color.fillStyle = '#3b424c';
+  for (let x = 6; x < width; x += 48) color.fillRect(x, height * 0.3, 10, height * 0.4);
+
+  // Luces: medias lunas cian a intervalos regulares, en el centro de la banda.
+  const [glowCanvas, glow] = make();
+  glow.fillStyle = '#000000';
+  glow.fillRect(0, 0, width, height);
+  glow.fillStyle = '#4ff0f2';
+  for (let x = 16; x < width; x += 64) {
+    glow.beginPath();
+    glow.ellipse(x, height / 2, 7, 12, 0, -Math.PI / 2, Math.PI / 2);
+    glow.fill();
+  }
+
+  const toTexture = (canvas: HTMLCanvasElement) => {
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.repeat.set(2, 1);
+    return texture;
+  };
+  return { map: toTexture(colorCanvas), emissiveMap: toTexture(glowCanvas) };
 }
 
 /** Gigante gaseoso con bandas suaves en azules y lavandas. */
@@ -209,12 +227,19 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     // Casco exterior, un poco más grande para no pelear con la cara interior.
     const hull = new THREE.Mesh(
       new THREE.CylinderGeometry(RING_RADIUS * 1.012, RING_RADIUS * 1.012, RING_WIDTH, 256, 1, true),
-      new THREE.MeshStandardMaterial({ map: makeHullTexture(), roughness: 0.45, metalness: 0.75, side: THREE.FrontSide }),
+      new THREE.MeshStandardMaterial({
+        ...makeHullTextures(),
+        emissive: 0xffffff,
+        emissiveIntensity: 1.6,
+        roughness: 0.5,
+        metalness: 0.8,
+        side: THREE.FrontSide,
+      }),
     );
     band.add(hull);
 
     // Muros laterales: dos anillos planos que cierran la banda por arriba y por abajo.
-    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0x9aa3af, roughness: 0.5, metalness: 0.7, side: THREE.DoubleSide });
+    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0xe6d6dc, emissive: 0x3a2a30, roughness: 0.35, metalness: 0.6, side: THREE.DoubleSide });
     for (const y of [RING_WIDTH / 2, -RING_WIDTH / 2]) {
       const wall = new THREE.Mesh(new THREE.RingGeometry(RING_RADIUS * 0.985, RING_RADIUS * 1.012, 256), wallMaterial);
       wall.rotation.x = -Math.PI / 2;
@@ -332,7 +357,9 @@ export default function HaloRing({ className = '' }: { className?: string }) {
         mesh.geometry?.dispose();
         const materials = Array.isArray(mesh.material) ? mesh.material : mesh.material ? [mesh.material] : [];
         materials.forEach((material) => {
-          (material as THREE.Material & { map?: THREE.Texture }).map?.dispose();
+          const textured = material as THREE.Material & { map?: THREE.Texture; emissiveMap?: THREE.Texture };
+          textured.map?.dispose();
+          textured.emissiveMap?.dispose();
           material.dispose();
         });
       });
