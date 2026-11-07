@@ -58,7 +58,16 @@ export const passions: Passion[] = [
         author: 'Sven Mandel',
         license: 'CC BY-SA 4.0',
         source: 'https://commons.wikimedia.org/wiki/File:Korn_-_2022156201339_2022-06-05_Rock_am_Ring_-_Sven_-_1D_X_MK_II_-_2210_-_B70I4069.jpg',
-        album: { title: 'Issues', year: 1999 },
+        album: {
+          title: 'Issues',
+          year: 1999,
+          cover: {
+            src: '/images/passions/albums/issues.webp',
+            alt: { es: 'Portada de Issues de Korn', en: 'Cover of Korn’s Issues' },
+            author: 'Immortal / Epic Records',
+            license: 'Todos los derechos reservados',
+          },
+        },
       },
       {
         src: '/images/passions/megadeth.webp',
