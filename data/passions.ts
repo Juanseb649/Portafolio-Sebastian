@@ -6,8 +6,8 @@ export const passions: Passion[] = [
     id: 'halo',
     title: { es: 'Halo: Combat Evolved.', en: 'Halo: Combat Evolved.' },
     body: {
-      es: 'Mi videojuego favorito. Me encantan los juegos que construyen mundos enteros; por eso también me animé a crear el mío, Frostbound.',
-      en: 'My favorite game. I love games that build entire worlds, which is why I set out to make my own, Frostbound.',
+      es: 'Mi videojuego favorito de siempre. Me encanta cómo construye un universo entero: su historia, su música y ese mundo anillo que se pierde en el horizonte.',
+      en: 'My all-time favorite game. I love how it builds an entire universe: its story, its music and that ring world fading into the horizon.',
     },
     images: [
       {
