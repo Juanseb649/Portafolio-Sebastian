@@ -75,6 +75,8 @@ export interface CreditedImage {
   source?: string;
   /** Punto de enfoque del recorte (CSS object-position), p. ej. '50% 80%'. */
   focus?: string;
+  /** 'contain' para objetos fotografiados sobre blanco: se muestran completos sobre papel. */
+  fit?: 'cover' | 'contain';
   /** Disco favorito asociado a la foto (p. ej. en el tríptico de música). */
   album?: { title: string; year: number };
 }

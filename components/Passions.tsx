@@ -128,7 +128,7 @@ function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (te
           {passion.images.map((photo) => (
             <figure
               key={photo.src}
-              className={`group relative aspect-[4/3] overflow-hidden rounded-[16px] ${photo.focus === 'contain' ? 'bg-paper' : 'bg-graphite'}`}
+              className={`group relative aspect-[4/3] overflow-hidden rounded-[16px] ${photo.fit === 'contain' ? 'bg-paper' : 'bg-graphite'}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -136,7 +136,7 @@ function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (te
                 alt={t(photo.alt)}
                 loading="lazy"
                 className={`h-full w-full transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05] ${
-                  photo.focus === 'contain' ? 'object-contain p-3' : 'object-cover object-top'
+                  photo.fit === 'contain' ? 'object-contain p-3' : 'object-cover object-top'
                 }`}
               />
             </figure>
