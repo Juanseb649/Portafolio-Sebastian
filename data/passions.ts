@@ -66,6 +66,7 @@ export const passions: Passion[] = [
         author: 'Carlos Varela',
         license: 'CC BY 2.0',
         source: 'https://commons.wikimedia.org/wiki/File:Megadeth_en_Chile_2010.jpg',
+        album: { title: 'Rust in Peace', year: 1990 },
       },
     ],
     span: 'wide',
