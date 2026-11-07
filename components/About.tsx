@@ -42,7 +42,7 @@ const slides: Slide[] = [
   {
     id: 'nube',
     kind: 'statement',
-    title: { es: 'Lo que viene: DevOps y la nube.', en: 'What’s next: DevOps and the cloud.' },
+    title: { es: 'DevOps y la nube.', en: 'DevOps and the cloud.' },
     body: {
       es: 'Estoy aprendiendo Linux, infraestructura y automatización para llevar lo que construimos a producción con confianza. Me encantaría seguir creciendo en un equipo como el tuyo.',
       en: 'I’m learning Linux, infrastructure and automation to ship what we build to production with confidence. I’d love to keep growing on a team like yours.',
