@@ -251,6 +251,15 @@ A 44px bar fixed to the top: black at 75% opacity with a heavy backdrop blur and
 ### Product Tile (signature)
 A near-full-bleed 28px tile, alternating paper and stage. From md up it is a two-column grid (text 1fr : device 1.3fr) whose device side alternates tile by tile; the text column is left-aligned with the title-large name, subhead tagline, body description, caption tech list, then a pill plus chevron link. Below md everything stacks and centres. The device frame (graphite bezel on light tiles, #2c2c2e on dark) holds a 16:9 screen, with the project accessory (if any) beneath it.
 
+### Beyond-the-Code Bento (signature)
+Right after the About deck, on stage: a 12-column bento of 28px photo tiles (7-wide pieces, one 5-wide tall piece spanning two rows, dense flow). Photos bleed to the edges under a black-to-clear gradient, with a title-large-ish statement and body in ink-light. An object photographed on white (the original Xbox) sits whole on a paper tile instead. A passion with several photos becomes a triptych with 3px joints. Tiles rise 56px out of a 10px blur via the `tile-rise` view-timeline, and photos zoom 5% slowly on hover. Every third-party photo is credited (author, license, source) in a disclosure under the grid.
+
+### Halo Ring World Tile
+The Halo passion is a full-width tile laid out like a project tile, on a deep-space radial ground. On the left are the public-domain Halo: CE text logo, the body copy and the cover art (supplied by the owner) as the accessory, with the device-stand shadow. On the right, a Three.js ring world (`components/HaloRing.tsx`) built from its own geometry, with colors and framing modelled on a reference render. It stands vertical and nearly edge-on: a gunmetal hull with a row of cyan lights on one side, an icy teal and dark-green inner face on the other, silver-pink rims, cool key light, pink rim light and a starfield. It is seen through `ShipViewport`, an octagonal brushed-metal spaceship window with an inner bevel, eight rivets, an inset glass shadow and a faint reflection. The ring is centered by its projected silhouette and the camera distance is fitted so the silhouette fills about 85% of the glass at any aspect. It spins slowly and drifts with the pointer. The music triptych captions each band photo with its favorite album: the cover (supplied by the owner, with an object shadow), title and year.
+
+### Contact Galaxy Splash
+The Contact section reuses the Three.js galaxy at 60% density with no backdrop. On entering view it is born from a point: it spins open with a slight overshoot, a pale-blue shockwave ring runs out from the core, the stars fade in and the core flashes once. It replays every time the section re-enters, and stands still under reduced motion.
+
 ### Keynote Deck (signature)
 A graphite 16:9 stage (taller on mobile) cross-dissolving five slides over 900ms with blur and a slight scale. A 3px progress bar fills along the top during autoplay. Below it sits a pill tray of dots (the active one stretches to 32px wide) and 56px round graphite controls for previous, next and play/pause. Keyboard arrows and swipe also advance it.
 

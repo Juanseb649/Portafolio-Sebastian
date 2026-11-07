@@ -64,3 +64,36 @@ export interface SpecRow {
   label: Localized;
   items: SpecItem[];
 }
+
+/** Imagen con su crédito: todas las fotos de terceros llevan autor y licencia. */
+export interface CreditedImage {
+  src: string;
+  alt: Localized;
+  author: string;
+  license: string;
+  /** Página de la obra en su fuente (p. ej. Wikimedia Commons). Las fotos propias no la necesitan. */
+  source?: string;
+  /** Punto de enfoque del recorte (CSS object-position), p. ej. '50% 80%'. */
+  focus?: string;
+  /** 'contain' para objetos fotografiados sobre blanco: se muestran completos sobre papel. */
+  fit?: 'cover' | 'contain';
+  /** Disco favorito asociado a la foto (p. ej. en el tríptico de música). */
+  album?: { title: string; year: number; cover?: CreditedImage };
+}
+
+/** Una pasión fuera del código, para la sección «Más allá del código». */
+export interface Passion {
+  id: string;
+  title: Localized;
+  body: Localized;
+  /** Una imagen, o varias (se muestran en tríptico). */
+  images: CreditedImage[];
+  /** Cómo se presenta la foto: recortada a sangre o completa sobre papel (objetos con fondo blanco). */
+  fit?: 'cover' | 'object';
+  /** Tamaño en la cuadrícula a partir de md. */
+  span?: 'wide' | 'tall' | 'regular' | 'full';
+  /** Logo que encabeza la tarjeta en lugar del título en texto (el título queda para lectores de pantalla). */
+  logo?: CreditedImage;
+  /** Escena 3D que acompaña la descripción. */
+  scene?: 'halo-ring';
+}

@@ -7,6 +7,7 @@ import type { Localized } from '@/types';
 
 const links: { id: string; label: Localized }[] = [
   { id: 'sobre-mi', label: { es: 'Sobre mí', en: 'About' } },
+  { id: 'mas-alla', label: { es: 'Más allá', en: 'Beyond' } },
   { id: 'proyectos', label: { es: 'Proyectos', en: 'Projects' } },
   { id: 'testimonios', label: { es: 'Testimonios', en: 'Testimonials' } },
   { id: 'experiencia', label: { es: 'Experiencia', en: 'Experience' } },
