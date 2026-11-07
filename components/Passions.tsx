@@ -2,6 +2,7 @@
 
 import { useLanguage } from './LanguageProvider';
 import { passions } from '@/data/passions';
+import type { Localized, Passion } from '@/types';
 
 /** «Más allá del código»: lo que me gusta fuera de la programación y de la carrera. */
 export default function Passions() {
@@ -19,12 +20,34 @@ export default function Passions() {
 
         <ul className="mt-12 grid gap-3 md:mt-16">
           {passions.map((passion) => (
-            <li key={passion.id} className="rounded-[28px] bg-graphite p-8 text-ink-light">
-              {t(passion.title)}
-            </li>
+            <PassionTile key={passion.id} passion={passion} t={t} />
           ))}
         </ul>
       </div>
     </section>
+  );
+}
+
+/** Foto a sangre con el texto sobre un degradado en la base. */
+function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) => string }) {
+  const [image] = passion.images;
+  return (
+    <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={image.src} alt={t(image.alt)} loading="lazy" className="absolute inset-0 -z-10 h-full w-full object-cover" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
+      <PassionText passion={passion} t={t} />
+    </li>
+  );
+}
+
+function PassionText({ passion, t, dark = false }: { passion: Passion; t: (text: Localized) => string; dark?: boolean }) {
+  return (
+    <div className="p-8 md:p-10">
+      <h3 className={`text-[clamp(28px,3.2vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em] ${dark ? 'text-ink-dark' : 'text-ink-light'}`}>
+        {t(passion.title)}
+      </h3>
+      <p className={`mt-3 max-w-[42ch] text-[17px] leading-[1.47] ${dark ? 'text-mute-light' : 'text-[#d2d2d7]'}`}>{t(passion.body)}</p>
+    </div>
   );
 }
