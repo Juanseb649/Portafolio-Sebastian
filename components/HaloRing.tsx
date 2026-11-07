@@ -9,7 +9,7 @@ import * as THREE from 'three';
  */
 
 const RING_RADIUS = 3;
-const RING_WIDTH = 0.42;
+const RING_WIDTH = 0.3;
 
 /** Paisaje procedural de la cara interior: mar, continentes, montañas y nubes, que da la vuelta sin costuras. */
 function makeLandscapeTexture() {
@@ -87,6 +87,30 @@ function makeLandscapeTexture() {
   return texture;
 }
 
+/** Casco exterior metálico con paneles, visto por la mitad cercana del anillo. */
+function makeHullTexture() {
+  const width = 1024;
+  const height = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const ctx = canvas.getContext('2d')!;
+  ctx.fillStyle = '#8d96a3';
+  ctx.fillRect(0, 0, width, height);
+  // Juntas entre placas y una franja central de luces.
+  ctx.fillStyle = '#5d6571';
+  for (let x = 0; x < width; x += 32) ctx.fillRect(x, 0, 2, height);
+  ctx.fillRect(0, height * 0.32, width, 2);
+  ctx.fillRect(0, height * 0.66, width, 2);
+  ctx.fillStyle = '#b7c0cc';
+  for (let x = 8; x < width; x += 64) ctx.fillRect(x, height * 0.45, 14, 4);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.repeat.set(4, 1);
+  return texture;
+}
+
 export default function HaloRing({ className = '' }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -134,6 +158,22 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       new THREE.MeshStandardMaterial({ map: makeLandscapeTexture(), roughness: 0.9, metalness: 0, side: THREE.BackSide }),
     );
     band.add(land);
+
+    // Casco exterior, un poco más grande para no pelear con la cara interior.
+    const hull = new THREE.Mesh(
+      new THREE.CylinderGeometry(RING_RADIUS * 1.012, RING_RADIUS * 1.012, RING_WIDTH, 256, 1, true),
+      new THREE.MeshStandardMaterial({ map: makeHullTexture(), roughness: 0.45, metalness: 0.75, side: THREE.FrontSide }),
+    );
+    band.add(hull);
+
+    // Muros laterales: dos anillos planos que cierran la banda por arriba y por abajo.
+    const wallMaterial = new THREE.MeshStandardMaterial({ color: 0x9aa3af, roughness: 0.5, metalness: 0.7, side: THREE.DoubleSide });
+    for (const y of [RING_WIDTH / 2, -RING_WIDTH / 2]) {
+      const wall = new THREE.Mesh(new THREE.RingGeometry(RING_RADIUS * 0.985, RING_RADIUS * 1.012, 256), wallMaterial);
+      wall.rotation.x = -Math.PI / 2;
+      wall.position.y = y;
+      band.add(wall);
+    }
 
     const resize = () => {
       const width = container.clientWidth;
