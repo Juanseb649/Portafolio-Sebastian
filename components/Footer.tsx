@@ -19,8 +19,8 @@ export default function Footer() {
       <div className="mx-auto max-w-[1024px] px-6 py-5 md:px-[22px]">
         <p className="border-b border-rule-light pb-4">
           {language === 'es'
-            ? 'Portafolio construido con Next.js, TypeScript y Tailwind CSS. Imagen de la galaxia de Andrómeda usada como fondo del inicio.'
-            : 'Portfolio built with Next.js, TypeScript and Tailwind CSS. Andromeda galaxy image used as the home background.'}
+            ? 'Portafolio construido con Next.js, TypeScript, Tailwind CSS y Three.js. La galaxia del inicio se genera en 3D, inspirada en Andrómeda.'
+            : 'Portfolio built with Next.js, TypeScript, Tailwind CSS and Three.js. The home galaxy is rendered in 3D, inspired by Andromeda.'}
         </p>
         <div className="flex flex-col gap-3 pt-4 md:flex-row md:items-center md:justify-between">
           <p>

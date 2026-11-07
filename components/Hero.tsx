@@ -3,12 +3,13 @@
 import { useEffect, useRef } from 'react';
 import { useLanguage } from './LanguageProvider';
 import { ChevronLink, PillLink, Chevron } from './ui';
+import MilkyWay, { type MilkyWayPointer } from './MilkyWay';
 import { profile } from '@/data/profile';
 import type { Localized } from '@/types';
 
 const keynoteWords: Localized[] = [
-  { es: 'Calidad.', en: 'Quality.' },
-  { es: 'Documentación.', en: 'Documentation.' },
+  { es: 'Software.', en: 'Software.' },
+  { es: 'DevOps.', en: 'DevOps.' },
   { es: 'La nube.', en: 'The cloud.' },
 ];
 
@@ -46,6 +47,8 @@ export default function Hero() {
   const hintRef = useRef<HTMLParagraphElement>(null);
   const shadeRef = useRef<HTMLDivElement>(null);
   const wordRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const progressRef = useRef(0);
+  const lookRef = useRef<MilkyWayPointer>({ x: 0, y: 0 });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -110,16 +113,14 @@ export default function Hero() {
       const nx = width ? pointer.x / width - 0.5 : 0;
       const ny = height ? pointer.y / height - 0.5 : 0;
 
-      // Galaxia: apertura de keynote, paralaje y zoom hacia el núcleo con el scroll.
-      // La imagen original es pequeña: el zoom va acompañado de desenfoque y oscurecimiento,
-      // como una profundidad de campo, para que nunca se vea pixelada.
-      const scale = 1.12 - 0.12 * intro + p * 1.15;
-      const rotate = p * 9 + nx * 1.5;
-      const shiftX = -nx * 22 * (1 - p);
-      const shiftY = -ny * 16 * (1 - p);
-      const depth = smooth(0.08, 0.5, p);
-      galaxy.style.transform = `translate3d(${shiftX}px, ${shiftY}px, 0) scale(${scale}) rotate(${rotate}deg)`;
-      galaxy.style.filter = depth > 0.01 ? `blur(${depth * 7}px) brightness(${1 - depth * 0.5})` : 'none';
+      // Galaxia 3D: el componente lee el avance y el cursor para mover la cámara hacia el núcleo.
+      progressRef.current = p;
+      lookRef.current.x = nx * pointer.strength;
+      lookRef.current.y = ny * pointer.strength;
+      galaxy.style.transform = `scale(${1.06 - 0.06 * intro})`;
+      // Mientras aparecen las palabras el cielo baja de brillo para que se lean sobre el núcleo.
+      const dim = smooth(0.14, 0.4, p);
+      galaxy.style.filter = dim > 0.01 ? `brightness(${1 - dim * 0.55}) saturate(${1 - dim * 0.2})` : 'none';
       galaxy.style.opacity = String(intro * (1 - smooth(0.7, 1, p) * 0.5));
 
       if (introRef.current) {
@@ -299,13 +300,10 @@ export default function Hero() {
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 touch-pan-y select-none">
           <div ref={galaxyRef} className="absolute inset-0 will-change-transform [transform-origin:50%_46%]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/andromeda.webp"
-              alt=""
-              draggable={false}
-              fetchPriority="high"
-              className="absolute left-1/2 top-[46%] w-[max(100vw,182svh)] max-w-none -translate-x-1/2 -translate-y-1/2 [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)] portrait:w-[235vw]"
+            <MilkyWay
+              progress={progressRef}
+              pointer={lookRef}
+              className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000_12%,#000_88%,transparent)]"
             />
           </div>
 

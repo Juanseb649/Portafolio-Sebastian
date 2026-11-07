@@ -20,55 +20,58 @@ export default function Projects() {
 
       <div className="mt-12 flex flex-col gap-3 px-3 md:mt-16">
         {projects.map((project, index) => (
-          <ProjectTile key={project.id} project={project} dark={index % 2 === 1} />
+          <ProjectTile key={project.id} project={project} dark={index % 2 === 1} flip={index % 2 === 1} />
         ))}
       </div>
     </section>
   );
 }
 
-function ProjectTile({ project, dark }: { project: Project; dark: boolean }) {
+/** Tarjeta de proyecto: texto y pantalla lado a lado desde md; el lado de la pantalla se alterna. */
+function ProjectTile({ project, dark, flip }: { project: Project; dark: boolean; flip: boolean }) {
   const { language, t } = useLanguage();
 
   return (
     <article
-      className={`overflow-hidden rounded-[28px] pb-12 pt-14 text-center md:pb-20 md:pt-20 ${
+      className={`overflow-hidden rounded-[28px] py-14 text-center md:py-20 md:text-left ${
         dark ? 'bg-stage text-ink-light' : 'bg-paper text-ink-dark'
       }`}
     >
-      <div className="mx-auto max-w-[760px] px-6">
-        <h3 className="text-[clamp(36px,5vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em]">{project.name}</h3>
-        <p className="mt-2 text-[clamp(21px,2.4vw,28px)] font-medium leading-[1.2] tracking-[-0.01em]">{t(project.tagline)}</p>
-        <p className={`mx-auto mt-4 max-w-[52ch] text-[17px] leading-[1.47] ${dark ? 'text-[#a1a1a6]' : 'text-mute-light'}`}>
-          {t(project.description)}
-        </p>
-        {project.technologies.length > 0 && (
-          <p className={`mt-3 text-[14px] ${dark ? 'text-mute-dark' : 'text-mute-light'}`}>{project.technologies.join(' · ')}</p>
-        )}
+      <div className="mx-auto grid max-w-[1180px] items-center gap-12 px-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:gap-14 md:px-12 lg:gap-20">
+        <div className={flip ? 'md:order-2' : undefined}>
+          <h3 className="text-[clamp(36px,5vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em]">{project.name}</h3>
+          <p className="mt-2 text-[clamp(21px,2.4vw,28px)] font-medium leading-[1.2] tracking-[-0.01em]">{t(project.tagline)}</p>
+          <p className={`mx-auto mt-4 max-w-[52ch] text-[17px] leading-[1.47] md:mx-0 ${dark ? 'text-[#a1a1a6]' : 'text-mute-light'}`}>
+            {t(project.description)}
+          </p>
+          {project.technologies.length > 0 && (
+            <p className={`mt-3 text-[14px] ${dark ? 'text-mute-dark' : 'text-mute-light'}`}>{project.technologies.join(' · ')}</p>
+          )}
 
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          {project.liveUrl && (
-            <PillLink href={project.liveUrl} target="_blank" rel="noopener noreferrer" size="sm" className="!px-[15px] !py-[8px] !text-[14px]">
-              {language === 'es' ? 'Visitar sitio' : 'Visit site'}
-            </PillLink>
-          )}
-          {project.githubUrl && (
-            <ChevronLink
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-[17px] ${dark ? 'text-link-dark' : 'text-link-light'}`}
-            >
-              GitHub
-            </ChevronLink>
-          )}
-          {!project.liveUrl && project.availability && (
-            <p className={`text-[14px] ${dark ? 'text-mute-dark' : 'text-mute-light'}`}>{t(project.availability)}</p>
-          )}
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 md:justify-start">
+            {project.liveUrl && (
+              <PillLink href={project.liveUrl} target="_blank" rel="noopener noreferrer" size="sm" className="!px-[15px] !py-[8px] !text-[14px]">
+                {language === 'es' ? 'Visitar sitio' : 'Visit site'}
+              </PillLink>
+            )}
+            {project.githubUrl && (
+              <ChevronLink
+                href={project.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`text-[17px] ${dark ? 'text-link-dark' : 'text-link-light'}`}
+              >
+                GitHub
+              </ChevronLink>
+            )}
+            {!project.liveUrl && project.availability && (
+              <p className={`text-[14px] ${dark ? 'text-mute-dark' : 'text-mute-light'}`}>{t(project.availability)}</p>
+            )}
+          </div>
         </div>
-      </div>
 
-      <Display project={project} dark={dark} />
+        <Display project={project} dark={dark} className={flip ? 'md:order-1' : undefined} />
+      </div>
     </article>
   );
 }
@@ -145,12 +148,12 @@ function Reel({ src, poster, label }: { src: string; poster?: string; label: str
   );
 }
 
-/** Pantalla completa con marco y pantalla 16:9; debajo, el accesorio del proyecto si lo tiene. */
-function Display({ project, dark }: { project: Project; dark: boolean }) {
+/** Pantalla con marco y pantalla 16:9; debajo, el accesorio del proyecto si lo tiene. */
+function Display({ project, dark, className = '' }: { project: Project; dark: boolean; className?: string }) {
   const { language, t } = useLanguage();
 
   return (
-    <div className="relative mx-auto mt-12 w-[min(92%,880px)] md:mt-16">
+    <div className={`relative mx-auto w-full max-w-[720px] ${className}`}>
       <div
         className={`rounded-[22px] p-[8px] shadow-[0_30px_60px_-24px_rgba(0,0,0,0.45)] md:p-[14px] ${
           dark ? 'bg-[#2c2c2e] ring-1 ring-white/10' : 'bg-[#1d1d1f]'
@@ -177,7 +180,7 @@ function Display({ project, dark }: { project: Project; dark: boolean }) {
       </div>
 
       {project.accessory && (
-        <figure className="mx-auto mt-10 flex w-[clamp(150px,30%,260px)] flex-col items-center md:mt-14">
+        <figure className="mx-auto mt-8 flex w-[clamp(140px,32%,220px)] flex-col items-center md:mt-10">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={project.accessory.src}

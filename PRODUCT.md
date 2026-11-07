@@ -16,7 +16,7 @@ Recruiters, hiring managers, and clients evaluating Juan Sebastián Ibarra Salas
 
 ## Product Purpose
 
-Personal portfolio of Juan Sebastián Ibarra Salas, Software Engineering student (Universidad Cooperativa de Colombia, 2024–present) and freelance developer. Success: a visitor understands who he is, sees real shipped work, downloads the CV, and knows how to contact him.
+Personal portfolio of Juan Sebastián Ibarra Salas, Software Engineering student (Universidad Cooperativa de Colombia, 2024–present). Success: a visitor understands who he is, sees real shipped work, downloads the CV, and knows how to contact him.
 
 ## Positioning
 
@@ -30,7 +30,7 @@ Required sections (course checklist): sticky navigation with logo/name, anchors,
 
 - CV: `public/CV_Juan_Sebastian_Ibarra_Salas.pdf`
 - Portrait: `public/images/perfil-sebastian.jpeg`
-- Hero image: Andromeda galaxy wallpaper (Apple macOS style) supplied by the user.
+- Hero: a Three.js spiral galaxy (`components/MilkyWay.tsx`) modelled on the Andromeda wallpaper supplied by the user; the webp remains as the no-WebGL fallback.
 - Projects: SATRAA – Empopasto (Java, Spring Boot; private, no public repo or URL), A&C Soluciones en TI landing page (JavaScript; live at https://www.aycsolucionesenti.com/). Projects are shown with a product image and a link to the website; no public repositories.
 - Education: Ingeniería de Software (UCC, 2024–present), Google Cloud Fundamentals (2025), EF SET 54/100 B2 (2025).
 - Contact: ibarrajuan930@gmail.com, LinkedIn https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/, GitHub https://github.com/JuanSebasIbarra
@@ -45,4 +45,4 @@ Required sections (course checklist): sticky navigation with logo/name, anchors,
 
 ## Brand Commitments
 
-User-pinned direction: Apple keynote / product-launch presentation style, with an interactive hero built on the Andromeda galaxy image. The previous look is discarded entirely.
+User-pinned direction: Apple keynote / product-launch presentation style, with an interactive hero: a Three.js galaxy modelled on the Andromeda image. Hero keynote words: Software, DevOps, the cloud. About slides speak warmly and directly to recruiters. The previous look is discarded entirely.

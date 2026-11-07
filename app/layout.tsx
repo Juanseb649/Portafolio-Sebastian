@@ -9,10 +9,10 @@ const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono'
 export const metadata: Metadata = {
   title: 'Sebastián Ibarra · Ingeniero de Software',
   description:
-    'Portafolio de Juan Sebastián Ibarra Salas: ingeniero de software enfocado en calidad, documentación técnica y la nube.',
+    'Portafolio de Juan Sebastián Ibarra Salas: ingeniero de software que construye productos web y se adentra en DevOps y la nube.',
   openGraph: {
     title: 'Sebastián Ibarra · Ingeniero de Software',
-    description: 'Calidad, documentación técnica y la nube.',
+    description: 'Software, DevOps y la nube.',
     images: ['/images/andromeda.webp'],
   },
 };

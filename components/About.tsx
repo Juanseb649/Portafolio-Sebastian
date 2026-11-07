@@ -15,45 +15,40 @@ const slides: Slide[] = [
   {
     id: 'hola',
     kind: 'portrait',
-    title: { es: 'Hola. Soy Sebastián.', en: 'Hi. I’m Sebastián.' },
+    title: { es: 'Hola, soy Sebastián.', en: 'Hi, I’m Sebastián.' },
     body: {
-      es: 'Ingeniero de software y desarrollador freelance. Me interesa construir productos mantenibles, documentados y con criterios claros de calidad.',
-      en: 'Software engineer and freelance developer. I care about building maintainable, well-documented products with clear quality criteria.',
+      es: 'Estudio Ingeniería de Software y disfruto construir productos que la gente usa de verdad. En estas diapositivas te cuento cómo trabajo.',
+      en: 'I study Software Engineering and love building products people actually use. These slides show you how I work.',
     },
   },
   {
-    id: 'documentacion',
+    id: 'equipo',
     kind: 'statement',
-    title: { es: 'Primero, entender.', en: 'First, understand.' },
+    title: { es: 'Comprender el contexto.', en: 'Understanding the context.' },
     body: {
-      es: 'Documentación técnica y análisis funcional dentro de equipos ágiles. Cada entrega debe poder leerla el equipo de hoy y el de mañana.',
-      en: 'Technical documentation and functional analysis inside agile teams. Every delivery should read clearly for today’s team and tomorrow’s.',
+      es: 'En equipos ágiles me encargo de entender qué se necesita antes de escribir código, y de dejarlo claro para que todos avancemos en la misma dirección.',
+      en: 'In agile teams I make sure we understand what’s needed before writing code, and I put it in plain words so everyone moves in the same direction.',
     },
   },
   {
-    id: 'calidad',
+    id: 'detalles',
     kind: 'statement',
-    title: { es: 'Después, probarlo todo.', en: 'Then, test everything.' },
+    title: { es: 'Cuidar los detalles.', en: 'Sweat the details.' },
     body: {
-      es: 'Análisis de requerimientos, pruebas manuales y automatizadas, y código limpio con trazabilidad y colaboración de verdad.',
-      en: 'Requirement analysis, manual and automated testing, and clean code with real traceability and collaboration.',
+      es: 'Pruebo lo que construyo con pruebas automatizadas, y escribo código que otra persona pueda entender y mejorar sin miedo.',
+      en: 'I test what I build with automated tests, and write code someone else can understand and improve without fear.',
     },
   },
   {
     id: 'nube',
     kind: 'statement',
-    title: { es: 'Siguiente parada: la nube.', en: 'Next stop: the cloud.' },
+    title: { es: 'DevOps y la nube.', en: 'DevOps and the cloud.' },
     body: {
-      es: 'Estoy fortaleciendo Linux, fundamentos de infraestructura y principios de escalabilidad para diseñar soluciones más robustas.',
-      en: 'I’m strengthening Linux, infrastructure fundamentals and scalability principles to design more robust solutions.',
+      es: 'Estoy aprendiendo Linux, infraestructura y automatización para llevar lo que construimos a producción con confianza. Me encantaría seguir creciendo en un equipo como el tuyo.',
+      en: 'I’m learning Linux, infrastructure and automation to ship what we build to production with confidence. I’d love to keep growing on a team like yours.',
     },
   },
-  {
-    id: 'cita',
-    kind: 'quote',
-    quote: 'You know you’re brilliant, but maybe you’d like to understand what you did 2 weeks from now.',
-    author: 'Linus Torvalds',
-  },
+
 ];
 
 const AUTOPLAY_MS = 6500;
@@ -112,7 +107,7 @@ export default function About() {
       <div className="mx-auto max-w-[1180px] px-4 md:px-[22px]">
         <h2 className="max-w-[1024px] px-2 text-[clamp(40px,6vw,80px)] font-semibold leading-[1.02] tracking-[-0.035em] text-ink-light md:mx-auto md:px-0">
           {language === 'es' ? 'Sobre mí.' : 'About me.'}
-          <span className="block text-mute-dark">{language === 'es' ? 'En cinco diapositivas.' : 'In five slides.'}</span>
+          <span className="block text-mute-dark">{language === 'es' ? 'En cuatro diapositivas.' : 'In four slides.'}</span>
         </h2>
 
         <div
