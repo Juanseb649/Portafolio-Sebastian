@@ -11,19 +11,10 @@ export const passions: Passion[] = [
     },
     images: [
       {
-        src: '/images/passions/xbox-original.webp',
-        alt: { es: 'La Xbox original con su control, la consola donde se estrenó Halo', en: 'The original Xbox and its controller, the console Halo launched on' },
-        author: 'Evan-Amos',
-        license: 'Dominio público',
-        source: 'https://commons.wikimedia.org/wiki/File:Xbox-console.jpg',
-        fit: 'contain',
-      },
-      {
-        src: '/images/passions/master-chief-cosplay.webp',
-        alt: { es: 'Cosplay de Master Chief con espada de energía en PAX South 2015', en: 'Master Chief cosplay with an energy sword at PAX South 2015' },
-        author: 'Daniel Benavides',
-        license: 'CC BY 2.0',
-        source: 'https://commons.wikimedia.org/wiki/File:PAX_South_2015_-_Master_Chief_(16175007527).jpg',
+        src: '/images/passions/halo-ce-cover.webp',
+        alt: { es: 'Portada de Halo: Combat Evolved: Master Chief frente al anillo', en: 'Halo: Combat Evolved cover art: Master Chief in front of the ring' },
+        author: 'Bungie / Microsoft',
+        license: 'Todos los derechos reservados',
       },
     ],
     logo: {

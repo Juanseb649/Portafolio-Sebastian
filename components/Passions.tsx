@@ -52,7 +52,7 @@ export default function Passions() {
   );
 }
 
-const LICENSE_EN: Record<string, string> = { 'Dominio público': 'Public domain', 'Foto propia': 'Own photo' };
+const LICENSE_EN: Record<string, string> = { 'Dominio público': 'Public domain', 'Foto propia': 'Own photo', 'Todos los derechos reservados': 'All rights reserved' };
 
 // Cuadrícula tipo bento: piezas anchas de 7 columnas y una alta que ocupa dos filas a la derecha.
 const SPAN: Record<NonNullable<Passion['span']>, string> = {
