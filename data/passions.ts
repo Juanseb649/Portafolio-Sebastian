@@ -111,8 +111,8 @@ export const passions: Passion[] = [
     id: 'calistenia',
     title: { es: 'Calistenia.', en: 'Calisthenics.' },
     body: {
-      es: 'Entreno con el peso de mi cuerpo. Constancia y disciplina, igual que al programar.',
-      en: 'I train with my own body weight. Consistency and discipline, just like coding.',
+      es: 'Entreno con el peso de mi cuerpo. Me mantiene activo, me ayuda a despejar la mente y siempre me da una meta nueva por alcanzar.',
+      en: 'I train with my own body weight. It keeps me active, clears my head and always gives me a new goal to reach.',
     },
     images: [
       {
