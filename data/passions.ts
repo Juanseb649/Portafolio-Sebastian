@@ -89,4 +89,22 @@ export const passions: Passion[] = [
     ],
     span: 'tall',
   },
+  {
+    id: 'viajes',
+    title: { es: 'Viajar e idiomas.', en: 'Travel and languages.' },
+    body: {
+      es: 'En 2022 pasé un verano en Connecticut trabajando en Incarnation Camp, y hoy tengo inglés B2. Me encanta conocer otras culturas.',
+      en: 'In 2022 I spent a summer in Connecticut working at Incarnation Camp, and today my English is B2. I love getting to know other cultures.',
+    },
+    images: [
+      {
+        src: '/images/passions/connecticut-autumn.webp',
+        alt: { es: 'Árbol otoñal junto a una cerca blanca en Connecticut', en: 'An autumn tree beside a white picket fence in Connecticut' },
+        author: 'Tony Webster',
+        license: 'CC BY-SA 2.0',
+        source: 'https://commons.wikimedia.org/wiki/File:Taconic_Autumn_Leaves_Connecticut_(30750251750).jpg',
+      },
+    ],
+    span: 'regular',
+  },
 ];
