@@ -19,8 +19,8 @@ export const experience: ExperienceItem[] = [
     title: { es: 'SATRAA', en: 'SATRAA' },
     organization: 'Empopasto',
     description: {
-      es: 'Aplicación web en Java y Spring Boot para gestionar los trabajos de alcantarillado de la ciudad.',
-      en: 'Java and Spring Boot web application to manage the city’s sewer maintenance work.',
+      es: 'Aplicación web con Spring Boot y prácticas DevOps para gestionar los trabajos de alcantarillado de la ciudad.',
+      en: 'Spring Boot web application, built with DevOps practices, to manage the city’s sewer maintenance work.',
     },
   },
   {
