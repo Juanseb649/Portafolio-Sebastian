@@ -30,9 +30,10 @@ export default function Contact() {
     <section id="contacto" className="relative overflow-hidden bg-stage pb-48 pt-28 text-center md:pb-64 md:pt-40">
       {/* La misma galaxia del inicio, más tenue y asomando por debajo del contenido. */}
       <MilkyWay
-        density={0.45}
+        density={0.6}
         backdrop={false}
-        className="pointer-events-none absolute inset-x-0 bottom-[-22%] h-[70%] opacity-80 [mask-image:radial-gradient(80%_70%_at_50%_55%,#000_45%,transparent)]"
+        splash
+        className="pointer-events-none absolute inset-x-0 bottom-[-14%] h-[78%] [mask-image:radial-gradient(85%_75%_at_50%_55%,#000_55%,transparent)]"
       />
       <div className="relative mx-auto max-w-[1024px] px-6 md:px-[22px]">
         <h2 className="headline-rise text-[clamp(56px,9vw,96px)] font-semibold leading-[1] tracking-[-0.04em] text-ink-light">
