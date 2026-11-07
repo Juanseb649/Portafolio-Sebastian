@@ -17,8 +17,8 @@ const slides: Slide[] = [
     kind: 'portrait',
     title: { es: 'Hola, soy Sebastián.', en: 'Hi, I’m Sebastián.' },
     body: {
-      es: 'Estudio Ingeniería de Software y disfruto construir productos que la gente usa de verdad. Gracias por pasar por aquí: en estas diapositivas te cuento cómo trabajo.',
-      en: 'I study Software Engineering and love building products people actually use. Thanks for stopping by: these slides show you how I work.',
+      es: 'Estudio Ingeniería de Software y disfruto construir productos que la gente usa de verdad. En estas diapositivas te cuento cómo trabajo.',
+      en: 'I study Software Engineering and love building products people actually use. These slides show you how I work.',
     },
   },
   {
