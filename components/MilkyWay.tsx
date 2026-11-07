@@ -152,6 +152,35 @@ function buildDisk({ count, radius, size, opacity = 1, twinkle = 0, armShare = 0
   return makeLayer(positions, colors, sizes, { opacity, twinkle });
 }
 
+/** Bandas de polvo: puntos oscuros con mezcla normal que dibujan las vetas marrones entre los brazos. */
+function buildDust(count: number, radius: number): Layer {
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+  const color = new THREE.Color();
+  const tones = [new THREE.Color('#2b140f'), new THREE.Color('#3a1c1a'), new THREE.Color('#1c1426')];
+  const spin = 1.55;
+
+  for (let i = 0; i < count; i += 1) {
+    const r = radius * (0.16 + Math.pow(Math.random(), 1.1) * 0.7);
+    // Desfasadas respecto a los brazos para quedar en su borde interior.
+    let angle = ((i % 2) / 2) * Math.PI * 2 + r * spin - 0.42 + gauss() * 0.3;
+    // Vetas discontinuas: se descartan tramos según una onda en el ángulo.
+    if (Math.sin(angle * 3.0 + r * 2.1) < -0.25) angle += 0.9 + Math.random() * 0.6;
+    const scatter = 0.2 + (r / radius) * 0.5;
+    positions[i * 3] = Math.cos(angle) * r + gauss() * scatter;
+    positions[i * 3 + 1] = gauss() * 0.05;
+    positions[i * 3 + 2] = Math.sin(angle) * r + gauss() * scatter;
+    color.copy(tones[i % tones.length]);
+    colors[i * 3] = color.r;
+    colors[i * 3 + 1] = color.g;
+    colors[i * 3 + 2] = color.b;
+    sizes[i] = 3 + Math.random() * 5;
+  }
+
+  return makeLayer(positions, colors, sizes, { opacity: 0.13, blending: THREE.NormalBlending });
+}
+
 /** Resplandor del núcleo: plano en el plano galáctico para que se vea elíptico como el disco. */
 function buildCoreGlow(): THREE.Mesh {
   const size = 256;
@@ -217,9 +246,13 @@ export default function MilkyWay({ className = '' }: { className?: string }) {
     const layers: Layer[] = [
       // Bruma: pocos puntos grandes y tenues que dan el aspecto nebuloso del disco.
       buildDisk({ count: small ? 3500 : 7000, radius, size: [7, 16], opacity: 0.07, armShare: 0.55, sprinkle: false }),
+      // Polvo entre la bruma y las estrellas para que oscurezca el brillo sin tapar los puntos.
+      buildDust(small ? 5000 : 10000, radius),
       // Estrellas del disco.
       buildDisk({ count: small ? 32000 : 64000, radius, size: [0.5, 1.4], twinkle: 0.25 }),
     ];
+    // El orden de dibujo respeta el de la lista (bruma, polvo, estrellas).
+    layers.forEach((layer, order) => (layer.points.renderOrder = order));
     layers.forEach((layer) => galaxy.add(layer.points));
     const core = buildCoreGlow();
     galaxy.add(core);
