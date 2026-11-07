@@ -32,7 +32,7 @@ export const testimonials: Testimonial[] = [
     },
 
     name: 'Jesús Alver Zúñiga',
-    role: { es: 'Mercado Libre Colombia · A&C Soluciones en TI', en: 'Mercado Libre Colombia · A&C Soluciones en TI' },
+    role: { es: 'A&C Soluciones en TI', en: 'A&C Soluciones en TI' },
     photo: '/images/people/jesus-alver-zuniga.png',
     logo: '/images/logos/ayc-soluciones.png',
     note: {

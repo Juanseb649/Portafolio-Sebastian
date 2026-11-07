@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLanguage } from './LanguageProvider';
 import { ChevronLink, PillLink } from './ui';
 import { profile } from '@/data/profile';
+import MilkyWay from './MilkyWay';
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -26,14 +27,12 @@ export default function Contact() {
   }[copied];
 
   return (
-    <section id="contacto" className="relative overflow-hidden bg-stage py-28 text-center md:py-40">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/images/andromeda.webp"
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        className="pointer-events-none absolute left-1/2 top-full w-[max(140vw,1400px)] max-w-none -translate-x-1/2 -translate-y-[38%] rotate-[-8deg] opacity-45 [mask-image:radial-gradient(closest-side,#000_40%,transparent)]"
+    <section id="contacto" className="relative overflow-hidden bg-stage pb-48 pt-28 text-center md:pb-64 md:pt-40">
+      {/* La misma galaxia del inicio, más tenue y asomando por debajo del contenido. */}
+      <MilkyWay
+        density={0.45}
+        backdrop={false}
+        className="pointer-events-none absolute inset-x-0 bottom-[-22%] h-[70%] opacity-80 [mask-image:radial-gradient(80%_70%_at_50%_55%,#000_45%,transparent)]"
       />
       <div className="relative mx-auto max-w-[1024px] px-6 md:px-[22px]">
         <h2 className="headline-rise text-[clamp(56px,9vw,96px)] font-semibold leading-[1] tracking-[-0.04em] text-ink-light">

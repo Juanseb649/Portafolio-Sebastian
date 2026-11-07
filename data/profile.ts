@@ -3,7 +3,7 @@ export const profile = {
   fullName: 'Juan Sebastián Ibarra Salas',
   email: 'ibarrajuan930@gmail.com',
   linkedin: 'https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/',
-  github: 'https://github.com/JuanSebasIbarra',
+  github: 'https://github.com/Juanseb649',
   cv: '/CV_Juan_Sebastian_Ibarra_Salas.pdf',
   portrait: '/images/perfil-sebastian.jpeg',
 };

@@ -13,6 +13,7 @@ export const projects: Project[] = [
       en: 'An action RPG built in Unity. The Frostspire seal has shattered and the Frost corrupts everything it touches. Cut through ambushes, face Gorvald the Corrupted Barbarian and the bosses of three chapters until you reach the Heart of the Frost. Every fight is won by dodging on time. Some aren’t won at all.',
     },
     technologies: ['Unity', 'C#', 'Blender'],
+    githubUrl: 'https://github.com/Juanseb649/Frostbound',
     video: '/videos/frostbound-reel.mp4',
     image: '/videos/frostbound-poster.jpg',
     accessory: {

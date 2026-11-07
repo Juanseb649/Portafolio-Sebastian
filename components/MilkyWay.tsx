@@ -24,6 +24,10 @@ interface MilkyWayProps {
   progress?: RefObject<number>;
   /** Cursor normalizado: paralaje suave de la cámara. */
   pointer?: RefObject<MilkyWayPointer>;
+  /** Multiplicador de partículas (0..1) para usos secundarios más livianos. */
+  density?: number;
+  /** Pinta el cielo azul noche detrás de la galaxia. */
+  backdrop?: boolean;
 }
 
 // Paradas de color del núcleo al borde, tomadas de la imagen de referencia.
@@ -290,7 +294,7 @@ function buildCoreGlow(): THREE.Mesh {
   return mesh;
 }
 
-export default function MilkyWay({ className = '', progress, pointer }: MilkyWayProps) {
+export default function MilkyWay({ className = '', progress, pointer, density = 1, backdrop = true }: MilkyWayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
 
@@ -327,11 +331,11 @@ export default function MilkyWay({ className = '', progress, pointer }: MilkyWay
     const radius = 6;
     const layers: Layer[] = [
       // Bruma: pocos puntos grandes y tenues que dan el aspecto nebuloso del disco.
-      buildDisk({ count: small ? 3500 : 7000, radius, size: [7, 16], opacity: 0.07, armShare: 0.55, sprinkle: false }),
+      buildDisk({ count: Math.round((small ? 3500 : 7000) * density), radius, size: [7, 16], opacity: 0.07, armShare: 0.55, sprinkle: false }),
       // Polvo entre la bruma y las estrellas para que oscurezca el brillo sin tapar los puntos.
-      buildDust(small ? 5000 : 10000, radius),
+      buildDust(Math.round((small ? 5000 : 10000) * density), radius),
       // Estrellas del disco.
-      buildDisk({ count: small ? 32000 : 64000, radius, size: [0.5, 1.4], twinkle: 0.25 }),
+      buildDisk({ count: Math.round((small ? 32000 : 64000) * density), radius, size: [0.5, 1.4], twinkle: 0.25 }),
     ];
     // El orden de dibujo respeta el de la lista (bruma, polvo, estrellas).
     layers.forEach((layer, order) => (layer.points.renderOrder = order));
@@ -339,7 +343,7 @@ export default function MilkyWay({ className = '', progress, pointer }: MilkyWay
     const core = buildCoreGlow();
     galaxy.add(core);
 
-    const sky = buildSky(small ? 2000 : 4200);
+    const sky = buildSky(Math.round((small ? 2000 : 4200) * density));
     scene.add(sky.points);
     layers.push(sky);
     const flares = buildFlares();
@@ -416,13 +420,13 @@ export default function MilkyWay({ className = '', progress, pointer }: MilkyWay
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [progress, pointer]);
+  }, [progress, pointer, density]);
 
   return (
     <div
       ref={containerRef}
       aria-hidden="true"
-      className={`bg-[radial-gradient(70%_60%_at_50%_46%,#12357a_0%,#0a2257_38%,#06133a_68%,#030a1f_100%)] ${className}`}
+      className={`${backdrop ? 'bg-[radial-gradient(70%_60%_at_50%_46%,#12357a_0%,#0a2257_38%,#06133a_68%,#030a1f_100%)]' : ''} ${className}`}
     >
       {failed && (
         // Sin WebGL: se muestra la imagen original como respaldo.
