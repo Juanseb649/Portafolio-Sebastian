@@ -33,7 +33,7 @@ Required sections (course checklist): sticky navigation with logo/name, anchors,
 - Hero: a Three.js spiral galaxy (`components/MilkyWay.tsx`) modelled on the Andromeda wallpaper supplied by the user; the webp remains as the no-WebGL fallback.
 - Projects: SATRAA – Empopasto (Java, Spring Boot; private, no public repo or URL), A&C Soluciones en TI landing page (JavaScript; live at https://www.aycsolucionesenti.com/). Projects are shown with a product image and a link to the website; no public repositories.
 - Education: Ingeniería de Software (UCC, 2024–present), Google Cloud Fundamentals (2025), EF SET 54/100 B2 (2025).
-- Contact: ibarrajuan930@gmail.com, LinkedIn https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/, GitHub https://github.com/JuanSebasIbarra
+- Contact: ibarrajuan930@gmail.com, LinkedIn https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/, GitHub https://github.com/Juanseb649
 - Testimonials: none yet. Ship three clearly marked placeholders in `data/` for the user to replace; never present them as real quotes.
 - SATRAA product image: not available yet; placeholder for the user to replace.
 
