@@ -43,7 +43,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   if (passion.fit === 'object') {
     // Objeto fotografiado sobre blanco: se presenta completo sobre papel, como un producto.
     return (
-      <li className={`${area} flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-paper md:min-h-[460px]`}>
+      <li className={`tile-rise ${area} flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-paper md:min-h-[460px]`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={image.src} alt={t(image.alt)} loading="lazy" className="mx-auto mt-10 w-[min(82%,560px)] object-contain px-6" />
         <PassionText passion={passion} t={t} dark />
@@ -54,7 +54,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   if (passion.images.length > 1) {
     // Tríptico: una foto por artista, separadas por la misma junta de 3px que la cuadrícula.
     return (
-      <li className={`${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
+      <li className={`tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
         <div className="absolute inset-0 -z-10 grid grid-cols-3 gap-[3px]">
           {passion.images.map((photo) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -68,7 +68,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   }
 
   return (
-    <li className={`${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
+    <li className={`tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={image.src} alt={t(image.alt)} loading="lazy" style={{ objectPosition: image.focus }} className="absolute inset-0 -z-10 h-full w-full object-cover" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
