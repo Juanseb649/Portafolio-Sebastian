@@ -86,8 +86,17 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
       <li className={`group tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
         <div className="absolute inset-0 -z-10 grid grid-cols-3 gap-[3px]">
           {passion.images.map((photo) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={photo.src} src={photo.src} alt={t(photo.alt)} loading="lazy" style={{ objectPosition: photo.focus }} className="h-full w-full object-cover transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05]" />
+            <figure key={photo.src} className="relative overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={photo.src} alt={t(photo.alt)} loading="lazy" style={{ objectPosition: photo.focus }} className="h-full w-full object-cover transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05]" />
+              {photo.album && (
+                // Disco favorito de cada artista, arriba de su foto.
+                <figcaption className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-8 pt-3 md:px-4 md:pt-4">
+                  <span className="block text-[13px] font-semibold leading-tight tracking-[-0.01em] text-ink-light md:text-[15px]">{photo.album.title}</span>
+                  <span className="tabular block text-[12px] text-[#d2d2d7]">{photo.album.year}</span>
+                </figcaption>
+              )}
+            </figure>
           ))}
         </div>
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
