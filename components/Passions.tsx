@@ -18,7 +18,7 @@ export default function Passions() {
           </span>
         </h2>
 
-        <ul className="mt-12 grid gap-3 md:mt-16">
+        <ul className="mt-12 grid gap-3 md:mt-16 md:grid-flow-dense md:grid-cols-12">
           {passions.map((passion) => (
             <PassionTile key={passion.id} passion={passion} t={t} />
           ))}
@@ -28,14 +28,22 @@ export default function Passions() {
   );
 }
 
+// Cuadrícula tipo bento: piezas anchas de 7 columnas y una alta que ocupa dos filas a la derecha.
+const SPAN: Record<NonNullable<Passion['span']>, string> = {
+  wide: 'md:col-span-7',
+  tall: 'md:col-span-5 md:row-span-2',
+  regular: 'md:col-span-5',
+};
+
 /** Foto a sangre con el texto sobre un degradado en la base. */
 function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) => string }) {
   const [image] = passion.images;
+  const area = SPAN[passion.span ?? 'regular'];
 
   if (passion.fit === 'object') {
     // Objeto fotografiado sobre blanco: se presenta completo sobre papel, como un producto.
     return (
-      <li className="flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-paper md:min-h-[460px]">
+      <li className={`${area} flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-paper md:min-h-[460px]`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={image.src} alt={t(image.alt)} loading="lazy" className="mx-auto mt-10 w-[min(82%,560px)] object-contain px-6" />
         <PassionText passion={passion} t={t} dark />
@@ -46,7 +54,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   if (passion.images.length > 1) {
     // Tríptico: una foto por artista, separadas por la misma junta de 3px que la cuadrícula.
     return (
-      <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
+      <li className={`${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
         <div className="absolute inset-0 -z-10 grid grid-cols-3 gap-[3px]">
           {passion.images.map((photo) => (
             // eslint-disable-next-line @next/next/no-img-element
@@ -60,7 +68,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   }
 
   return (
-    <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
+    <li className={`${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={image.src} alt={t(image.alt)} loading="lazy" className="absolute inset-0 -z-10 h-full w-full object-cover" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
