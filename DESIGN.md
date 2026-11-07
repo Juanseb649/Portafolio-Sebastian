@@ -213,7 +213,7 @@ A centred 1024px column (1180px for the About deck) with 24px mobile and 22px de
 
 ## Elevation & Depth
 
-The system is flat and tonal. Depth comes from ground changes (stage to floor to paper), the translucent blurred nav, and photographic light (the Andromeda image, its vignettes and masks). There is exactly one shadow, under the device bezel on product tiles, making the screen read as hardware standing on the floor.
+The system is flat and tonal. Depth comes from ground changes (stage to floor to paper), the translucent blurred nav, and the light of the hero galaxy (a Three.js point-cloud modelled on Andromeda, with its vignettes and masks). There is exactly one shadow, under the device bezel on product tiles, making the screen read as hardware standing on the floor.
 
 ### Shadow Vocabulary
 - **Device Stand** (`box-shadow: 0 30px 60px -20px rgba(0,0,0,0.35)`): only beneath the display frame in a product tile.
@@ -249,7 +249,7 @@ The secondary action, always paired beside or below a pill.
 A 44px bar fixed to the top: black at 75% opacity with a heavy backdrop blur and 1.8x saturation, and a 6% white hairline below. The name sits left at 14px weight 600; anchors at 12px in rule-light at 80% turn ink-light when hovered or when their section is in view. Right side: ES/EN toggle in 12px uppercase and the small action pill. Mobile collapses to a two-bar toggle that morphs into an X, opening a 95% black full-screen sheet with 28px weight-600 links that drop in with a 35ms stagger.
 
 ### Product Tile (signature)
-A near-full-bleed 28px tile, alternating paper and stage, with centred title-large name, subhead tagline, body description, caption tech list, then a pill plus chevron link. Below, a device frame (graphite bezel on light tiles, #2c2c2e on dark) holds a 16:10 screen and is cropped by the tile's bottom edge.
+A near-full-bleed 28px tile, alternating paper and stage. From md up it is a two-column grid (text 1fr : device 1.3fr) whose device side alternates tile by tile; the text column is left-aligned with the title-large name, subhead tagline, body description, caption tech list, then a pill plus chevron link. Below md everything stacks and centres. The device frame (graphite bezel on light tiles, #2c2c2e on dark) holds a 16:9 screen, with the project accessory (if any) beneath it.
 
 ### Keynote Deck (signature)
 A graphite 16:9 stage (taller on mobile) cross-dissolving five slides over 900ms with blur and a slight scale. A 3px progress bar fills along the top during autoplay. Below it sits a pill tray of dots (the active one stretches to 32px wide) and 56px round graphite controls for previous, next and play/pause. Keyboard arrows and swipe also advance it.
