@@ -64,3 +64,26 @@ export interface SpecRow {
   label: Localized;
   items: SpecItem[];
 }
+
+/** Imagen con su crédito: todas las fotos de terceros llevan autor y licencia. */
+export interface CreditedImage {
+  src: string;
+  alt: Localized;
+  author: string;
+  license: string;
+  /** Página de la obra en su fuente (p. ej. Wikimedia Commons). */
+  source: string;
+}
+
+/** Una pasión fuera del código, para la sección «Más allá del código». */
+export interface Passion {
+  id: string;
+  title: Localized;
+  body: Localized;
+  /** Una imagen, o varias (se muestran en tríptico). */
+  images: CreditedImage[];
+  /** Cómo se presenta la foto: recortada a sangre o completa sobre papel (objetos con fondo blanco). */
+  fit?: 'cover' | 'object';
+  /** Tamaño en la cuadrícula a partir de md. */
+  span?: 'wide' | 'tall' | 'regular';
+}
