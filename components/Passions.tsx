@@ -31,6 +31,18 @@ export default function Passions() {
 /** Foto a sangre con el texto sobre un degradado en la base. */
 function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) => string }) {
   const [image] = passion.images;
+
+  if (passion.fit === 'object') {
+    // Objeto fotografiado sobre blanco: se presenta completo sobre papel, como un producto.
+    return (
+      <li className="flex min-h-[420px] flex-col justify-between overflow-hidden rounded-[28px] bg-paper md:min-h-[460px]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={image.src} alt={t(image.alt)} loading="lazy" className="mx-auto mt-10 w-[min(82%,560px)] object-contain px-6" />
+        <PassionText passion={passion} t={t} dark />
+      </li>
+    );
+  }
+
   return (
     <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
