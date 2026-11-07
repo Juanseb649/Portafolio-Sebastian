@@ -58,6 +58,7 @@ const SPAN: Record<NonNullable<Passion['span']>, string> = {
   wide: 'md:col-span-7',
   tall: 'md:col-span-5 md:row-span-2',
   regular: 'md:col-span-5',
+  full: 'md:col-span-12',
 };
 
 /** Foto a sangre con el texto sobre un degradado en la base. */

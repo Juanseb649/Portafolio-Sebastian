@@ -75,6 +75,8 @@ export interface CreditedImage {
   source?: string;
   /** Punto de enfoque del recorte (CSS object-position), p. ej. '50% 80%'. */
   focus?: string;
+  /** Disco favorito asociado a la foto (p. ej. en el tríptico de música). */
+  album?: { title: string; year: number };
 }
 
 /** Una pasión fuera del código, para la sección «Más allá del código». */
@@ -87,5 +89,9 @@ export interface Passion {
   /** Cómo se presenta la foto: recortada a sangre o completa sobre papel (objetos con fondo blanco). */
   fit?: 'cover' | 'object';
   /** Tamaño en la cuadrícula a partir de md. */
-  span?: 'wide' | 'tall' | 'regular';
+  span?: 'wide' | 'tall' | 'regular' | 'full';
+  /** Logo que encabeza la tarjeta en lugar del título en texto (el título queda para lectores de pantalla). */
+  logo?: CreditedImage;
+  /** Escena 3D que acompaña la descripción. */
+  scene?: 'halo-ring';
 }
