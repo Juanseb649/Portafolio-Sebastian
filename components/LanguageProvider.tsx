@@ -21,7 +21,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       const saved = window.localStorage.getItem(STORAGE_KEY);
       if (saved === 'es' || saved === 'en') setLanguageState(saved);
     } catch {
-      // Sin almacenamiento disponible: se queda en español.
+    
     }
   }, []);
 
