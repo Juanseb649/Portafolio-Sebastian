@@ -32,7 +32,7 @@ export default function Passions() {
             <Chevron className="ml-1.5 transition-transform duration-300 group-open/credits:rotate-90" />
           </summary>
           <ul className="mt-3 space-y-1">
-            {passions.flatMap((passion) => passion.images).map((image) => (
+            {passions.flatMap((passion) => (passion.logo ? [passion.logo, ...passion.images] : passion.images)).map((image) => (
               <li key={image.src}>
                 {t(image.alt)} ·{' '}
                 {image.source ? (
