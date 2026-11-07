@@ -92,7 +92,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
               {photo.album && (
                 // Disco favorito de cada artista, arriba de su foto.
                 <figcaption className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-8 pt-3 md:px-4 md:pt-4">
-                  <span className="block text-[13px] font-semibold leading-tight tracking-[-0.01em] text-ink-light md:text-[15px]">{photo.album.title}</span>
+                  <span className="block text-[12px] font-semibold leading-tight text-ink-light md:text-[14px]">{photo.album.title}</span>
                   <span className="tabular block text-[12px] text-[#d2d2d7]">{photo.album.year}</span>
                 </figcaption>
               )}
