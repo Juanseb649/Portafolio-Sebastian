@@ -1,6 +1,7 @@
 'use client';
 
 import { useLanguage } from './LanguageProvider';
+import { Chevron } from './ui';
 import { passions } from '@/data/passions';
 import type { Localized, Passion } from '@/types';
 
@@ -27,7 +28,7 @@ export default function Passions() {
         <details className="group/credits mx-auto mt-8 max-w-[1024px] px-2 text-[12px] leading-[1.6] text-mute-dark md:px-0">
           <summary className="cursor-pointer list-none select-none hover:text-[#d2d2d7] [&::-webkit-details-marker]:hidden">
             {language === 'es' ? 'Créditos de las imágenes' : 'Image credits'}
-            <span aria-hidden="true" className="ml-1 inline-block transition-transform duration-300 group-open/credits:rotate-90">›</span>
+            <Chevron className="ml-1.5 transition-transform duration-300 group-open/credits:rotate-90" />
           </summary>
           <ul className="mt-3 space-y-1">
             {passions.flatMap((passion) => passion.images).map((image) => (
