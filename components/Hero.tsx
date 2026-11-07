@@ -8,8 +8,8 @@ import { profile } from '@/data/profile';
 import type { Localized } from '@/types';
 
 const keynoteWords: Localized[] = [
-  { es: 'Calidad.', en: 'Quality.' },
-  { es: 'Documentación.', en: 'Documentation.' },
+  { es: 'Software.', en: 'Software.' },
+  { es: 'DevOps.', en: 'DevOps.' },
   { es: 'La nube.', en: 'The cloud.' },
 ];
 
