@@ -41,7 +41,16 @@ export const passions: Passion[] = [
         author: 'Andrew King',
         license: 'CC BY-SA 2.0',
         source: 'https://commons.wikimedia.org/wiki/File:Ozzy_Osbourne_Cardiff_1980.jpg',
-        album: { title: 'Down to Earth', year: 2001 },
+        album: {
+          title: 'Down to Earth',
+          year: 2001,
+          cover: {
+            src: '/images/passions/albums/down-to-earth.webp',
+            alt: { es: 'Portada de Down to Earth de Ozzy Osbourne', en: 'Cover of Ozzy Osbourne’s Down to Earth' },
+            author: 'Epic Records',
+            license: 'Todos los derechos reservados',
+          },
+        },
       },
       {
         src: '/images/passions/korn.webp',
