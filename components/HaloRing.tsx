@@ -259,12 +259,15 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     );
     scene.add(stars);
 
+    let distance = 10.5;
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
       if (!width || !height) return;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
+      // En vertical la cámara se aleja para que el anillo completo quepa a lo ancho.
+      distance = 10.5 * Math.max(1, 1.3 / camera.aspect);
       camera.updateProjectionMatrix();
     };
 
@@ -291,7 +294,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       const elapsed = clock.getElapsedTime();
       look.x += (look.tx - look.x) * 0.05;
       look.y += (look.ty - look.y) * 0.05;
-      camera.position.set(look.x * 2.2, 0.4 - look.y * 1.4 + Math.sin(elapsed * 0.3) * 0.08, 10.5);
+      camera.position.set(look.x * 2.2, 0.4 - look.y * 1.4 + Math.sin(elapsed * 0.3) * 0.08, distance);
       camera.lookAt(0, 0, 0);
       // Gira sobre su propio eje, como un mundo que rota para tener día y noche.
       band.rotation.y = elapsed * 0.06;
