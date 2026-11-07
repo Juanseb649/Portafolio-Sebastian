@@ -71,4 +71,22 @@ export const passions: Passion[] = [
     ],
     span: 'wide',
   },
+  {
+    id: 'calistenia',
+    title: { es: 'Calistenia.', en: 'Calisthenics.' },
+    body: {
+      es: 'Entreno con el peso de mi cuerpo. Constancia y disciplina, igual que al programar.',
+      en: 'I train with my own body weight. Consistency and discipline, just like coding.',
+    },
+    images: [
+      {
+        src: '/images/passions/calisthenics.webp',
+        alt: { es: 'Atletas haciendo paradas de manos en barras de street workout', en: 'Athletes doing handstands on street workout bars' },
+        author: 'Marsilar',
+        license: 'CC BY-SA 4.0',
+        source: 'https://commons.wikimedia.org/wiki/File:02025_0832_Street_workout_in_Bielsko-Bia%C5%82a.jpg',
+      },
+    ],
+    span: 'tall',
+  },
 ];
