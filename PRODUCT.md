@@ -35,9 +35,9 @@ Required sections (course checklist): sticky navigation with logo/name, anchors,
 - Education: Ingeniería de Software (UCC, 2024–present), Google Cloud Fundamentals (2025), EF SET 54/100 B2 (2025).
 - Contact: ibarrajuan930@gmail.com, LinkedIn https://www.linkedin.com/in/juan-sebasti%C3%A1n-ibarra-47742320b/, GitHub https://github.com/Juanseb649
 - Testimonials: none yet. Ship three clearly marked placeholders in `data/` for the user to replace; never present them as real quotes.
-- SATRAA product image: not available yet; placeholder for the user to replace.
 
-- Beyond the code (user-supplied): favorite game Halo: Combat Evolved; metal (Ozzy Osbourne, Korn, Megadeth); space and astronomy; calisthenics; travel and languages. Photos are freely licensed (Wikimedia Commons / NASA) and credited on the page.
+- Beyond the code (user-supplied): favorite game Halo: Combat Evolved; metal (Ozzy Osbourne, Korn, Megadeth), with favorite albums Down to Earth, Issues and Rust in Peace; space and astronomy; calisthenics; travel and languages (fluent English; the New York photo is the user's own).
+- SATRAA screenshot: reports dashboard supplied by the user (`public/images/projects/satraa.webp`); stack shown as DevOps and Spring Boot. Photos are freely licensed (Wikimedia Commons / NASA) and credited on the page.
 
 ## Product Principles
 

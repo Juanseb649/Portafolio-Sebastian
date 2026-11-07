@@ -254,6 +254,9 @@ A near-full-bleed 28px tile, alternating paper and stage. From md up it is a two
 ### Beyond-the-Code Bento (signature)
 Right after the About deck, on stage: a 12-column bento of 28px photo tiles (7-wide pieces, one 5-wide tall piece spanning two rows, dense flow). Photos bleed to the edges under a black-to-clear gradient, with a title-large-ish statement and body in ink-light. An object photographed on white (the original Xbox) sits whole on a paper tile instead. A passion with several photos becomes a triptych with 3px joints. Tiles rise 56px out of a 10px blur via the `tile-rise` view-timeline, and photos zoom 5% slowly on hover. Every third-party photo is credited (author, license, source) in a disclosure under the grid.
 
+### Halo Ring World Tile
+The Halo passion is a full-width tile: the public-domain Halo: CE text logo, body copy and two 4:3 photo chips (the original Xbox contained on paper, a Master Chief cosplay) on the left. On the right, a Three.js ring world (`components/HaloRing.tsx`) built from its own geometry: a procedural land, sea and cloud inner face, a panelled metal hull and side walls, a banded gas giant, a distant star and a starfield. It rotates slowly, drifts with the pointer and pulls back on portrait screens. The music triptych captions each band photo with its favorite album and year; album covers are not shown, because they are not freely licensed.
+
 ### Contact Galaxy Splash
 The Contact section reuses the Three.js galaxy at 60% density with no backdrop. On entering view it is born from a point: it spins open with a slight overshoot, a pale-blue shockwave ring runs out from the core, the stars fade in and the core flashes once. It replays every time the section re-enters, and stands still under reduced motion.
 
