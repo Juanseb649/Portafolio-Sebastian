@@ -75,7 +75,16 @@ export const passions: Passion[] = [
         author: 'Carlos Varela',
         license: 'CC BY 2.0',
         source: 'https://commons.wikimedia.org/wiki/File:Megadeth_en_Chile_2010.jpg',
-        album: { title: 'Rust in Peace', year: 1990 },
+        album: {
+          title: 'Rust in Peace',
+          year: 1990,
+          cover: {
+            src: '/images/passions/albums/rust-in-peace.webp',
+            alt: { es: 'Portada de Rust in Peace de Megadeth', en: 'Cover of Megadeth’s Rust in Peace' },
+            author: 'Capitol Records',
+            license: 'Todos los derechos reservados',
+          },
+        },
       },
     ],
     span: 'wide',
