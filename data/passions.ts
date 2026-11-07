@@ -40,8 +40,8 @@ export const passions: Passion[] = [
     id: 'metal',
     title: { es: 'Metal, a todo volumen.', en: 'Metal, turned all the way up.' },
     body: {
-      es: 'Ozzy Osbourne, Korn y Megadeth son mi lista de siempre.',
-      en: 'Ozzy Osbourne, Korn and Megadeth are always on my playlist.',
+      es: 'Ozzy Osbourne, Korn y Megadeth son mi lista de siempre. Mis discos: Down to Earth, Issues y Rust in Peace.',
+      en: 'Ozzy Osbourne, Korn and Megadeth are always on my playlist. My records: Down to Earth, Issues and Rust in Peace.',
     },
     images: [
       {
