@@ -298,6 +298,22 @@ function buildCoreGlow(): THREE.Mesh {
   return mesh;
 }
 
+/** Onda expansiva del splash: anillo luminoso en el plano galáctico. */
+function buildShockwave(): THREE.Mesh<THREE.RingGeometry, THREE.MeshBasicMaterial> {
+  const material = new THREE.MeshBasicMaterial({
+    color: new THREE.Color('#bcd4ff'),
+    transparent: true,
+    opacity: 0,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    side: THREE.DoubleSide,
+  });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.92, 1, 128), material);
+  ring.rotation.x = -Math.PI / 2;
+  ring.visible = false;
+  return ring;
+}
+
 export default function MilkyWay({ className = '', progress, pointer, density = 1, backdrop = true, splash = false }: MilkyWayProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
@@ -352,6 +368,8 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
     layers.push(sky);
     const flares = buildFlares();
     scene.add(flares);
+    const shockwave = buildShockwave();
+    galaxy.add(shockwave);
 
     let width = 0;
     let height = 0;
@@ -387,6 +405,13 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
       const bloom = !splash || reduceMotion ? 1 : splashStart === null ? 0 : clamp((elapsed - splashStart) / SPLASH_SECONDS);
       const grow = easeOutBack(bloom);
       galaxy.scale.setScalar(0.04 + 0.96 * grow);
+      // La onda sale del núcleo durante el primer tramo y se desvanece al llegar al borde.
+      const wave = clamp(bloom / 0.6);
+      shockwave.visible = splash && bloom > 0 && wave < 1;
+      if (shockwave.visible) {
+        shockwave.scale.setScalar((0.3 + wave * 9) / Math.max(galaxy.scale.x, 0.2));
+        shockwave.material.opacity = Math.pow(1 - wave, 1.6) * 0.85;
+      }
       const p = reduceMotion ? 0 : clamp(progress?.current ?? 0);
       const travel = easeInOut(p);
       const target = pointer?.current;
