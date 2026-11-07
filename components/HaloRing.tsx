@@ -228,14 +228,16 @@ export default function HaloRing({ className = '' }: { className?: string }) {
     // Por la perspectiva, el lado cercano del anillo se ve más grande y la silueta queda corrida.
     // Se proyectan puntos de ambos bordes y se desplaza el anillo hasta centrar su caja en pantalla.
     const probe = new THREE.Vector3();
+    // También acerca o aleja la cámara para que la silueta ocupe ~85 % del cuadro, sea cual sea su proporción.
     const centerRing = () => {
       ring.position.set(0, 0, 0);
-      camera.position.set(0, 0.4, distance);
-      camera.lookAt(0, 0, 0);
-      camera.updateMatrixWorld();
-      const halfHeight = distance * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-      const halfWidth = halfHeight * camera.aspect;
-      for (let pass = 0; pass < 3; pass += 1) {
+      distance = 9;
+      for (let pass = 0; pass < 4; pass += 1) {
+        camera.position.set(0, 0.4, distance);
+        camera.lookAt(0, 0, 0);
+        camera.updateMatrixWorld();
+        const halfHeight = distance * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+        const halfWidth = halfHeight * camera.aspect;
         ring.updateMatrixWorld(true);
         let minX = Infinity;
         let maxX = -Infinity;
@@ -254,6 +256,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
         }
         ring.position.x -= ((minX + maxX) / 2) * halfWidth;
         ring.position.y -= ((minY + maxY) / 2) * halfHeight;
+        distance *= Math.max((maxX - minX) / 1.7, (maxY - minY) / 1.7);
       }
     };
     const resize = () => {
@@ -262,8 +265,6 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       if (!width || !height) return;
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
-      // En vertical la cámara se aleja para que el anillo completo quepa a lo ancho.
-      distance = 9 * Math.max(1, 1.15 / camera.aspect);
       camera.updateProjectionMatrix();
       centerRing();
     };
