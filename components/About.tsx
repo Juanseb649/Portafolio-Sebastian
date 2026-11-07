@@ -48,12 +48,7 @@ const slides: Slide[] = [
       en: 'I’m learning Linux, infrastructure and automation to ship what we build to production with confidence. I’d love to keep growing on a team like yours.',
     },
   },
-  {
-    id: 'cita',
-    kind: 'quote',
-    quote: 'You know you’re brilliant, but maybe you’d like to understand what you did 2 weeks from now.',
-    author: 'Linus Torvalds',
-  },
+
 ];
 
 const AUTOPLAY_MS = 6500;
@@ -112,7 +107,7 @@ export default function About() {
       <div className="mx-auto max-w-[1180px] px-4 md:px-[22px]">
         <h2 className="max-w-[1024px] px-2 text-[clamp(40px,6vw,80px)] font-semibold leading-[1.02] tracking-[-0.035em] text-ink-light md:mx-auto md:px-0">
           {language === 'es' ? 'Sobre mí.' : 'About me.'}
-          <span className="block text-mute-dark">{language === 'es' ? 'En cinco diapositivas.' : 'In five slides.'}</span>
+          <span className="block text-mute-dark">{language === 'es' ? 'En cuatro diapositivas.' : 'In four slides.'}</span>
         </h2>
 
         <div
