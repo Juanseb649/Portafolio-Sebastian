@@ -2,6 +2,7 @@
 
 import { useLanguage } from './LanguageProvider';
 import { Chevron } from './ui';
+import HaloRing from './HaloRing';
 import { passions } from '@/data/passions';
 import type { Localized, Passion } from '@/types';
 
@@ -66,6 +67,8 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   const [image] = passion.images;
   const area = SPAN[passion.span ?? 'regular'];
 
+  if (passion.scene === 'halo-ring') return <HaloTile passion={passion} area={area} t={t} />;
+
   if (passion.fit === 'object') {
     // Objeto fotografiado sobre blanco: se presenta completo sobre papel, como un producto.
     return (
@@ -99,6 +102,49 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
       <img src={image.src} alt={t(image.alt)} loading="lazy" style={{ objectPosition: image.focus }} className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05]" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
       <PassionText passion={passion} t={t} />
+    </li>
+  );
+}
+
+/** Halo: logo y texto a un lado, el mundo anillo en 3D al otro, y las fotos como fichas debajo del texto. */
+function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (text: Localized) => string }) {
+  return (
+    <li
+      className={`tile-rise ${area} relative isolate grid overflow-hidden rounded-[28px] bg-[radial-gradient(120%_90%_at_75%_40%,#0f1b33_0%,#05070d_60%)] md:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]`}
+    >
+      <div className="flex flex-col justify-center p-8 md:p-12">
+        {passion.logo ? (
+          <>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={passion.logo.src} alt="" className="w-[min(100%,320px)] invert" />
+            <h3 className="sr-only">{t(passion.title)}</h3>
+          </>
+        ) : (
+          <h3 className="text-[clamp(28px,3.2vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink-light">{t(passion.title)}</h3>
+        )}
+        <p className="mt-6 max-w-[42ch] text-[17px] leading-[1.47] text-[#d2d2d7]">{t(passion.body)}</p>
+
+        <div className="mt-8 grid grid-cols-2 gap-3">
+          {passion.images.map((photo) => (
+            <figure
+              key={photo.src}
+              className={`group relative aspect-[4/3] overflow-hidden rounded-[16px] ${photo.focus === 'contain' ? 'bg-paper' : 'bg-graphite'}`}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={photo.src}
+                alt={t(photo.alt)}
+                loading="lazy"
+                className={`h-full w-full transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05] ${
+                  photo.focus === 'contain' ? 'object-contain p-3' : 'object-cover object-top'
+                }`}
+              />
+            </figure>
+          ))}
+        </div>
+      </div>
+
+      <HaloRing className="relative min-h-[320px] md:min-h-[520px]" />
     </li>
   );
 }
