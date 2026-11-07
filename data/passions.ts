@@ -85,6 +85,7 @@ export const passions: Passion[] = [
         author: 'Marsilar',
         license: 'CC BY-SA 4.0',
         source: 'https://commons.wikimedia.org/wiki/File:02025_0832_Street_workout_in_Bielsko-Bia%C5%82a.jpg',
+        focus: '50% 78%',
       },
     ],
     span: 'tall',
