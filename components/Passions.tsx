@@ -43,6 +43,22 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
     );
   }
 
+  if (passion.images.length > 1) {
+    // Tríptico: una foto por artista, separadas por la misma junta de 3px que la cuadrícula.
+    return (
+      <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
+        <div className="absolute inset-0 -z-10 grid grid-cols-3 gap-[3px]">
+          {passion.images.map((photo) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={photo.src} src={photo.src} alt={t(photo.alt)} loading="lazy" className="h-full w-full object-cover" />
+          ))}
+        </div>
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        <PassionText passion={passion} t={t} />
+      </li>
+    );
+  }
+
   return (
     <li className="relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]">
       {/* eslint-disable-next-line @next/next/no-img-element */}
