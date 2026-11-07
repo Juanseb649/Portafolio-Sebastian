@@ -116,7 +116,7 @@ function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (te
         {passion.logo ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={passion.logo.src} alt="" className="w-[min(100%,320px)] invert" />
+            <img src={passion.logo.src} alt="" className="w-[min(100%,340px)]" />
             <h3 className="sr-only">{t(passion.title)}</h3>
           </>
         ) : (
