@@ -32,7 +32,12 @@ export default function Passions() {
             <Chevron className="ml-1.5 transition-transform duration-300 group-open/credits:rotate-90" />
           </summary>
           <ul className="mt-3 space-y-1">
-            {passions.flatMap((passion) => (passion.logo ? [passion.logo, ...passion.images] : passion.images)).map((image) => (
+            {passions
+              .flatMap((passion) => [
+                ...(passion.logo ? [passion.logo] : []),
+                ...passion.images.flatMap((photo) => (photo.album?.cover ? [photo, photo.album.cover] : [photo])),
+              ])
+              .map((image) => (
               <li key={image.src}>
                 {t(image.alt)} ·{' '}
                 {image.source ? (
@@ -91,9 +96,21 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
               <img src={photo.src} alt={t(photo.alt)} loading="lazy" style={{ objectPosition: photo.focus }} className="h-full w-full object-cover transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05]" />
               {photo.album && (
                 // Disco favorito de cada artista, arriba de su foto.
-                <figcaption className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-8 pt-3 md:px-4 md:pt-4">
-                  <span className="block text-[12px] font-semibold leading-tight text-ink-light md:text-[14px]">{photo.album.title}</span>
-                  <span className="tabular block text-[12px] text-[#d2d2d7]">{photo.album.year}</span>
+                <figcaption className="absolute inset-x-0 top-0 flex flex-col items-start gap-2 bg-gradient-to-b from-black/80 to-transparent px-3 pb-10 pt-3 md:px-4 md:pt-4">
+                  {photo.album.cover && (
+                    // La portada como un disco físico sobre la foto: lleva la sombra de objeto.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={photo.album.cover.src}
+                      alt={t(photo.album.cover.alt)}
+                      loading="lazy"
+                      className="aspect-square w-[min(100%,88px)] rounded-[6px] object-cover shadow-[0_14px_28px_-10px_rgba(0,0,0,0.8)] ring-1 ring-white/10 md:w-[min(100%,112px)]"
+                    />
+                  )}
+                  <span>
+                    <span className="block text-[12px] font-semibold leading-tight text-ink-light md:text-[14px]">{photo.album.title}</span>
+                    <span className="tabular block text-[12px] text-[#d2d2d7]">{photo.album.year}</span>
+                  </span>
                 </figcaption>
               )}
             </figure>

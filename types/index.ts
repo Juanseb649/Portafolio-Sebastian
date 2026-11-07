@@ -78,7 +78,7 @@ export interface CreditedImage {
   /** 'contain' para objetos fotografiados sobre blanco: se muestran completos sobre papel. */
   fit?: 'cover' | 'contain';
   /** Disco favorito asociado a la foto (p. ej. en el tríptico de música). */
-  album?: { title: string; year: number };
+  album?: { title: string; year: number; cover?: CreditedImage };
 }
 
 /** Una pasión fuera del código, para la sección «Más allá del código». */
