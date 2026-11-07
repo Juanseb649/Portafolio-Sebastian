@@ -94,8 +94,8 @@ export const passions: Passion[] = [
     id: 'viajes',
     title: { es: 'Viajar e idiomas.', en: 'Travel and languages.' },
     body: {
-      es: 'En 2022 pasé un verano en Connecticut trabajando en Incarnation Camp, y hoy tengo inglés B2. Me encanta conocer otras culturas.',
-      en: 'In 2022 I spent a summer in Connecticut working at Incarnation Camp, and today my English is B2. I love getting to know other cultures.',
+      es: 'En 2022 pasé un verano en Connecticut trabajando en Incarnation Camp, y hoy hablo inglés con fluidez. Me encanta conocer otras culturas.',
+      en: 'In 2022 I spent a summer in Connecticut working at Incarnation Camp, and today I speak English fluently. I love getting to know other cultures.',
     },
     images: [
       {
