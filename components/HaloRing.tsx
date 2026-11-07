@@ -231,7 +231,7 @@ export default function HaloRing({ className = '' }: { className?: string }) {
       renderer.setSize(width, height, false);
       camera.aspect = width / height;
       // En vertical la cámara se aleja para que el anillo completo quepa a lo ancho.
-      distance = 9 * Math.max(1, 0.75 / camera.aspect);
+      distance = 9 * Math.max(1, 1.15 / camera.aspect);
       camera.updateProjectionMatrix();
     };
 
