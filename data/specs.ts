@@ -24,7 +24,7 @@ export const specs: SpecRow[] = [
   {
     id: 'tools',
     label: { es: 'Herramientas y nube', en: 'Tools and cloud' },
-    items: [tech('Git', 'git'), tech('Google Cloud', 'google-cloud'), { label: { es: 'Linux (en curso)', en: 'Linux (in progress)' }, icon: '/images/tech/linux.svg' }],
+    items: [tech('Git', 'git'), tech('Google Cloud', 'google-cloud'), { label: { es: 'Linux', en: 'Linux' }, icon: '/images/tech/linux.svg' }],
   },
   {
     id: 'quality',
