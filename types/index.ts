@@ -73,6 +73,8 @@ export interface CreditedImage {
   license: string;
   /** Página de la obra en su fuente (p. ej. Wikimedia Commons). */
   source: string;
+  /** Punto de enfoque del recorte (CSS object-position), p. ej. '50% 80%'. */
+  focus?: string;
 }
 
 /** Una pasión fuera del código, para la sección «Más allá del código». */
