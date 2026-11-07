@@ -370,6 +370,8 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
     scene.add(flares);
     const shockwave = buildShockwave();
     galaxy.add(shockwave);
+    const baseOpacity = layers.map((layer) => layer.material.uniforms.uOpacity.value as number);
+    const coreMaterial = core.material as THREE.MeshBasicMaterial;
 
     let width = 0;
     let height = 0;
@@ -422,7 +424,13 @@ export default function MilkyWay({ className = '', progress, pointer, density = 
       // Con el scroll la cámara se acerca al núcleo y se inclina un poco sobre el disco.
       camera.position.set(look.x * 1.6 * (1 - travel), -look.y * 1.1 * (1 - travel) + travel * 1.2, baseZ * (1 - travel * 0.72));
       camera.lookAt(0, 0, 0);
-      layers.forEach((layer) => (layer.material.uniforms.uTime.value = elapsed));
+      const light = splash ? clamp(bloom * 1.8) : 1;
+      layers.forEach((layer, index) => {
+        layer.material.uniforms.uTime.value = elapsed;
+        layer.material.uniforms.uOpacity.value = baseOpacity[index] * light;
+      });
+      // El núcleo se enciende con un destello que se pasa un poco y se asienta.
+      coreMaterial.opacity = splash ? Math.min(1.6, light * (1 + Math.sin(Math.PI * clamp(bloom / 0.5)) * 0.6)) : 1;
       renderer.render(scene, camera);
     };
 
