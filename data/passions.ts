@@ -57,8 +57,8 @@ export const passions: Passion[] = [
     id: 'espacio',
     title: { es: 'Mirar hacia arriba.', en: 'Looking up.' },
     body: {
-      es: 'Me apasionan el espacio y la astronomía. Por eso este portafolio empieza con una galaxia.',
-      en: 'Space and astronomy fascinate me. That’s why this portfolio opens with a galaxy.',
+      es: 'Me apasionan el espacio y la astronomía: pensar en lo grande que es el universo me recuerda que siempre queda algo nuevo por descubrir.',
+      en: 'Space and astronomy fascinate me: thinking about how vast the universe is reminds me there’s always something new to discover.',
     },
     images: [
       {
