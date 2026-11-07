@@ -99,11 +99,10 @@ export const passions: Passion[] = [
     },
     images: [
       {
-        src: '/images/passions/connecticut-autumn.webp',
-        alt: { es: 'Árbol otoñal junto a una cerca blanca en Connecticut', en: 'An autumn tree beside a white picket fence in Connecticut' },
-        author: 'Tony Webster',
-        license: 'CC BY-SA 2.0',
-        source: 'https://commons.wikimedia.org/wiki/File:Taconic_Autumn_Leaves_Connecticut_(30750251750).jpg',
+        src: '/images/passions/new-york.webp',
+        alt: { es: 'Manhattan desde lo alto, con el Empire State al fondo', en: 'Manhattan from above, with the Empire State Building in the distance' },
+        author: 'Sebastián Ibarra',
+        license: 'Foto propia',
       },
     ],
     span: 'regular',
