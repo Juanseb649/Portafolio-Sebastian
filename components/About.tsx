@@ -22,30 +22,30 @@ const slides: Slide[] = [
     },
   },
   {
-    id: 'documentacion',
+    id: 'equipo',
     kind: 'statement',
-    title: { es: 'Primero, entender.', en: 'First, understand.' },
+    title: { es: 'Primero, escucho.', en: 'First, I listen.' },
     body: {
-      es: 'Documentación técnica y análisis funcional dentro de equipos ágiles. Cada entrega debe poder leerla el equipo de hoy y el de mañana.',
-      en: 'Technical documentation and functional analysis inside agile teams. Every delivery should read clearly for today’s team and tomorrow’s.',
+      es: 'En equipos ágiles me encargo de entender qué se necesita antes de escribir código, y de dejarlo claro para que todos avancemos en la misma dirección.',
+      en: 'In agile teams I make sure we understand what’s needed before writing code, and I put it in plain words so everyone moves in the same direction.',
     },
   },
   {
-    id: 'calidad',
+    id: 'detalles',
     kind: 'statement',
-    title: { es: 'Después, probarlo todo.', en: 'Then, test everything.' },
+    title: { es: 'Luego, cuido los detalles.', en: 'Then, I sweat the details.' },
     body: {
-      es: 'Análisis de requerimientos, pruebas manuales y automatizadas, y código limpio con trazabilidad y colaboración de verdad.',
-      en: 'Requirement analysis, manual and automated testing, and clean code with real traceability and collaboration.',
+      es: 'Pruebo lo que construyo, a mano y con pruebas automatizadas, y escribo código que otra persona pueda entender y mejorar sin miedo.',
+      en: 'I test what I build, by hand and with automated tests, and write code someone else can understand and improve without fear.',
     },
   },
   {
     id: 'nube',
     kind: 'statement',
-    title: { es: 'Siguiente parada: la nube.', en: 'Next stop: the cloud.' },
+    title: { es: 'Lo que viene: DevOps y la nube.', en: 'What’s next: DevOps and the cloud.' },
     body: {
-      es: 'Estoy fortaleciendo Linux, fundamentos de infraestructura y principios de escalabilidad para diseñar soluciones más robustas.',
-      en: 'I’m strengthening Linux, infrastructure fundamentals and scalability principles to design more robust solutions.',
+      es: 'Estoy aprendiendo Linux, infraestructura y automatización para llevar lo que construimos a producción con confianza. Me encantaría seguir creciendo en un equipo como el tuyo.',
+      en: 'I’m learning Linux, infrastructure and automation to ship what we build to production with confidence. I’d love to keep growing on a team like yours.',
     },
   },
   {
