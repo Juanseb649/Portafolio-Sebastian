@@ -53,4 +53,22 @@ export const passions: Passion[] = [
     ],
     span: 'wide',
   },
+  {
+    id: 'espacio',
+    title: { es: 'Mirar hacia arriba.', en: 'Looking up.' },
+    body: {
+      es: 'Me apasionan el espacio y la astronomía. Por eso este portafolio empieza con una galaxia.',
+      en: 'Space and astronomy fascinate me. That’s why this portfolio opens with a galaxy.',
+    },
+    images: [
+      {
+        src: '/images/passions/cosmic-cliffs.webp',
+        alt: { es: 'Los «Acantilados Cósmicos» de la Nebulosa de Carina, vistos por el telescopio James Webb', en: 'The “Cosmic Cliffs” of the Carina Nebula, seen by the James Webb Space Telescope' },
+        author: 'NASA, ESA, CSA, STScI',
+        license: 'Dominio público',
+        source: 'https://commons.wikimedia.org/wiki/File:%E2%80%9CCosmic_Cliffs%E2%80%9D_in_the_Carina_Nebula_(NIRCam_and_MIRI_Composite_Image).png',
+      },
+    ],
+    span: 'wide',
+  },
 ];
