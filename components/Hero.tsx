@@ -339,7 +339,7 @@ export default function Hero() {
             <h1 className="animate-[hero-in_1.2s_var(--ease-keynote)_0.25s_both] text-[clamp(48px,8.6vw,96px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink-light">
               {profile.name}.
             </h1>
-            <p className="mt-4 max-w-[30ch] animate-[hero-in_1.2s_var(--ease-keynote)_0.4s_both] text-[clamp(21px,2.3vw,28px)] font-medium leading-[1.2] tracking-[-0.01em] text-[#c7c7cc]">
+            <p className="mt-4 max-w-[30ch] animate-[hero-in_1.2s_var(--ease-keynote)_0.4s_both] text-[clamp(21px,2.3vw,28px)] font-medium leading-[1.2] tracking-[-0.01em] text-soft-dark">
               {language === 'es' ? 'Ingeniero de software.' : 'Software engineer.'}
             </p>
             <div className="pointer-events-auto mt-8 flex animate-[hero-in_1.2s_var(--ease-keynote)_0.55s_both] flex-wrap items-center gap-x-8 gap-y-4">
