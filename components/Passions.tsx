@@ -28,7 +28,7 @@ export default function Passions() {
         </ul>
 
         <details className="group/credits mx-auto mt-8 max-w-[1024px] px-2 text-[12px] leading-[1.6] text-mute-dark md:px-0">
-          <summary className="cursor-pointer list-none select-none hover:text-[#d2d2d7] [&::-webkit-details-marker]:hidden">
+          <summary className="cursor-pointer list-none select-none hover:text-soft-dark [&::-webkit-details-marker]:hidden">
             {language === 'es' ? 'Créditos de las imágenes' : 'Image credits'}
             <Chevron className="ml-1.5 transition-transform duration-300 group-open/credits:rotate-90" />
           </summary>
@@ -110,7 +110,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
                   )}
                   <span>
                     <span className="block text-[12px] font-semibold leading-tight text-ink-light md:text-[14px]">{photo.album.title}</span>
-                    <span className="tabular block text-[12px] text-[#d2d2d7]">{photo.album.year}</span>
+                    <span className="tabular block text-[12px] text-soft-dark">{photo.album.year}</span>
                   </span>
                 </figcaption>
               )}
@@ -152,7 +152,7 @@ function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (te
           ) : (
             <h3 className="text-[clamp(36px,5vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em] text-ink-light">{t(passion.title)}</h3>
           )}
-          <p className="mx-auto mt-6 max-w-[42ch] text-[17px] leading-[1.47] text-[#a1a1a6] md:mx-0">{t(passion.body)}</p>
+          <p className="mx-auto mt-6 max-w-[42ch] text-[17px] leading-[1.47] text-body-dark md:mx-0">{t(passion.body)}</p>
 
           {cover && (
             <figure className="mx-auto mt-10 w-[min(56%,200px)] md:mx-0">
@@ -183,7 +183,7 @@ function PassionText({ passion, t, dark = false }: { passion: Passion; t: (text:
       <h3 className={`text-[clamp(28px,3.2vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em] ${dark ? 'text-ink-dark' : 'text-ink-light'}`}>
         {t(passion.title)}
       </h3>
-      <p className={`mt-3 max-w-[42ch] text-[17px] leading-[1.47] ${dark ? 'text-mute-light' : 'text-[#d2d2d7]'}`}>{t(passion.body)}</p>
+      <p className={`mt-3 max-w-[42ch] text-[17px] leading-[1.47] ${dark ? 'text-mute-light' : 'text-soft-dark'}`}>{t(passion.body)}</p>
     </div>
   );
 }
