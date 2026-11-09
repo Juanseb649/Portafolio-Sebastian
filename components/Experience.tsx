@@ -38,10 +38,10 @@ function Column({ title, items }: { title: string; items: ExperienceItem[] }) {
             <OrgIcon item={item} />
             <div>
               <p className="text-[21px] font-semibold leading-[1.2] tracking-[-0.01em] text-ink-light">{t(item.title)}</p>
-              <p className="mt-0.5 text-[17px] text-[#d2d2d7]">
+              <p className="mt-0.5 text-[17px] text-soft-dark">
                 {item.organization} <span className="tabular text-mute-dark">· {t(item.period)}</span>
               </p>
-              <p className="mt-3 max-w-[48ch] text-[15px] leading-[1.5] text-[#a1a1a6]">{t(item.description)}</p>
+              <p className="mt-3 max-w-[48ch] text-[15px] leading-[1.5] text-body-dark">{t(item.description)}</p>
             </div>
           </li>
         ))}
@@ -69,7 +69,7 @@ function OrgIcon({ item }: { item: ExperienceItem }) {
     .join('');
 
   return (
-    <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-graphite text-[19px] font-semibold tracking-[-0.02em] text-[#d2d2d7]">
+    <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-[14px] bg-graphite text-[19px] font-semibold tracking-[-0.02em] text-soft-dark">
       {initials}
     </span>
   );
