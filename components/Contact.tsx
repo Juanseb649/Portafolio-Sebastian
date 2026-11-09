@@ -27,7 +27,7 @@ export default function Contact() {
   }[copied];
 
   return (
-    <section id="contacto" className="relative overflow-hidden bg-stage pb-48 pt-28 text-center md:pb-64 md:pt-40">
+    <section id="contacto" className="scene relative overflow-hidden bg-stage pb-48 pt-28 text-center md:pb-64 md:pt-40">
       {/* La misma galaxia del inicio, más tenue y asomando por debajo del contenido. */}
       <MilkyWay
         density={0.6}
