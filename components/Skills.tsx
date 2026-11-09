@@ -77,7 +77,7 @@ function TechTile({ item, label }: { item: SpecItem; label: string }) {
         // eslint-disable-next-line @next/next/no-img-element
         <img src={item.icon} alt="" loading="lazy" className="h-10 w-10 transition-transform duration-300 ease-keynote group-hover:scale-110" />
       )}
-      <span className="text-[13px] font-medium leading-[1.25] text-[#424245]">{label}</span>
+      <span className="text-[13px] font-medium leading-[1.25] text-ghost-edge">{label}</span>
     </li>
   );
 }
