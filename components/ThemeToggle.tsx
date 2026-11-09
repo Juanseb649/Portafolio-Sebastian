@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageProvider';
+import { THEME_STORAGE_KEY } from '@/lib/theme';
 
 type Theme = 'light' | 'dark';
 
-const STORAGE_KEY = 'theme';
 const THEME_COLOR: Record<Theme, string> = { light: '#fbfbfd', dark: '#2c2c2f' };
 
 /** Tema vigente: el elegido (atributo en <html>) o, si no hay, el del sistema. */
@@ -19,7 +19,7 @@ function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
   document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => meta.setAttribute('content', THEME_COLOR[theme]));
   try {
-    localStorage.setItem(STORAGE_KEY, theme);
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
   } catch {
     // Sin almacenamiento (modo privado): el tema dura solo esta visita.
   }
@@ -95,5 +95,3 @@ export default function ThemeToggle({ className = '' }: { className?: string }) 
   );
 }
 
-/** Script que corre antes de pintar: aplica el tema guardado para que no parpadee al cargar. */
-export const themeInitScript = `try{var t=localStorage.getItem('${STORAGE_KEY}');if(t==='light'||t==='dark'){document.documentElement.dataset.theme=t;}}catch(e){}`;
