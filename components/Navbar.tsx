@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageProvider';
+import ThemeToggle from './ThemeToggle';
 import { profile } from '@/data/profile';
 import type { Localized } from '@/types';
 
@@ -89,6 +90,7 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             {languageToggle}
             <a
               href={profile.cv}
