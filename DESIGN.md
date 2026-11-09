@@ -157,6 +157,11 @@ The world refuses the developer-portfolio default: no terminal backgrounds, no t
 
 ## Colors
 
+### Themes
+Two themes share every token name; only the values change. **Dark** (the default) is a silver Space Gray, never black: stage `#2c2c2f`, floor `#333336`, paper `#3c3c40`, graphite `#38383c`, ink `#f5f5f7`, muted `#a8a8ae`, links `#5eb0ff`. **Light** uses stage `#fbfbfd`, floor `#f2f2f5`, paper `#ffffff`, ink `#1d1d1f`, muted `#6e6e73`, links `#0066cc`. With no saved choice the page follows `prefers-color-scheme`. The navbar's `ThemeToggle` (sun and moon cross-fading with a turn) saves the choice in `localStorage`, and `lib/theme.ts` applies it before paint so nothing flashes. Space scenes (the hero galaxy, the Contact splash, the Halo ring tile and the photo tiles with text over them) carry `.scene`, which pins the dark palette in both themes. The neutrals that used to be hardcoded are now tokens: `body-dark`, `soft-dark`, `ghost-edge`, `ink-soft` and the `control` family.
+
+The values listed below are the original keynote palette that these themes evolved from.
+
 A near-monochrome Apple-neutral palette with one blue doing all the pointing.
 
 ### Primary
