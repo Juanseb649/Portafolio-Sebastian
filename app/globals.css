@@ -14,6 +14,13 @@
   --color-mute-dark: #86868b;
   --color-mute-light: #6e6e73;
   --color-rule-dark: #333336;
+  --color-body-dark: #a1a1a6;
+  --color-soft-dark: #d2d2d7;
+  --color-ghost-edge: #424245;
+  --color-control: #e8e8ed;
+  --color-control-hover: #dcdce1;
+  --color-control-disabled: #f0f0f3;
+  --color-control-ink-disabled: #c7c7cc;
   --color-rule-light: #d2d2d7;
   --color-link-dark: #2997ff;
   --color-link-light: #0066cc;
