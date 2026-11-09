@@ -148,7 +148,7 @@ export default function About() {
             })}
           </div>
 
-          <div className="absolute inset-x-0 top-0 h-[3px] bg-white/10">
+          <div className="absolute inset-x-0 top-0 h-[3px] bg-ink-light/10">
             <div
               key={`${index}-${playing && inView}`}
               className="h-full origin-left bg-ink-light/70"
@@ -173,7 +173,7 @@ export default function About() {
               >
                 <span
                   className={`block h-2 rounded-full transition-all duration-500 ease-keynote ${
-                    slideIndex === index ? 'w-8 bg-ink-light' : 'w-2 bg-[#6e6e73] hover:bg-[#a1a1a6]'
+                    slideIndex === index ? 'w-8 bg-ink-light' : 'w-2 bg-mute-dark hover:bg-body-dark'
                   }`}
                 />
               </button>
@@ -212,7 +212,7 @@ function DeckButton({ label, onClick, children }: { label: string; onClick: () =
       type="button"
       aria-label={label}
       onClick={onClick}
-      className="flex h-14 w-14 items-center justify-center rounded-full bg-graphite text-[#d2d2d7] transition-colors duration-200 hover:bg-graphite-2 hover:text-ink-light"
+      className="flex h-14 w-14 items-center justify-center rounded-full bg-graphite text-soft-dark transition-colors duration-200 hover:bg-graphite-2 hover:text-ink-light"
     >
       {children}
     </button>
@@ -230,7 +230,7 @@ function SlideBody({ slide, t }: { slide: Slide; t: (text: Localized) => string 
         </div>
         <div className="flex flex-col justify-center px-8 pb-12 pt-4 md:px-14 md:py-14">
           <p className="text-[clamp(32px,4.4vw,64px)] font-semibold leading-[1.04] tracking-[-0.035em] text-ink-light">{t(slide.title)}</p>
-          <p className="mt-5 max-w-[34ch] text-[clamp(17px,1.6vw,21px)] leading-[1.45] text-[#a1a1a6]">{t(slide.body)}</p>
+          <p className="mt-5 max-w-[34ch] text-[clamp(17px,1.6vw,21px)] leading-[1.45] text-body-dark">{t(slide.body)}</p>
         </div>
       </div>
     );
@@ -250,7 +250,7 @@ function SlideBody({ slide, t }: { slide: Slide; t: (text: Localized) => string 
   return (
     <div className="flex w-full flex-col items-center justify-center px-8 py-16 text-center md:px-24">
       <p className="text-[clamp(40px,6.4vw,96px)] font-semibold leading-[1] tracking-[-0.04em] text-ink-light">{t(slide.title)}</p>
-      <p className="mt-6 max-w-[40ch] text-[clamp(17px,1.7vw,24px)] leading-[1.4] text-[#a1a1a6]">{t(slide.body)}</p>
+      <p className="mt-6 max-w-[40ch] text-[clamp(17px,1.7vw,24px)] leading-[1.4] text-body-dark">{t(slide.body)}</p>
     </div>
   );
 }
