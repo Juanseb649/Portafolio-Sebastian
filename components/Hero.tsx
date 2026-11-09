@@ -295,7 +295,7 @@ export default function Hero() {
       id="inicio"
       ref={sectionRef}
       aria-label={language === 'es' ? 'Inicio' : 'Home'}
-      className="relative h-[100svh] bg-stage motion-safe:h-[230svh]"
+      className="scene relative h-[100svh] bg-stage motion-safe:h-[230svh]"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 touch-pan-y select-none">
