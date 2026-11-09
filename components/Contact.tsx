@@ -39,7 +39,7 @@ export default function Contact() {
         <h2 className="headline-rise text-[clamp(56px,9vw,96px)] font-semibold leading-[1] tracking-[-0.04em] text-ink-light">
           {language === 'es' ? 'Hablemos.' : 'Let’s talk.'}
         </h2>
-        <p className="mx-auto mt-5 max-w-[36ch] text-[clamp(19px,2vw,24px)] leading-[1.35] text-[#a1a1a6]">
+        <p className="mx-auto mt-5 max-w-[36ch] text-[clamp(19px,2vw,24px)] leading-[1.35] text-body-dark">
           {language === 'es'
             ? '¿Un proyecto, una vacante o una pregunta? Escríbeme y te respondo.'
             : 'A project, a role or a question? Write to me and I’ll get back to you.'}
@@ -58,7 +58,7 @@ export default function Contact() {
             type="button"
             onClick={copyEmail}
             aria-live="polite"
-            className="rounded-full border border-[#424245] px-[22px] py-[10px] text-[17px] text-ink-light transition-colors hover:border-[#6e6e73] hover:bg-white/[0.04]"
+            className="rounded-full border border-ghost-edge px-[22px] py-[10px] text-[17px] text-ink-light transition-colors hover:border-mute-light hover:bg-ink-light/[0.04]"
           >
             {copyLabel}
           </button>
