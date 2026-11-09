@@ -100,7 +100,7 @@ export default function Testimonials() {
             onClick={() => scrollBy(direction as 1 | -1)}
             disabled={direction === 1 ? edges.end : edges.start}
             aria-label={direction === 1 ? (language === 'es' ? 'Siguiente' : 'Next') : language === 'es' ? 'Anterior' : 'Previous'}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-[#e8e8ed] text-[#424245] transition-colors hover:bg-[#dcdce1] hover:text-ink-dark disabled:cursor-default disabled:bg-[#f0f0f3] disabled:text-[#c7c7cc]"
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-control text-ink-soft transition-colors hover:bg-control-hover hover:text-ink-dark disabled:cursor-default disabled:bg-control-disabled disabled:text-control-ink-disabled"
           >
             <Chevron direction={direction === 1 ? 'right' : 'left'} className="h-3" />
           </button>

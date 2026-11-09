@@ -295,7 +295,7 @@ export default function Hero() {
       id="inicio"
       ref={sectionRef}
       aria-label={language === 'es' ? 'Inicio' : 'Home'}
-      className="relative h-[100svh] bg-stage motion-safe:h-[230svh]"
+      className="scene relative h-[100svh] bg-stage motion-safe:h-[230svh]"
     >
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <div className="absolute inset-0 touch-pan-y select-none">
@@ -312,10 +312,10 @@ export default function Hero() {
           {/* Viñeta para que el texto se lea sobre la imagen. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_42%,transparent_35%,rgba(0,0,0,0.55)_70%,#000_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_42%,transparent_35%,color-mix(in_srgb,var(--color-stage)_55%,transparent)_70%,var(--color-stage)_100%)]"
           />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-black via-black/70 to-transparent" />
-          <div ref={shadeRef} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-black opacity-0" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-stage via-stage/70 to-transparent" />
+          <div ref={shadeRef} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-stage opacity-0" />
         </div>
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
@@ -339,7 +339,7 @@ export default function Hero() {
             <h1 className="animate-[hero-in_1.2s_var(--ease-keynote)_0.25s_both] text-[clamp(48px,8.6vw,96px)] font-semibold leading-[0.98] tracking-[-0.04em] text-ink-light">
               {profile.name}.
             </h1>
-            <p className="mt-4 max-w-[30ch] animate-[hero-in_1.2s_var(--ease-keynote)_0.4s_both] text-[clamp(21px,2.3vw,28px)] font-medium leading-[1.2] tracking-[-0.01em] text-[#c7c7cc]">
+            <p className="mt-4 max-w-[30ch] animate-[hero-in_1.2s_var(--ease-keynote)_0.4s_both] text-[clamp(21px,2.3vw,28px)] font-medium leading-[1.2] tracking-[-0.01em] text-soft-dark">
               {language === 'es' ? 'Ingeniero de software.' : 'Software engineer.'}
             </p>
             <div className="pointer-events-auto mt-8 flex animate-[hero-in_1.2s_var(--ease-keynote)_0.55s_both] flex-wrap items-center gap-x-8 gap-y-4">

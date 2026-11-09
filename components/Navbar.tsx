@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLanguage } from './LanguageProvider';
+import ThemeToggle from './ThemeToggle';
 import { profile } from '@/data/profile';
 import type { Localized } from '@/types';
 
@@ -65,7 +66,7 @@ export default function Navbar() {
     <header className="fixed inset-x-0 top-0 z-50">
       <nav
         aria-label={language === 'es' ? 'Principal' : 'Main'}
-        className="relative z-10 h-11 border-b border-white/[0.06] bg-black/75 backdrop-blur-xl backdrop-saturate-[1.8]"
+        className="relative z-10 h-11 border-b border-ink-light/[0.08] bg-stage/75 backdrop-blur-xl backdrop-saturate-[1.8]"
       >
         <div className="mx-auto flex h-full max-w-[1024px] items-center justify-between px-4 md:px-[22px]">
           <a href="#inicio" className="text-[14px] font-semibold tracking-[-0.01em] text-ink-light" onClick={() => setOpen(false)}>
@@ -79,7 +80,7 @@ export default function Navbar() {
                   href={`#${link.id}`}
                   aria-current={active === link.id ? 'true' : undefined}
                   className={`text-[12px] transition-colors duration-200 ${
-                    active === link.id ? 'text-ink-light' : 'text-[#d2d2d7]/80 hover:text-ink-light'
+                    active === link.id ? 'text-ink-light' : 'text-soft-dark/80 hover:text-ink-light'
                   }`}
                 >
                   {t(link.label)}
@@ -89,6 +90,7 @@ export default function Navbar() {
           </ul>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             {languageToggle}
             <a
               href={profile.cv}
@@ -122,7 +124,7 @@ export default function Navbar() {
 
       <div
         id="menu-movil"
-        className={`fixed inset-0 bg-black/95 backdrop-blur-xl transition-[opacity,visibility] duration-300 md:hidden ${
+        className={`fixed inset-0 bg-stage/95 backdrop-blur-xl transition-[opacity,visibility] duration-300 md:hidden ${
           open ? 'visible opacity-100' : 'invisible opacity-0'
         }`}
       >

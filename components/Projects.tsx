@@ -41,7 +41,7 @@ function ProjectTile({ project, dark, flip }: { project: Project; dark: boolean;
         <div className={flip ? 'md:order-2' : undefined}>
           <h3 className="text-[clamp(36px,5vw,56px)] font-semibold leading-[1.05] tracking-[-0.03em]">{project.name}</h3>
           <p className="mt-2 text-[clamp(21px,2.4vw,28px)] font-medium leading-[1.2] tracking-[-0.01em]">{t(project.tagline)}</p>
-          <p className={`mx-auto mt-4 max-w-[52ch] text-[17px] leading-[1.47] md:mx-0 ${dark ? 'text-[#a1a1a6]' : 'text-mute-light'}`}>
+          <p className={`mx-auto mt-4 max-w-[52ch] text-[17px] leading-[1.47] md:mx-0 ${dark ? 'text-body-dark' : 'text-mute-light'}`}>
             {t(project.description)}
           </p>
           {project.technologies.length > 0 && (
