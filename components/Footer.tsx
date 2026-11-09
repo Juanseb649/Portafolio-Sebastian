@@ -29,7 +29,7 @@ export default function Footer() {
           <ul className="flex flex-wrap gap-x-0">
             {links.map((link, index) => (
               <li key={link.href} className={index > 0 ? 'border-l border-rule-light pl-2.5 ml-2.5' : ''}>
-                <a href={link.href} className="text-ghost-edge hover:underline">
+                <a href={link.href} className="text-ink-soft hover:underline">
                   {link.label}
                 </a>
               </li>
