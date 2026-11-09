@@ -89,7 +89,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   if (passion.images.length > 1) {
     // Tríptico: una foto por artista, separadas por la misma junta de 3px que la cuadrícula.
     return (
-      <li className={`group tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
+      <li className={`scene group tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
         <div className="absolute inset-0 -z-10 grid grid-cols-3 gap-[3px]">
           {passion.images.map((photo) => (
             <figure key={photo.src} className="relative overflow-hidden">
@@ -124,7 +124,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
   }
 
   return (
-    <li className={`group tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
+    <li className={`scene group tile-rise ${area} relative isolate flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[28px] bg-graphite md:min-h-[460px]`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={image.src} alt={t(image.alt)} loading="lazy" style={{ objectPosition: image.focus }} className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[1200ms] ease-keynote group-hover:scale-[1.05]" />
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/90 via-black/35 to-transparent" />
@@ -140,7 +140,7 @@ function PassionTile({ passion, t }: { passion: Passion; t: (text: Localized) =>
 function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (text: Localized) => string }) {
   const [cover] = passion.images;
   return (
-    <li className={`tile-rise ${area} relative isolate overflow-hidden rounded-[28px] bg-[radial-gradient(60%_85%_at_72%_50%,#0c1626_0%,#05070d_55%,#020305_100%)]`}>
+    <li className={`scene tile-rise ${area} relative isolate overflow-hidden rounded-[28px] bg-[radial-gradient(60%_85%_at_72%_50%,#0c1626_0%,#05070d_55%,#020305_100%)]`}>
       <div className="grid items-center gap-10 px-8 pt-14 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:gap-14 md:px-12 md:py-16 lg:gap-20">
         <div className="text-center md:text-left">
           {passion.logo ? (
