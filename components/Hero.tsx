@@ -312,10 +312,10 @@ export default function Hero() {
           {/* Viñeta para que el texto se lea sobre la imagen. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_42%,transparent_35%,rgba(0,0,0,0.55)_70%,#000_100%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_42%,transparent_35%,color-mix(in_srgb,var(--color-stage)_55%,transparent)_70%,var(--color-stage)_100%)]"
           />
-          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-black via-black/70 to-transparent" />
-          <div ref={shadeRef} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-black opacity-0" />
+          <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] bg-gradient-to-t from-stage via-stage/70 to-transparent" />
+          <div ref={shadeRef} aria-hidden="true" className="pointer-events-none absolute inset-0 bg-stage opacity-0" />
         </div>
 
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6">
