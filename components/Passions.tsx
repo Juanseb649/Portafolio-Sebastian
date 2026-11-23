@@ -3,7 +3,6 @@
 import { useLanguage } from './LanguageProvider';
 import { Chevron } from './ui';
 import HaloRing from './HaloRing';
-import ShipViewport from './ShipViewport';
 import { passions } from '@/data/passions';
 import type { Localized, Passion } from '@/types';
 
@@ -168,10 +167,10 @@ function HaloTile({ passion, area, t }: { passion: Passion; area: string; t: (te
           )}
         </div>
 
-        {/* El mundo anillo, visto desde el ventanal de una nave. */}
-        <ShipViewport className="mb-8 h-[440px] md:mb-0 md:h-[600px]">
+        {/* El mundo anillo, directamente sobre el espacio de la tarjeta. */}
+        <div className="relative mb-8 h-[440px] md:mb-0 md:h-[600px]">
           <HaloRing className="absolute inset-0" />
-        </ShipViewport>
+        </div>
       </div>
     </li>
   );
