@@ -13,6 +13,8 @@ export interface Project {
   image?: string;
   /** Video corto sin sonido que se reproduce en la pantalla en lugar de la captura. */
   video?: string;
+  /** 'iphone' muestra el video en un teléfono vertical en lugar de la pantalla 16:9 (apps móviles). */
+  device?: 'screen' | 'iphone';
   /** 'contain' para logos: la imagen se muestra completa y centrada en la pantalla. */
   imageFit?: 'cover' | 'contain';
   /** Objeto que acompaña a la pantalla (p. ej. un control). */

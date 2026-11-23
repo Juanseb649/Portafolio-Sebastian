@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLanguage } from './LanguageProvider';
 import { Chevron } from './ui';
+import Starfield from './Starfield';
 import { profile } from '@/data/profile';
 import type { Localized } from '@/types';
 
@@ -103,8 +104,10 @@ export default function About() {
   };
 
   return (
-    <section id="sobre-mi" className="bg-stage pb-28 pt-24 md:pb-40 md:pt-32">
-      <div className="mx-auto max-w-[1180px] px-4 md:px-[22px]">
+    <section id="sobre-mi" className="relative isolate overflow-hidden bg-stage pb-28 pt-24 md:pb-40 md:pt-32">
+      {/* El mismo cielo de estrellas del inicio, sin la galaxia; se desvanece en los bordes para unir las secciones. */}
+      <Starfield className="-z-10 [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_86%,transparent)]" />
+      <div className="relative mx-auto max-w-[1180px] px-4 md:px-[22px]">
         <h2 className="max-w-[1024px] px-2 text-[clamp(40px,6vw,80px)] font-semibold leading-[1.02] tracking-[-0.035em] text-ink-light md:mx-auto md:px-0">
           {language === 'es' ? 'Sobre mí.' : 'About me.'}
           <span className="block text-mute-dark">{language === 'es' ? 'En cuatro diapositivas.' : 'In four slides.'}</span>

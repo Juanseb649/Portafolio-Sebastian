@@ -77,7 +77,7 @@ function ProjectTile({ project, dark, flip }: { project: Project; dark: boolean;
 }
 
 /** Video sin sonido en bucle: se reproduce solo mientras está en pantalla y se puede pausar. */
-function Reel({ src, poster, label }: { src: string; poster?: string; label: string }) {
+function Reel({ src, poster, label, fit = 'contain' }: { src: string; poster?: string; label: string; fit?: 'contain' | 'cover' }) {
   const { language } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(false);
@@ -125,14 +125,16 @@ function Reel({ src, poster, label }: { src: string; poster?: string; label: str
         loop
         playsInline
         preload="metadata"
-        aria-label={`${language === 'es' ? 'Gameplay de' : 'Gameplay from'} ${label}`}
-        className="absolute inset-0 h-full w-full object-contain"
+        aria-label={label}
+        className={`absolute inset-0 h-full w-full ${fit === 'cover' ? 'object-cover' : 'object-contain'}`}
       />
       <button
         type="button"
         onClick={toggle}
         aria-label={paused ? (language === 'es' ? 'Reproducir video' : 'Play video') : language === 'es' ? 'Pausar video' : 'Pause video'}
-        className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-md transition-colors hover:bg-black/75 md:bottom-4 md:right-4"
+        className={`absolute flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white backdrop-blur-md transition-colors hover:bg-black/75 ${
+          fit === 'cover' ? 'bottom-[6%] right-[8%]' : 'bottom-3 right-3 md:bottom-4 md:right-4'
+        }`}
       >
         {paused ? (
           <svg viewBox="0 0 12 14" className="ml-0.5 h-3 w-3" fill="currentColor" aria-hidden="true">
@@ -152,6 +154,8 @@ function Reel({ src, poster, label }: { src: string; poster?: string; label: str
 function Display({ project, dark, className = '' }: { project: Project; dark: boolean; className?: string }) {
   const { language, t } = useLanguage();
 
+  if (project.device === 'iphone') return <Phone project={project} className={className} />;
+
   return (
     <div className={`relative mx-auto w-full max-w-[720px] ${className}`}>
       <div
@@ -161,7 +165,7 @@ function Display({ project, dark, className = '' }: { project: Project; dark: bo
       >
         <div className="relative aspect-video overflow-hidden rounded-[12px] bg-black">
           {project.video ? (
-            <Reel src={project.video} poster={project.image} label={project.name} />
+            <Reel src={project.video} poster={project.image} label={`${language === 'es' ? 'Gameplay de' : 'Gameplay from'} ${project.name}`} />
           ) : project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -192,6 +196,60 @@ function Display({ project, dark, className = '' }: { project: Project; dark: bo
           <figcaption className={`mt-4 text-[14px] ${dark ? 'text-mute-dark' : 'text-mute-light'}`}>{t(project.accessory.alt)}</figcaption>
         </figure>
       )}
+    </div>
+  );
+}
+
+/**
+ * iPhone vertical (proporción de un 17 Pro): marco de titanio, botones laterales y la grabación de la app
+ * en la pantalla. La isla dinámica ya viene en la grabación, así que no se dibuja encima.
+ */
+function Phone({ project, className = '' }: { project: Project; className?: string }) {
+  const { language } = useLanguage();
+  const label = `${language === 'es' ? 'Recorrido por la app' : 'Walkthrough of the app'} ${project.name}`;
+
+  return (
+    <div className={`relative mx-auto flex w-full justify-center py-4 ${className}`}>
+      {/* Halo con los colores de la marca detrás del teléfono. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(560px,120%)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(226,48,72,0.32),rgba(64,170,230,0.16)_55%,transparent)] blur-2xl"
+      />
+
+      <div className="relative w-[clamp(230px,62vw,300px)] md:w-[clamp(250px,26vw,310px)]">
+        {/* Botones: acción y volumen a la izquierda; encendido y Control de Cámara a la derecha. */}
+        <span aria-hidden="true" className="absolute -left-[3px] top-[17%] h-[4.5%] w-[4px] rounded-l-[3px] bg-gradient-to-b from-[#8a8a90] to-[#4a4a50]" />
+        <span aria-hidden="true" className="absolute -left-[3px] top-[25%] h-[8%] w-[4px] rounded-l-[3px] bg-gradient-to-b from-[#8a8a90] to-[#4a4a50]" />
+        <span aria-hidden="true" className="absolute -left-[3px] top-[35%] h-[8%] w-[4px] rounded-l-[3px] bg-gradient-to-b from-[#8a8a90] to-[#4a4a50]" />
+        <span aria-hidden="true" className="absolute -right-[3px] top-[27%] h-[12%] w-[4px] rounded-r-[3px] bg-gradient-to-b from-[#8a8a90] to-[#4a4a50]" />
+        <span aria-hidden="true" className="absolute -right-[2px] top-[56%] h-[7%] w-[3px] rounded-r-[2px] bg-[#3a3a3f]" />
+
+        {/* Marco de titanio. */}
+        <div className="relative rounded-[18%/8.4%] bg-[linear-gradient(145deg,#9a9aa0_0%,#4b4b50_22%,#2a2a2e_50%,#56565c_78%,#a3a3a9_100%)] p-[2px] shadow-[0_50px_90px_-30px_rgba(0,0,0,0.75),0_20px_40px_-20px_rgba(0,0,0,0.5)]">
+          {/* Bisel negro. */}
+          <div className="rounded-[17.3%/8.05%] bg-black p-[3.6%]">
+            {/* Pantalla. */}
+            <div className="relative aspect-[646/1398] overflow-hidden rounded-[14.2%/6.6%] bg-black">
+              {project.video ? (
+                <Reel src={project.video} poster={project.image} label={label} fit="cover" />
+              ) : (
+                project.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={project.image} alt={label} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                )
+              )}
+              {/* Reflejo del cristal. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.10)_0%,rgba(255,255,255,0.03)_28%,transparent_42%)]"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Sombra sobre el suelo. */}
+      <div aria-hidden="true" className="pointer-events-none absolute -bottom-2 left-1/2 h-6 w-[min(260px,55%)] -translate-x-1/2 rounded-[50%] bg-black/35 blur-xl" />
     </div>
   );
 }
