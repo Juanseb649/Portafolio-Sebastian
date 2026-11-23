@@ -59,6 +59,8 @@ export interface SpecItem {
   label: Localized;
   /** Logo de la tecnología en /public. */
   icon?: string;
+  /** Logo oscuro de un solo tono: se aclara en el tema oscuro para que se lea. */
+  mono?: boolean;
 }
 
 export interface SpecRow {

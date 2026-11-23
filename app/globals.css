@@ -193,6 +193,17 @@
   }
 }
 
+/* Logos oscuros de un tono: en el tema oscuro se aclaran sin perder el color de acento (p. ej. la sonrisa de AWS). */
+:root:not([data-theme='light']) .tech-mono {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .tech-mono {
+    filter: none;
+  }
+}
+
 @keyframes tech-marquee {
   from {
     transform: translateX(0);

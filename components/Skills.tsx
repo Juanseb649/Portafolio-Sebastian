@@ -1,10 +1,11 @@
 'use client';
 
 import { useLanguage } from './LanguageProvider';
-import { specs } from '@/data/specs';
+import { languages, specs } from '@/data/specs';
 import type { SpecItem } from '@/types';
 
-const allTech = specs.flatMap((row) => row.items.filter((item) => item.icon));
+// Los lenguajes solo van en la cinta; React Native comparte logo con React, así que no se repite.
+const allTech = [...languages, ...specs.flatMap((row) => row.items.filter((item) => item.icon && item.label.es !== 'React Native'))];
 
 export default function Skills() {
   const { language, t } = useLanguage();
@@ -27,7 +28,7 @@ export default function Skills() {
           {[...allTech, ...allTech].map((item, index) => (
             <span key={`${item.icon}-${index}`} className="flex h-24 w-24 shrink-0 items-center justify-center rounded-[24px] bg-floor md:h-28 md:w-28">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.icon} alt="" className="h-11 w-11 md:h-12 md:w-12" />
+              <img src={item.icon} alt="" className={`h-11 w-11 md:h-12 md:w-12 ${item.mono ? 'tech-mono' : ''}`} />
             </span>
           ))}
         </div>
@@ -75,7 +76,12 @@ function TechTile({ item, label }: { item: SpecItem; label: string }) {
     <li className="group flex flex-col items-center gap-2.5 rounded-[20px] bg-floor px-2 pb-3.5 pt-5 text-center transition-[transform,box-shadow,background-color] duration-300 ease-keynote hover:-translate-y-1 hover:bg-paper hover:shadow-[0_12px_28px_-12px_rgba(0,0,0,0.22)]">
       {item.icon && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={item.icon} alt="" loading="lazy" className="h-10 w-10 transition-transform duration-300 ease-keynote group-hover:scale-110" />
+        <img
+          src={item.icon}
+          alt=""
+          loading="lazy"
+          className={`h-10 w-10 transition-transform duration-300 ease-keynote group-hover:scale-110 ${item.mono ? 'tech-mono' : ''}`}
+        />
       )}
       <span className="text-[13px] font-medium leading-[1.25] text-ink-soft">{label}</span>
     </li>
