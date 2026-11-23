@@ -26,6 +26,27 @@ export const projects: Project[] = [
     },
   },
   {
+    id: 'bodydraft',
+    name: 'BodyDraft',
+    tagline: {
+      es: 'Pruébate el tatuaje antes de hacértelo.',
+      en: 'Try the tattoo on before you get it.',
+    },
+    description: {
+      es: 'App móvil para diseñar tatuajes con IA, verlos sobre tu piel con la cámara o sobre un maniquí 3D, y agendar la cita con el tatuador. Los tatuadores publican sus propias plantillas y los clientes las prueban antes de decidir.',
+      en: 'A mobile app to design tattoos with AI, see them on your skin through the camera or on a 3D mannequin, and book the session with the artist. Artists publish their own templates and clients try them on before deciding.',
+    },
+    technologies: ['React Native', 'Expo', 'TypeScript', 'Supabase'],
+    githubUrl: 'https://github.com/Juanseb649/Body-Draft-',
+    video: '/videos/body-draft-reel.mp4',
+    image: '/videos/body-draft-poster.jpg',
+    device: 'iphone',
+    availability: {
+      es: 'App para iOS y Android',
+      en: 'App for iOS and Android',
+    },
+  },
+  {
     id: 'algolab',
     name: 'AlgoLab',
     tagline: {
