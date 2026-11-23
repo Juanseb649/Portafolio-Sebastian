@@ -11,6 +11,7 @@ export const experience: ExperienceItem[] = [
       es: 'Análisis de requerimientos, documentación técnica, pruebas manuales y automatizadas, y desarrollo para clientes en equipos SCRUM.',
       en: 'Requirement analysis, technical documentation, manual and automated testing, and development for clients in SCRUM teams.',
     },
+    logo: '/images/logos/ayc-soluciones.png',
   },
   {
     id: 'satraa',
@@ -22,6 +23,7 @@ export const experience: ExperienceItem[] = [
       es: 'Aplicación web con Spring Boot y prácticas DevOps para gestionar los trabajos de alcantarillado de la ciudad.',
       en: 'Spring Boot web application, built with DevOps practices, to manage the city’s sewer maintenance work.',
     },
+    logo: '/images/logos/ayc-soluciones.png',
   },
   {
     id: 'ayc',
